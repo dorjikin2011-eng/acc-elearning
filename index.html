@@ -11,7 +11,7 @@
 
   <style>
   *{box-sizing:border-box;margin:0;padding:0}
-  body{font-family:var(--font-sans,sans-serif);background:#f5f7fb;color:var(--color-text-primary,#2d3748)}
+  body{font-family:var(--font-sans,sans-serif);background:#f5f7fb;color:#2d3748}
   .app{max-width:720px;margin:0 auto;padding:1rem}
   .screen{display:none}.screen.active{display:block}
   /* Header */
@@ -138,6 +138,7 @@
   .search-bar{display:flex;gap:8px;margin-bottom:12px}
   .search-bar input{flex:1}
   .empty-state{text-align:center;padding:2rem;color:#4a5568;font-size:13px}
+  .sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);border:0}
   </style>
 </head>
 <body>
@@ -315,13 +316,9 @@
 
 <script>
 /* ====== SUPABASE CONNECTION LAYER ====== */
-// 1. The clean base URL without "/rest/v1/" at the end
 const SUPABASE_URL = 'https://ohmboguqkyhjtxjojqyz.supabase.co';
-
-// 2. The exact long token you just found
 const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im9obWJvZ3Vxa3loanR4am9qcXl6Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODA5NzkzNzcsImV4cCI6MjA5NjU1NTM3N30.j42iLYTHeMg4T7Da1cPbkBWrXvQ3PPdJgknE_n8pgDs';
 
-// Initialize the database client connection
 const supabase = Supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 
 async function loadLearners() {
@@ -403,7 +400,7 @@ async function registerLearner(){
 
   const { error } = await supabase.from('learners').insert([payload]);
   if (error) {
-    if (error.code === '23505') { // Code for Unique Violation constraint
+    if (error.code === '23505') {
       feGen.textContent = 'This email is already registered. Please sign in instead.';
     } else {
       feGen.textContent = 'Network communication failed. Please verify setup constraints.';
@@ -446,7 +443,7 @@ async function exitCourse(){
 async function showScreen(id){
   if(id==='screen-admin') {
     const shieldCode = prompt("Enter Administrative Access Code:");
-    if(shieldCode !== "1234") { // Temporary master gate password
+    if(shieldCode !== "1234") {
       alert("Access authorization failure.");
       return;
     }
@@ -754,7 +751,7 @@ function renderAdminLearnersTable(learners, prog) {
       return`<tr>
         <td><strong>${l.fname} ${l.lname}</strong><br><span style="font-size:11px;color:#4a5568">${l.email}</span></td>
         <td>${l.org}</td><td>${l.role}</td><td>${l.dzong}</td>
-        <td style="font-size:11px">${new Date(l.enrolled_at || l.enrolledAt).toLocaleDateString()}</td>
+        <td style="font-size:11px">${new Date(l.enrolled_at || Date.now()).toLocaleDateString()}</td>
         <td>${badge}</td>
         <td><button class="btn btn-danger btn-sm" onclick="deleteLearner('${l.id}')"><i class="ti ti-trash" aria-hidden="true"></i></button></td>
       </tr>`;}).join('')}
@@ -818,7 +815,7 @@ async function exportCSV(){
   learners.forEach(l=>{
     const p=prog[l.id]||{};
     rows.push([l.fname+' '+l.lname, l.email, l.org, l.role, l.dzong, l.phone||'',
-      new Date(l.enrolled_at || l.enrolledAt).toLocaleDateString(), p.pct||0,
+      new Date(l.enrolled_at || Date.now()).toLocaleDateString(), p.pct||0,
       p.completedAt?'Completed':p.pct>0?'In Progress':'Not Started',
       p.completedAt?new Date(p.completedAt).toLocaleDateString():'']);
   });
