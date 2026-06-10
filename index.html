@@ -2,106 +2,125 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes">
   <title>ACC Bhutan E-Learning: Ethics, Integrity and Professionalism</title>
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/tabler-icons.min.css">
   <style>
   *{box-sizing:border-box;margin:0;padding:0}
-  body{font-family:var(--font-sans,sans-serif);background:#f5f7fb;color:#2d3748}
-  .app{max-width:720px;margin:0 auto;padding:1rem}
+  body{font-family:var(--font-sans,sans-serif);background:#f5f7fb;color:#2d3748;font-size:16px;line-height:1.5}
+  .app{max-width:800px;margin:0 auto;padding:1rem}
   .screen{display:none}.screen.active{display:block}
-  .header{background:#c8960a;border-radius:12px;padding:1.25rem 1.5rem;margin-bottom:1rem;color:#fff}
-  .header h1{font-size:20px;font-weight:500;margin-bottom:2px}
-  .header p{font-size:12px;opacity:0.85}
-  .acc-badge{display:inline-flex;align-items:center;gap:6px;background:rgba(255,255,255,0.2);border-radius:20px;padding:3px 10px;font-size:11px;margin-bottom:10px}
-  .card{background:#fff;border:0.5px solid #e2e8f0;border-radius:12px;padding:1.25rem;margin-bottom:1rem;box-shadow: 0 1px 3px rgba(0,0,0,0.05)}
-  .card-gold{border-left:4px solid #c8960a;border-radius:0 12px 12px 0}
-  .form-group{margin-bottom:14px}
-  .form-label{font-size:12px;color:#4a5568;margin-bottom:5px;display:block}
-  .form-input{width:100%;padding:8px 12px;border:0.5px solid #cbd5e0;border-radius:8px;background:#fff;color:#2d3748;font-size:13px}
-  .form-input:focus{outline:none;border-color:#c8960a}
-  .form-row{display:grid;grid-template-columns:1fr 1fr;gap:10px}
-  .form-select{width:100%;padding:8px 12px;border:0.5px solid #cbd5e0;border-radius:8px;background:#fff;color:#2d3748;font-size:13px}
-  .form-error{font-size:11px;color:#a32d2d;margin-top:4px;display:none}
-  .btn{padding:8px 20px;border-radius:8px;border:0.5px solid #cbd5e0;background:#fff;color:#2d3748;font-size:13px;cursor:pointer;display:inline-flex;align-items:center;gap:6px}
-  .btn-gold{background:#c8960a;color:#fff;border-color:#c8960a;font-size:13px}
-  .btn-gold:hover{background:#b8860a}
-  .btn-sm{padding:5px 12px;font-size:12px}
-  .btn-danger{background:#fcebeb;color:#a32d2d;border-color:#f09595}
-  .top-nav{display:flex;align-items:center;justify-content:space-between;margin-bottom:1rem}
-  .nav-tabs{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:1rem}
-  .tab-btn{padding:6px 14px;border-radius:20px;border:0.5px solid #cbd5e0;background:#fff;color:#4a5568;font-size:12px;cursor:pointer}
+  .header{background:#c8960a;border-radius:16px;padding:1.5rem 1.75rem;margin-bottom:1.5rem;color:#fff}
+  .header h1{font-size:26px;font-weight:600;margin-bottom:6px;letter-spacing:-0.2px}
+  .header p{font-size:14px;opacity:0.9;margin-top:4px}
+  .acc-badge{display:inline-flex;align-items:center;gap:8px;background:rgba(255,255,255,0.2);border-radius:40px;padding:5px 14px;font-size:12px;margin-bottom:12px}
+  .card{background:#fff;border:1px solid #e2e8f0;border-radius:16px;padding:1.5rem;margin-bottom:1.25rem;box-shadow:0 2px 6px rgba(0,0,0,0.04)}
+  .card-gold{border-left:5px solid #c8960a;border-radius:0 16px 16px 0}
+  .form-group{margin-bottom:18px}
+  .form-label{font-size:14px;font-weight:500;color:#2d3748;margin-bottom:8px;display:block}
+  .form-input{width:100%;padding:12px 14px;border:1px solid #cbd5e0;border-radius:12px;background:#fff;color:#2d3748;font-size:16px;transition:all 0.2s}
+  .form-input:focus{outline:none;border-color:#c8960a;box-shadow:0 0 0 3px rgba(200,150,10,0.1)}
+  .form-row{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+  .form-select{width:100%;padding:12px 14px;border:1px solid #cbd5e0;border-radius:12px;background:#fff;color:#2d3748;font-size:16px;cursor:pointer}
+  .form-error{font-size:12px;color:#dc2626;margin-top:6px;display:none}
+  .btn{padding:12px 24px;border-radius:12px;border:1px solid #cbd5e0;background:#fff;color:#2d3748;font-size:15px;font-weight:500;cursor:pointer;display:inline-flex;align-items:center;gap:8px;transition:all 0.2s;min-height:48px;min-width:48px;justify-content:center}
+  .btn-gold{background:#c8960a;color:#fff;border-color:#c8960a;box-shadow:0 1px 2px rgba(0,0,0,0.05)}
+  .btn-gold:hover{background:#b07e08;transform:translateY(-1px)}
+  .btn-sm{padding:10px 20px;font-size:14px;min-height:44px}
+  .btn-danger{background:#fef2f2;color:#dc2626;border-color:#fecaca}
+  .top-nav{display:flex;align-items:center;justify-content:space-between;margin-bottom:1.5rem;flex-wrap:wrap;gap:12px}
+  .nav-tabs{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:1.5rem}
+  .tab-btn{padding:10px 20px;border-radius:40px;border:1px solid #cbd5e0;background:#fff;color:#4a5568;font-size:14px;font-weight:500;cursor:pointer;transition:all 0.2s;min-height:44px}
   .tab-btn.active{background:#c8960a;color:#fff;border-color:#c8960a}
   .tab-btn.done{background:#eaf3de;color:#3b6d11;border-color:#3b6d11}
-  .prog-wrap{background:rgba(255,255,255,0.25);border-radius:20px;height:6px;margin-top:12px}
-  .prog-fill{height:6px;border-radius:20px;background:#fff;transition:width 0.4s}
-  .prog-label{font-size:11px;opacity:0.85;margin-top:5px}
-  .table-wrap{overflow-x:auto}
-  table{width:100%;border-collapse:collapse;font-size:13px}
-  th{text-align:left;padding:8px 10px;border-bottom:0.5px solid #cbd5e0;font-size:11px;font-weight:500;color:#4a5568;text-transform:uppercase;letter-spacing:0.04em}
-  td{padding:8px 10px;border-bottom:0.5px solid #e2e8f0;vertical-align:middle}
+  .prog-wrap{background:rgba(255,255,255,0.25);border-radius:30px;height:8px;margin-top:16px}
+  .prog-fill{height:8px;border-radius:30px;background:#fff;transition:width 0.4s}
+  .prog-label{font-size:12px;opacity:0.9;margin-top:8px}
+  .table-wrap{overflow-x:auto;border-radius:12px}
+  table{width:100%;border-collapse:collapse;font-size:14px}
+  th{text-align:left;padding:12px 14px;border-bottom:1px solid #e2e8f0;font-size:12px;font-weight:600;color:#4a5568;text-transform:uppercase;letter-spacing:0.05em;background:#f8fafc}
+  td{padding:12px 14px;border-bottom:1px solid #f0f2f5;vertical-align:middle}
   tr:last-child td{border-bottom:none}
-  .badge{display:inline-block;font-size:10px;padding:2px 8px;border-radius:20px;font-weight:500}
+  .badge{display:inline-block;font-size:11px;padding:4px 10px;border-radius:40px;font-weight:600}
   .badge-green{background:#eaf3de;color:#3b6d11}
   .badge-blue{background:#e6f1fb;color:#185fa5}
-  .admin-tabs{display:flex;gap:6px;margin-bottom:1rem}
-  .admin-tab{padding:6px 14px;border-radius:8px 8px 0 0;border:0.5px solid #e2e8f0;background:#edf2f7;color:#4a5568;font-size:12px;cursor:pointer;border-bottom:none}
-  .admin-tab.active{background:#fff;color:#c8960a;font-weight:500}
+  .admin-tabs{display:flex;gap:8px;margin-bottom:1.25rem;flex-wrap:wrap}
+  .admin-tab{padding:10px 20px;border-radius:12px 12px 0 0;border:1px solid #e2e8f0;background:#f1f5f9;color:#4a5568;font-size:14px;font-weight:500;cursor:pointer;border-bottom:none;min-height:44px}
+  .admin-tab.active{background:#fff;color:#c8960a;border-bottom:2px solid #c8960a}
   .admin-panel{display:none}.admin-panel.active{display:block}
-  .stat-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:10px;margin-bottom:1rem}
-  .stat-card{background:#edf2f7;border-radius:10px;padding:12px;text-align:center}
-  .stat-num{font-size:28px;font-weight:500;color:#c8960a}
-  .stat-label{font-size:11px;color:#4a5568;margin-top:2px}
-  .module-title{font-size:15px;font-weight:500;color:#c8960a;margin-bottom:6px}
-  .module-intro{font-size:13px;color:#4a5568;line-height:1.6;margin-bottom:1rem}
-  .slide-header{font-size:10px;color:#718096;text-transform:uppercase;letter-spacing:0.05em;margin-bottom:8px}
-  .concept-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:10px;margin:1rem 0}
-  .concept-card{background:#c8960a;border-radius:10px;padding:14px;color:#fff}
-  .concept-card h3{font-size:13px;font-weight:500;margin-bottom:5px}
-  .concept-card p{font-size:11px;line-height:1.5;opacity:0.9}
-  .concept-card .example{font-size:10px;margin-top:8px;background:rgba(255,255,255,0.2);border-radius:6px;padding:5px 8px;font-style:italic}
-  .corruption-type{border:0.5px solid #e2e8f0;border-radius:10px;padding:11px;margin-bottom:8px}
-  .corruption-type h4{font-size:12px;font-weight:500;color:#c8960a;margin-bottom:3px}
-  .corruption-type p{font-size:12px;color:#4a5568;line-height:1.5}
-  .corruption-type .eg{font-size:11px;color:#718096;margin-top:5px;font-style:italic}
-  .penalty-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:8px;margin:1rem 0}
-  .penalty-card{background:#edf2f7;border-radius:8px;padding:10px;text-align:center}
-  .penalty-card .icon{font-size:20px;margin-bottom:5px}
-  .penalty-card .plabel{font-size:12px;font-weight:500;margin-bottom:3px}
-  .penalty-card p{font-size:11px;color:#4a5568}
-  .quiz-wrap{background:#edf2f7;border-radius:12px;padding:1.25rem}
-  .quiz-q{font-size:13px;font-weight:500;margin-bottom:12px;line-height:1.5}
-  .quiz-scenario{background:#fff8e1;border-left:3px solid #c8960a;padding:8px 12px;border-radius:0 8px 8px 0;font-size:12px;line-height:1.5;margin-bottom:12px}
-  .quiz-opt{display:block;width:100%;text-align:left;padding:9px 12px;margin-bottom:6px;border:0.5px solid #cbd5e0;border-radius:8px;background:#fff;color:#2d3748;font-size:12px;cursor:pointer}
-  .quiz-opt:hover{background:#edf2f7}
+  .stat-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:16px;margin-bottom:1.5rem}
+  .stat-card{background:#f8fafc;border-radius:16px;padding:18px 12px;text-align:center;border:1px solid #e2e8f0}
+  .stat-num{font-size:36px;font-weight:700;color:#c8960a;line-height:1.2}
+  .stat-label{font-size:13px;color:#4a5568;margin-top:6px;font-weight:500}
+  .module-title{font-size:18px;font-weight:700;color:#c8960a;margin-bottom:10px}
+  .module-intro{font-size:15px;color:#4a5568;line-height:1.6;margin-bottom:1.25rem}
+  .slide-header{font-size:11px;color:#718096;text-transform:uppercase;letter-spacing:0.08em;margin-bottom:10px}
+  .concept-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:16px;margin:1.25rem 0}
+  .concept-card{background:#c8960a;border-radius:16px;padding:18px;color:#fff}
+  .concept-card h3{font-size:16px;font-weight:600;margin-bottom:8px}
+  .concept-card p{font-size:13px;line-height:1.5;opacity:0.92}
+  .concept-card .example{font-size:12px;margin-top:12px;background:rgba(255,255,255,0.2);border-radius:10px;padding:8px 10px;font-style:italic}
+  .corruption-type{border:1px solid #e2e8f0;border-radius:14px;padding:14px;margin-bottom:12px}
+  .corruption-type h4{font-size:14px;font-weight:700;color:#c8960a;margin-bottom:6px}
+  .corruption-type p{font-size:14px;color:#4a5568;line-height:1.5}
+  .corruption-type .eg{font-size:12px;color:#718096;margin-top:8px;font-style:italic}
+  .penalty-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:12px;margin:1.25rem 0}
+  .penalty-card{background:#f8fafc;border-radius:14px;padding:14px;text-align:center;border:1px solid #e2e8f0}
+  .penalty-card .icon{font-size:28px;margin-bottom:8px}
+  .penalty-card .plabel{font-size:14px;font-weight:700;margin-bottom:5px;color:#2d3748}
+  .penalty-card p{font-size:12px;color:#4a5568;line-height:1.4}
+  .quiz-wrap{background:#f8fafc;border-radius:16px;padding:1.5rem}
+  .quiz-q{font-size:16px;font-weight:600;margin-bottom:16px;line-height:1.5;color:#1e293b}
+  .quiz-scenario{background:#fffbeb;border-left:4px solid #c8960a;padding:12px 16px;border-radius:0 12px 12px 0;font-size:14px;line-height:1.5;margin-bottom:16px}
+  .quiz-opt{display:block;width:100%;text-align:left;padding:14px 16px;margin-bottom:10px;border:1px solid #cbd5e0;border-radius:12px;background:#fff;color:#2d3748;font-size:15px;cursor:pointer;transition:all 0.2s;min-height:52px}
+  .quiz-opt:hover{background:#f1f5f9;transform:translateX(2px)}
   .quiz-opt.correct{background:#e8f5e9;border-color:#4caf50;color:#1b5e20}
   .quiz-opt.wrong{background:#fce4ec;border-color:#e91e63;color:#880e4f}
-  .quiz-opt:disabled{cursor:default}
-  .quiz-feedback{font-size:12px;padding:9px 12px;border-radius:8px;margin-top:8px;display:none}
+  .quiz-opt:disabled{cursor:default;opacity:0.8}
+  .quiz-feedback{font-size:14px;padding:12px 16px;border-radius:12px;margin-top:10px;display:none;line-height:1.5}
   .quiz-feedback.show{display:block}
-  .feedback-correct{background:#e8f5e9;color:#1b5e20}
-  .feedback-wrong{background:#fce4ec;color:#880e4f}
-  .quiz-counter{font-size:10px;color:#718096;margin-bottom:8px}
-  .score-display{text-align:center;padding:1.5rem;background:#edf2f7;border-radius:12px}
-  .score-big{font-size:44px;font-weight:500;color:#c8960a}
-  .nav-btns{display:flex;gap:8px;justify-content:flex-end;margin-top:1rem;flex-wrap:wrap}
-  .drag-source{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:10px}
-  .drag-area{display:flex;gap:10px;flex-wrap:wrap;margin:1rem 0}
-  .drag-target{flex:1;min-width:130px;border:2px dashed #cbd5e0;border-radius:10px;padding:10px;min-height:70px;cursor:pointer;transition:border-color 0.2s}
-  .drag-target.over{border-color:#c8960a}
-  .drag-target h5{font-size:11px;font-weight:500;color:#4a5568;margin-bottom:7px;text-align:center;pointer-events:none}
-  .drag-items{display:flex;flex-wrap:wrap;gap:5px;min-height:30px}
-  .drag-item{background:#c8960a;color:#fff;border-radius:6px;padding:5px 9px;font-size:10px;cursor:grab;user-select:none;border:2px solid transparent;transition:border-color 0.2s}
-  .drag-item.selected{border-color:#fff;box-shadow:0 0 0 2px #c8960a}
-  .match-feedback{font-size:11px;color:#4a5568;margin-top:6px}
-  .toast{position:fixed;bottom:24px;right:24px;background:#1b5e20;color:#fff;padding:10px 18px;border-radius:10px;font-size:13px;z-index:999;opacity:0;transition:opacity 0.3s;pointer-events:none}
+  .feedback-correct{background:#e8f5e9;color:#1b5e20;border-left:4px solid #4caf50}
+  .feedback-wrong{background:#fce4ec;color:#880e4f;border-left:4px solid #e91e63}
+  .quiz-counter{font-size:12px;color:#718096;margin-bottom:12px;font-weight:500}
+  .score-display{text-align:center;padding:2rem;background:#f8fafc;border-radius:20px}
+  .score-big{font-size:52px;font-weight:700;color:#c8960a}
+  .nav-btns{display:flex;gap:12px;justify-content:flex-end;margin-top:1.5rem;flex-wrap:wrap}
+  .drag-source{display:flex;flex-wrap:wrap;gap:10px;margin-bottom:16px}
+  .drag-area{display:flex;gap:14px;flex-wrap:wrap;margin:1.25rem 0}
+  .drag-target{flex:1;min-width:160px;border:2px dashed #cbd5e0;border-radius:14px;padding:14px;min-height:90px;cursor:pointer;transition:all 0.2s;background:#fefce8}
+  .drag-target.over{border-color:#c8960a;background:#fffbeb}
+  .drag-target h5{font-size:13px;font-weight:700;color:#4a5568;margin-bottom:10px;text-align:center;pointer-events:none}
+  .drag-items{display:flex;flex-wrap:wrap;gap:8px;min-height:44px}
+  .drag-item{background:#c8960a;color:#fff;border-radius:10px;padding:8px 14px;font-size:13px;cursor:grab;user-select:none;border:2px solid transparent;transition:all 0.2s;min-height:44px;display:inline-flex;align-items:center}
+  .drag-item.selected{border-color:#fff;box-shadow:0 0 0 3px #c8960a}
+  .match-feedback{font-size:13px;color:#4a5568;margin-top:10px;padding:8px 0}
+  .toast{position:fixed;bottom:28px;right:28px;background:#1e293b;color:#fff;padding:14px 24px;border-radius:40px;font-size:14px;font-weight:500;z-index:999;opacity:0;transition:opacity 0.3s;pointer-events:none;box-shadow:0 10px 25px -5px rgba(0,0,0,0.2)}
   .toast.show{opacity:1}
-  .search-bar{display:flex;gap:8px;margin-bottom:12px}
-  .search-bar input{flex:1}
-  .empty-state{text-align:center;padding:2rem;color:#4a5568;font-size:13px}
+  .search-bar{display:flex;gap:12px;margin-bottom:18px;flex-wrap:wrap}
+  .search-bar input{flex:1;min-width:180px}
+  .empty-state{text-align:center;padding:2.5rem;color:#4a5568;font-size:14px}
   .sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);border:0}
-  .cert-wrap{text-align:center;padding:1.5rem 1rem;border:3px solid #c8960a;border-radius:16px}
+  .cert-wrap{text-align:center;padding:2rem 1.5rem;border:3px solid #c8960a;border-radius:24px;background:#fffef7}
+  .loading-overlay{position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.5);display:flex;align-items:center;justify-content:center;z-index:1000}
+  .spinner{width:48px;height:48px;border:4px solid #fff;border-top-color:#c8960a;border-radius:50%;animation:spin 0.8s linear infinite}
+  @keyframes spin{to{transform:rotate(360deg)}}
+  .voice-controls{display:flex;gap:12px;margin-top:16px;align-items:center;background:rgba(255,255,255,0.18);padding:10px 16px;border-radius:50px;flex-wrap:wrap}
+  @media (max-width: 640px){
+    .app{padding:0.75rem}
+    .form-row{grid-template-columns:1fr;gap:12px}
+    .concept-grid{grid-template-columns:1fr}
+    .penalty-grid{grid-template-columns:1fr}
+    .drag-area{flex-direction:column}
+    .stat-grid{grid-template-columns:1fr}
+    .header h1{font-size:22px}
+    .btn{padding:10px 18px}
+    .card{padding:1.25rem}
+    .nav-tabs{gap:8px}
+    .tab-btn{padding:8px 16px;font-size:13px}
+    .admin-tabs{gap:6px}
+    .admin-tab{padding:8px 14px;font-size:13px}
+  }
   </style>
 </head>
 <body>
@@ -117,18 +136,18 @@
       <p>For Bhutanese Construction Professionals · www.acc.org.bt</p>
     </div>
     <div class="card" style="text-align:center;padding:2rem">
-      <div style="font-size:36px;margin-bottom:12px">🏗️</div>
-      <div style="font-size:16px;font-weight:500;margin-bottom:6px">Welcome to the ACC E-Learning Platform</div>
-      <div style="font-size:13px;color:#4a5568;margin-bottom:24px;line-height:1.6">Build your knowledge of ethics, integrity, and professionalism in Bhutan's construction sector. Complete all 5 modules to earn your certificate.</div>
-      <div style="display:flex;gap:10px;justify-content:center;flex-wrap:wrap">
+      <div style="font-size:48px;margin-bottom:16px">🏗️</div>
+      <div style="font-size:20px;font-weight:600;margin-bottom:10px">Welcome to the ACC E-Learning Platform</div>
+      <div style="font-size:15px;color:#4a5568;margin-bottom:28px;line-height:1.6">Build your knowledge of ethics, integrity, and professionalism in Bhutan's construction sector. Complete all 5 modules to earn your certificate.</div>
+      <div style="display:flex;gap:14px;justify-content:center;flex-wrap:wrap">
         <button class="btn btn-gold" onclick="showScreen('screen-register')"><i class="ti ti-user-plus" aria-hidden="true"></i> Register & Enrol</button>
         <button class="btn" onclick="showScreen('screen-login')"><i class="ti ti-login" aria-hidden="true"></i> Continue learning</button>
         <button class="btn" onclick="attemptAdminLogin()"><i class="ti ti-layout-dashboard" aria-hidden="true"></i> Admin dashboard</button>
       </div>
-      <div style="margin-top:20px;display:flex;gap:16px;justify-content:center;flex-wrap:wrap">
-        <span style="font-size:12px;color:#4a5568"><i class="ti ti-clock" aria-hidden="true"></i> 4+ Hours</span>
-        <span style="font-size:12px;color:#4a5568"><i class="ti ti-book" aria-hidden="true"></i> 5 Modules</span>
-        <span style="font-size:12px;color:#4a5568"><i class="ti ti-certificate" aria-hidden="true"></i> Certificate on completion</span>
+      <div style="margin-top:28px;display:flex;gap:24px;justify-content:center;flex-wrap:wrap">
+        <span style="font-size:13px;color:#4a5568"><i class="ti ti-clock" aria-hidden="true"></i> 4+ Hours</span>
+        <span style="font-size:13px;color:#4a5568"><i class="ti ti-book" aria-hidden="true"></i> 5 Modules</span>
+        <span style="font-size:13px;color:#4a5568"><i class="ti ti-certificate" aria-hidden="true"></i> Certificate on completion</span>
       </div>
     </div>
   </div>
@@ -136,12 +155,12 @@
   <div class="screen" id="screen-register">
     <div class="top-nav">
       <button class="btn btn-sm" onclick="showScreen('screen-landing')"><i class="ti ti-arrow-left" aria-hidden="true"></i> Back</button>
-      <div style="font-size:13px;font-weight:500">Learner Registration</div>
+      <div style="font-size:15px;font-weight:600">Learner Registration</div>
       <div></div>
     </div>
     <div class="card">
-      <div style="font-size:15px;font-weight:500;margin-bottom:4px">Create your account</div>
-      <div style="font-size:12px;color:#4a5568;margin-bottom:18px">Register to enrol in the course and track your progress.</div>
+      <div style="font-size:18px;font-weight:600;margin-bottom:6px">Create your account</div>
+      <div style="font-size:14px;color:#4a5568;margin-bottom:22px">Register to enrol in the course and track your progress.</div>
       <div class="form-row">
         <div class="form-group">
           <label class="form-label">First name *</label>
@@ -198,21 +217,21 @@
         <input class="form-input" id="reg-pin" type="password" placeholder="For future login" maxlength="6" />
         <div class="form-error" id="err-pin">Enter 4–6 digits</div>
       </div>
-      <div id="reg-err-general" style="font-size:12px;color:#a32d2d;margin-bottom:10px;display:none"></div>
+      <div id="reg-err-general" style="font-size:13px;color:#dc2626;margin-bottom:12px;display:none"></div>
       <button class="btn btn-gold" onclick="registerLearner()" style="width:100%"><i class="ti ti-user-check" aria-hidden="true"></i> Register & Enrol</button>
-      <div style="text-align:center;margin-top:12px;font-size:12px;color:#4a5568">Already registered? <a href="#" onclick="showScreen('screen-login');return false" style="color:#c8960a">Sign in here</a></div>
+      <div style="text-align:center;margin-top:16px;font-size:14px;color:#4a5568">Already registered? <a href="#" onclick="showScreen('screen-login');return false" style="color:#c8960a;font-weight:500">Sign in here</a></div>
     </div>
   </div>
 
   <div class="screen" id="screen-login">
     <div class="top-nav">
       <button class="btn btn-sm" onclick="showScreen('screen-landing')"><i class="ti ti-arrow-left" aria-hidden="true"></i> Back</button>
-      <div style="font-size:13px;font-weight:500">Continue Learning</div>
+      <div style="font-size:15px;font-weight:600">Continue Learning</div>
       <div></div>
     </div>
-    <div class="card" style="max-width:380px;margin:0 auto">
-      <div style="font-size:15px;font-weight:500;margin-bottom:4px">Sign in</div>
-      <div style="font-size:12px;color:#4a5568;margin-bottom:18px">Enter your registered email and PIN to resume.</div>
+    <div class="card" style="max-width:400px;margin:0 auto">
+      <div style="font-size:18px;font-weight:600;margin-bottom:6px">Sign in</div>
+      <div style="font-size:14px;color:#4a5568;margin-bottom:22px">Enter your registered email and PIN to resume.</div>
       <div class="form-group">
         <label class="form-label">Email address</label>
         <input class="form-input" id="login-email" type="email" placeholder="yourname@example.com" />
@@ -221,31 +240,30 @@
         <label class="form-label">PIN</label>
         <input class="form-input" id="login-pin" type="password" placeholder="Your PIN" maxlength="6" />
       </div>
-      <div id="login-err" style="font-size:12px;color:#a32d2d;margin-bottom:10px;display:none">Email or PIN not found.</div>
+      <div id="login-err" style="font-size:13px;color:#dc2626;margin-bottom:12px;display:none">Email or PIN not found.</div>
       <button class="btn btn-gold" onclick="loginLearner()" style="width:100%"><i class="ti ti-login" aria-hidden="true"></i> Sign in & continue</button>
-      <div style="text-align:center;margin-top:12px;font-size:12px;color:#4a5568">New learner? <a href="#" onclick="showScreen('screen-register');return false" style="color:#c8960a">Register here</a></div>
+      <div style="text-align:center;margin-top:16px;font-size:14px;color:#4a5568">New learner? <a href="#" onclick="showScreen('screen-register');return false" style="color:#c8960a;font-weight:500">Register here</a></div>
     </div>
   </div>
 
   <div class="screen" id="screen-course">
     <div class="header">
-      <div style="display:flex;justify-content:space-between;align-items:flex-start">
+      <div style="display:flex;justify-content:space-between;align-items:flex-start;flex-wrap:wrap;gap:12px">
         <div>
           <div class="acc-badge"><i class="ti ti-shield-check" aria-hidden="true"></i> ACC Bhutan</div>
           <h1>Ethics, Integrity & Professionalism</h1>
           <p id="learner-greeting">Welcome</p>
         </div>
-        <button class="btn btn-sm" onclick="exitCourse()" style="color:#fff;border-color:rgba(255,255,255,0.4);background:transparent;margin-top:4px"><i class="ti ti-logout" aria-hidden="true"></i> Exit</button>
+        <button class="btn btn-sm" onclick="exitCourse()" style="color:#fff;border-color:rgba(255,255,255,0.4);background:transparent"><i class="ti ti-logout" aria-hidden="true"></i> Exit</button>
       </div>
       <div class="prog-wrap"><div class="prog-fill" id="prog"></div></div>
       <div class="prog-label" id="prog-label">0% complete</div>
       
-      <!-- VOICE INSTRUCTIONS UI ADDED -->
-      <div class="voice-controls" style="display:flex;gap:8px;margin-top:12px;align-items:center;background:rgba(255,255,255,0.15);padding:8px 12px;border-radius:8px;">
-        <button class="btn btn-sm" id="voice-play" onclick="playVoiceInstruction()" style="background:#fff;color:#c8960a;border:none;font-size:11px;"><i class="ti ti-volume-2"></i> Listen</button>
-        <button class="btn btn-sm" id="voice-stop" onclick="stopVoiceInstruction()" style="display:none;background:#fff;color:#a32d2d;border:none;font-size:11px;"><i class="ti ti-player-stop"></i> Stop</button>
-        <input type="range" id="voice-speed" min="0.5" max="2" step="0.1" value="1" style="width:100px" onchange="updateVoiceSpeed(this.value)" />
-        <span style="font-size:11px;color:#fff">Speed</span>
+      <div class="voice-controls">
+        <button class="btn btn-sm" id="voice-play" onclick="playVoiceInstruction()" style="background:#fff;color:#c8960a;border:none"><i class="ti ti-volume-2"></i> Listen</button>
+        <button class="btn btn-sm" id="voice-stop" onclick="stopVoiceInstruction()" style="display:none;background:#fff;color:#dc2626;border:none"><i class="ti ti-player-stop"></i> Stop</button>
+        <input type="range" id="voice-speed" min="0.5" max="2" step="0.1" value="1" style="width:120px" onchange="updateVoiceSpeed(this.value)" />
+        <span style="font-size:12px;color:#fff">Speed</span>
       </div>
     </div>
     <div class="nav-tabs" id="nav-tabs"></div>
@@ -255,7 +273,7 @@
   <div class="screen" id="screen-admin">
     <div class="top-nav">
       <button class="btn btn-sm" onclick="showScreen('screen-landing')"><i class="ti ti-arrow-left" aria-hidden="true"></i> Back</button>
-      <div style="font-size:13px;font-weight:500"><i class="ti ti-shield" aria-hidden="true"></i> Admin Dashboard</div>
+      <div style="font-size:15px;font-weight:600"><i class="ti ti-shield" aria-hidden="true"></i> Admin Dashboard</div>
       <div></div>
     </div>
     <div id="admin-stats" class="stat-grid"></div>
@@ -263,7 +281,6 @@
       <button class="admin-tab active" id="tab-lnk-learners" onclick="adminTab('learners')">Enrolled Learners</button>
       <button class="admin-tab" id="tab-lnk-progress" onclick="adminTab('progress')">Progress Tracker</button>
       <button class="admin-tab" id="tab-lnk-completions" onclick="adminTab('completions')">Completions</button>
-      <!-- COURSE MANAGEMENT TAB ADDED -->
       <button class="admin-tab" id="tab-lnk-course" onclick="adminTab('course')">Course Management</button>
     </div>
     <div class="admin-panel active card" id="panel-learners">
@@ -279,14 +296,13 @@
     <div class="admin-panel card" id="panel-completions">
       <div class="table-wrap" id="admin-completions-table"></div>
     </div>
-    <!-- COURSE MANAGEMENT PANEL ADDED -->
     <div class="admin-panel card" id="panel-course">
-      <h3 style="margin-bottom:10px;font-size:14px;">Manage Modules & Slides</h3>
+      <h3 style="margin-bottom:12px;font-size:16px;">Manage Modules & Slides</h3>
       <div id="admin-course-modules"></div>
-      <div id="admin-slide-editor" style="display:none; margin-top:20px; border-top:1px solid #e2e8f0; padding-top:15px;">
-        <h4 style="font-size:13px;margin-bottom:8px;">Edit Slide Content (JSON)</h4>
-        <textarea id="slide-json-editor" style="width:100%;height:250px;font-family:monospace;font-size:12px;padding:8px;border:0.5px solid #cbd5e0;border-radius:8px;"></textarea>
-        <div style="margin-top:10px;display:flex;gap:8px;">
+      <div id="admin-slide-editor" style="display:none; margin-top:24px; border-top:1px solid #e2e8f0; padding-top:18px;">
+        <h4 style="font-size:14px;margin-bottom:10px;">Edit Slide Content (JSON)</h4>
+        <textarea id="slide-json-editor" style="width:100%;height:280px;font-family:monospace;font-size:13px;padding:12px;border:1px solid #cbd5e0;border-radius:12px;"></textarea>
+        <div style="margin-top:14px;display:flex;gap:12px;">
           <button class="btn btn-gold btn-sm" onclick="saveSlideJSON()">Save Changes</button>
           <button class="btn btn-sm" onclick="document.getElementById('admin-slide-editor').style.display='none'">Cancel</button>
         </div>
@@ -300,10 +316,7 @@
 const SUPABASE_URL = 'https://ohmboguqkyhjtxjojqyz.supabase.co';
 const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im9obWJvZ3Vxa3loanR4am9qcXl6Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODA5NzkzNzcsImV4cCI6MjA5NjU1NTM3N30.j42iLYTHeMg4T7Da1cPbkBWrXvQ3PPdJgknE_n8pgDs';
 
-// Initialize supabaseClient with null, will be created once library is ready
 let supabaseClient = null;
-
-/* ====== GLOBAL STATE ====== */
 let currentLearner = null;
 let currentMod = 0;
 let currentSlide = 0;
@@ -313,659 +326,97 @@ let MODULES = [];
 let selectedDragItem = null; 
 let currentProgress = {}; 
 
-/* ====== INITIALIZATION ====== */
+function showLoading() { const loader = document.createElement('div'); loader.className = 'loading-overlay'; loader.id = 'global-loader'; loader.innerHTML = '<div class="spinner"></div>'; document.body.appendChild(loader); }
+function hideLoading() { const el = document.getElementById('global-loader'); if(el) el.remove(); }
+
 async function initializeApp() {
-  // Check if supabase library is loaded via CDN
+  showLoading();
   if (typeof supabase === 'undefined' && typeof Supabase === 'undefined') {
-    console.error("Supabase library not loaded. Retrying in 500ms...");
-    setTimeout(initializeApp, 500);
+    console.error("Supabase library not loaded. Retrying...");
+    setTimeout(() => { hideLoading(); initializeApp(); }, 500);
     return;
   }
-
-  // Create the client using the correct global object name
   const createClient = (typeof supabase !== 'undefined') ? supabase.createClient : Supabase.createClient;
   supabaseClient = createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
-
-  const { data: modules, error: modError } = await supabaseClient
-    .from('modules')
-    .select('id, module_number, title, subtitle')
-    .eq('is_published', true)
-    .order('module_number', { ascending: true });
-
-  if (modError) { console.error("Failed to load modules", modError); return; }
-
+  const { data: modules, error: modError } = await supabaseClient.from('modules').select('id, module_number, title, subtitle').eq('is_published', true).order('module_number', { ascending: true });
+  if (modError) { console.error("Failed to load modules", modError); hideLoading(); return; }
   const moduleIds = modules.map(m => m.id);
-  const { data: slides, error: slideError } = await supabaseClient
-    .from('slides')
-    .select('id, module_id, slide_order, slide_type, content')
-    .in('module_id', moduleIds)
-    .order('slide_order', { ascending: true });
-
-  if (slideError) { console.error("Failed to load slides", slideError); return; }
-
-  MODULES = modules.map(mod => ({
-    id: mod.module_number - 1,
-    title: mod.title,
-    subtitle: mod.subtitle,
-    slides: slides
-      .filter(s => s.module_id === mod.id)
-      .map(s => ({ id: s.id, type: s.slide_type, content: s.content }))
-  }));
+  const { data: slides, error: slideError } = await supabaseClient.from('slides').select('id, module_id, slide_order, slide_type, content').in('module_id', moduleIds).order('slide_order', { ascending: true });
+  if (slideError) { console.error("Failed to load slides", slideError); hideLoading(); return; }
+  MODULES = modules.map(mod => ({ id: mod.module_number - 1, title: mod.title, subtitle: mod.subtitle, slides: slides.filter(s => s.module_id === mod.id).map(s => ({ id: s.id, type: s.slide_type, content: s.content })) }));
+  hideLoading();
 }
 window.addEventListener('DOMContentLoaded', initializeApp);
 
-/* ====== DATABASE HELPERS ====== */
-async function ensureClient() {
-  if (!supabaseClient) {
-    await initializeApp();
-  }
-}
+async function ensureClient() { if (!supabaseClient) await initializeApp(); }
+async function loadLearners() { await ensureClient(); const { data, error } = await supabaseClient.from('learners').select('*'); return error ? [] : data; }
+async function loadAllProgress() { await ensureClient(); const { data, error } = await supabaseClient.from('progress').select('*'); if (error) return {}; return data.reduce((acc, curr) => { acc[curr.learner_id] = curr; return acc; }, {}); }
+async function getLearnerProgress(id) { await ensureClient(); const { data, error } = await supabaseClient.from('progress').select('*').eq('learner_id', id).maybeSingle(); if (data) return { currentMod: data.current_mod, currentSlide: data.current_slide, quizScores: data.quiz_scores || {}, completedMods: data.completed_mods || [], pct: data.pct || 0, completedAt: data.completed_at, lastSeen: data.last_seen }; return { currentMod: 0, currentSlide: 0, completedMods: [], quizScores: {}, completedAt: null, lastSeen: null, pct: 0 }; }
+async function setLearnerProgress(id, prog) { await ensureClient(); const payload = { learner_id: id, current_mod: prog.currentMod, current_slide: prog.currentSlide, quiz_scores: prog.quizScores, completed_mods: prog.completedMods, pct: prog.pct || 0, completed_at: prog.completedAt, last_seen: new Date().toISOString() }; await supabaseClient.from('progress').upsert(payload, { onConflict: 'learner_id' }); }
 
-async function loadLearners() {
-  await ensureClient();
-  const { data, error } = await supabaseClient.from('learners').select('*');
-  return error ? [] : data;
-}
+function escapeHTML(str) { if(!str) return ''; return str.replace(/[&<>]/g, function(m) { if(m === '&') return '&amp;'; if(m === '<') return '&lt;'; if(m === '>') return '&gt;'; return m; }); }
 
-async function loadAllProgress() {
-  await ensureClient();
-  const { data, error } = await supabaseClient.from('progress').select('*');
-  if (error) return {};
-  return data.reduce((acc, curr) => {
-    acc[curr.learner_id] = curr;
-    return acc;
-  }, {});
-}
-
-async function getLearnerProgress(id) {
-  await ensureClient();
-  const { data, error } = await supabaseClient.from('progress').select('*').eq('learner_id', id).maybeSingle();
-  if (data) return { currentMod: data.current_mod, currentSlide: data.current_slide, quizScores: data.quiz_scores || {}, completedMods: data.completed_mods || [], pct: data.pct || 0, completedAt: data.completed_at, lastSeen: data.last_seen };
-  return { currentMod: 0, currentSlide: 0, completedMods: [], quizScores: {}, completedAt: null, lastSeen: null, pct: 0 };
-}
-
-async function setLearnerProgress(id, prog) {
-  await ensureClient();
-  const payload = { learner_id: id, current_mod: prog.currentMod, current_slide: prog.currentSlide, quiz_scores: prog.quizScores, completed_mods: prog.completedMods, pct: prog.pct || 0, completed_at: prog.completedAt, last_seen: new Date().toISOString() };
-  await supabaseClient.from('progress').upsert(payload, { onConflict: 'learner_id' });
-}
-
-/* ====== AUTHENTICATION LAYER ====== */
 async function registerLearner(){
   await ensureClient();
   const fname=v('reg-fname'),lname=v('reg-lname'),email=v('reg-email'),org=v('reg-org'),role=v('reg-role'),dzong=v('reg-dzong'),phone=v('reg-phone'),pin=v('reg-pin');
   let ok=true;
   const fe=s=>document.getElementById(s);
   const show=(id,show)=>fe(id).style.display=show?'block':'none';
-  
   show('err-fname',!fname); show('err-lname',!lname);
   show('err-email',!email||!email.includes('@'));
   show('err-org',!org); show('err-role',!role); show('err-dzong',!dzong);
   show('err-pin',!pin||pin.length<4);
-  
   if(!fname||!lname||!email||!email.includes('@')||!org||!role||!dzong||!pin||pin.length<4) ok=false;
   if(!ok) return;
-
-  const payload = { id: 'acc_'+Date.now(), fname, lname, email: email.toLowerCase(), org, role, dzong, phone, pin, is_admin: false };
+  const payload = { id: 'acc_'+Date.now(), fname:escapeHTML(fname), lname:escapeHTML(lname), email: email.toLowerCase(), org:escapeHTML(org), role, dzong, phone, pin, is_admin: false };
   const { error } = await supabaseClient.from('learners').insert([payload]);
-  
-  if (error) {
-    const feGen = fe('reg-err-general');
-    feGen.textContent = error.code === '23505' ? 'This email is already registered. Please sign in instead.' : 'Network communication failed.';
-    feGen.style.display = 'block'; 
-    return;
-  }
-
-  currentLearner = payload;
-  showToast('Registration successful! Welcome, '+fname+' 🎉');
-  await startCourse();
+  if (error) { const feGen = fe('reg-err-general'); feGen.textContent = error.code === '23505' ? 'This email is already registered. Please sign in instead.' : 'Network communication failed.'; feGen.style.display = 'block'; return; }
+  currentLearner = payload; showToast('Registration successful! Welcome, '+fname+' 🎉'); await startCourse();
 }
-
-async function loginLearner(){
-  await ensureClient();
-  const email=v('login-email').toLowerCase(), pin=v('login-pin');
-  const { data, error } = await supabaseClient.from('learners').select('*').eq('email', email).eq('pin', pin).maybeSingle();
-  
-  if (error || !data || data.is_admin) {
-    document.getElementById('login-err').style.display='block';
-    return;
-  }
-  document.getElementById('login-err').style.display='none';
-  currentLearner = data;
-  showToast('Welcome back, '+data.fname+'!');
-  await startCourse();
-}
-
-async function attemptAdminLogin() {
-  await ensureClient();
-  const email = prompt("Admin Email:");
-  const pin = prompt("Admin PIN:");
-  if (!email || !pin) return;
-  
-  const { data, error } = await supabaseClient.from('learners').select('*').eq('email', email.toLowerCase().trim()).eq('pin', pin).eq('is_admin', true).maybeSingle();
-  
-  if (data) {
-    currentLearner = data;
-    document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));
-    document.getElementById('screen-admin').classList.add('active');
-    await renderAdmin();
-  } else {
-    alert("Invalid admin credentials or insufficient privileges.");
-  }
-}
-
-async function exitCourse(){
-  if(currentLearner){
-    const prog = await getLearnerProgress(currentLearner.id);
-    prog.lastSeen = new Date().toISOString();
-    await setLearnerProgress(currentLearner.id, prog);
-  }
-  currentLearner=null; currentMod=0; currentSlide=0; quizState={};
-  showScreen('screen-landing');
-}
-
-/* ====== UI ENGINE & NAVIGATION ====== */
-function showScreen(id){
-  document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));
-  document.getElementById(id).classList.add('active');
-}
+async function loginLearner(){ await ensureClient(); const email=v('login-email').toLowerCase(), pin=v('login-pin'); const { data, error } = await supabaseClient.from('learners').select('*').eq('email', email).eq('pin', pin).maybeSingle(); if (error || !data || data.is_admin) { document.getElementById('login-err').style.display='block'; return; } document.getElementById('login-err').style.display='none'; currentLearner = data; showToast('Welcome back, '+data.fname+'!'); await startCourse(); }
+async function attemptAdminLogin() { await ensureClient(); const email = prompt("Admin Email:"); const pin = prompt("Admin PIN:"); if (!email || !pin) return; const { data, error } = await supabaseClient.from('learners').select('*').eq('email', email.toLowerCase().trim()).eq('pin', pin).eq('is_admin', true).maybeSingle(); if (data) { currentLearner = data; document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active')); document.getElementById('screen-admin').classList.add('active'); await renderAdmin(); } else { alert("Invalid admin credentials or insufficient privileges."); } }
+async function exitCourse(){ if(currentLearner){ const prog = await getLearnerProgress(currentLearner.id); prog.lastSeen = new Date().toISOString(); await setLearnerProgress(currentLearner.id, prog); } currentLearner=null; currentMod=0; currentSlide=0; quizState={}; showScreen('screen-landing'); }
+function showScreen(id){ document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active')); document.getElementById(id).classList.add('active'); }
 function v(id){return document.getElementById(id).value.trim();}
-
-async function startCourse() {
-  if (MODULES.length === 0) await initializeApp(); 
-  document.getElementById('learner-greeting').textContent = `Learner: ${currentLearner.fname} ${currentLearner.lname} (${currentLearner.org})`;
-  
-  currentProgress = await getLearnerProgress(currentLearner.id);
-  currentMod = currentProgress.currentMod || 0;
-  currentSlide = currentProgress.currentSlide || 0;
-  
-  showScreen('screen-course');
-  renderTabs();
-  renderSlide();
-}
-
-function renderTabs() {
-  const container = document.getElementById('nav-tabs');
-  container.innerHTML = MODULES.map((m, idx) => {
-    let cls = 'tab-btn';
-    if(idx === currentMod) cls += ' active';
-    else if(currentProgress.completedMods && currentProgress.completedMods.includes(idx)) cls += ' done';
-    return `<button class="${cls}" onclick="changeModule(${idx})">${m.title}</button>`;
-  }).join('');
-}
-
-function changeModule(idx) {
-  currentMod = idx;
-  currentSlide = 0;
-  renderTabs();
-  renderSlide();
-}
-
-function updateProgressUI() {
-  const totalSlides = MODULES.reduce((acc, m) => acc + m.slides.length, 0);
-  let viewedCount = 0;
-  for(let i=0; i<currentMod; i++) viewedCount += MODULES[i].slides.length;
-  viewedCount += (currentSlide + 1);
-  const pct = Math.min(100, Math.round((viewedCount / totalSlides) * 100));
-  
-  document.getElementById('prog').style.width = pct + '%';
-  document.getElementById('prog-label').textContent = pct + '% complete';
-  
-  getLearnerProgress(currentLearner.id).then(prog => {
-    currentProgress = prog; 
-    prog.pct = Math.max(prog.pct || 0, pct);
-    prog.currentMod = currentMod;
-    prog.currentSlide = currentSlide;
-    setLearnerProgress(currentLearner.id, prog);
-  });
-}
-
-/* ====== COURSE RENDERING ENGINE ====== */
-function renderSlide() {
-  const slide = MODULES[currentMod].slides[currentSlide];
-  const out = document.getElementById('content-area');
-  updateProgressUI();
-
-  if (slide.type === "quiz" && (quizState[`m_${currentMod}_s_${currentSlide}`] || 0) === 0) {
-    currentQuizState = { score: 0, total: 0, answered: false };
-  }
-
-  let html = `<div class="slide-header">${MODULES[currentMod].title} — Slide ${currentSlide + 1} of ${MODULES[currentMod].slides.length}</div>`;
-
-  if(slide.type === "intro") {
-    html += `<h3 class="module-title">${slide.content.heading}</h3><p class="module-intro">${slide.content.intro}</p>
-             <div class="card card-gold"><h4 style="font-size:13px;margin-bottom:6px">Topics Covered:</h4>
-             <ul style="font-size:12px;padding-left:16px;line-height:1.6">${slide.content.topics.map(t=>`<li>${t}</li>`).join('')}</ul></div>`;
-  }
-  else if(slide.type === "concepts") {
-    html += `<h3 class="module-title">${slide.content.heading}</h3>
-             <div class="concept-grid">${slide.content.items.map(item => `<div class="concept-card"><h3>${item.term}</h3><p>${item.def}</p><div class="example"><strong>Eg:</strong> ${item.example}</div></div>`).join('')}</div>`;
-  }
-  else if(slide.type === "corruption-def" || slide.type === "acab-offenses") {
-    const items = slide.content.types || slide.content.offenses;
-    html += `<h3 class="module-title">${slide.content.heading}</h3><p class="module-intro">${slide.content.def || slide.content.intro}</p>
-             ${items.map(t => `<div class="corruption-type"><h4>${t.name}</h4><p>${t.desc}</p><div class="eg">Example: ${t.eg}</div></div>`).join('')}`;
-  }
-  else if(slide.type === "penalties") {
-    html += `<h3 class="module-title">${slide.content.heading}</h3>
-             <div class="penalty-grid">${slide.content.penalties.map(p => `<div class="penalty-card"><div class="icon">${p.icon}</div><div class="plabel">${p.label}</div><p>${p.desc}</p></div>`).join('')}</div>`;
-  }
-  else if(slide.type === "code-of-conduct" || slide.type === "text_list") {
-    const listItems = slide.content.principles || slide.content.items || [];
-    html += `<h3 class="module-title">${slide.content.heading}</h3><p class="module-intro">${slide.content.intro}</p>
-             <div class="card card-gold"><ul style="font-size:12px;padding-left:16px;line-height:1.7">${listItems.map(p=>`<li>${p}</li>`).join('')}</ul></div>`;
-  }
-  else if(slide.type === "drag_match") {
-    html += `<h3 class="module-title">${slide.content.heading}</h3>
-             <div class="card">
-               <p style="font-size:12px;color:#718096;margin-bottom:10px;">Tap a definition, then tap the matching term (works on mobile & desktop):</p>
-               <div class="drag-source" id="src-box">
-                 ${slide.content.defs.map((d,i) => `<div class="drag-item" id="def-${i}" onclick="handleDragItemClick('def-${i}')" draggable="true" ondragstart="handleDragStart(event)">${d}</div>`).join('')}
-               </div>
-               <div class="drag-area">
-                 ${slide.content.terms.map((t,i) => `<div class="drag-target" id="tgt-${i}" onclick="handleTargetClick(${i})" ondragover="handleDragOver(event)" ondragleave="handleDragLeave(event)" ondrop="handleDrop(event, ${i})"><h5>${t}</h5><div class="drag-items"></div></div>`).join('')}
-               </div>
-               <button class="btn btn-gold btn-sm" onclick="checkMatchActivity()">Verify Matches</button>
-               <div class="match-feedback" id="match-fdbk"></div>
-             </div>`;
-  }
-  else if(slide.type === "quiz") {
-    const qKey = `m_${currentMod}_s_${currentSlide}`;
-    const quizIdx = quizState[qKey] || 0;
-    const questions = slide.content.questions;
-
-    if(quizIdx >= questions.length) {
-      getLearnerProgress(currentLearner.id).then(prog => {
-        prog.quizScores[slide.id] = { score: currentQuizState.score, total: currentQuizState.total };
-        setLearnerProgress(currentLearner.id, prog);
-      });
-      
-      html += `<div class="score-display">
-                 <div class="score-big">🎉</div>
-                 <h3 style="margin:10px 0 5px">Module Knowledge Check Complete!</h3>
-                 <p style="font-size:13px;color:#4a5568;margin-bottom:15px">You scored ${currentQuizState.score} out of ${currentQuizState.total}.</p>
-                 <button class="btn btn-gold btn-sm" onclick="finishModule()">Continue</button>
-               </div>`;
-    } else {
-      const q = questions[quizIdx];
-      html += `<div class="quiz-wrap">
-                 <div class="quiz-counter">Question ${quizIdx + 1} of ${questions.length}</div>
-                 ${q.scenario ? `<div class="quiz-scenario"><strong>Context:</strong> ${q.scenario}</div>` : ''}
-                 <div class="quiz-q">${q.q}</div>
-                 <div>
-                   ${q.opts.map((o, oIdx) => `<button class="quiz-opt" id="opt-${oIdx}" onclick="checkQuiz(${oIdx}, ${q.ans}, '${btoa(q.exp)}', '${slide.id}')">${o}</button>`).join('')}
-                 </div>
-                 <div class="quiz-feedback" id="q-fdbk"></div>
-                 <div id="q-next-wrap" style="margin-top:10px;text-align:right;display:none">
-                   <button class="btn btn-gold btn-sm" onclick="nextQuizQ('${qKey}', '${slide.id}')">Next Question <i class="ti ti-arrow-right"></i></button>
-                 </div>
-               </div>`;
-    }
-  }
-
-  html += `<div class="nav-btns">
-             <button class="btn btn-sm" onclick="prevSlide()" ${currentSlide===0?'disabled':''}><i class="ti ti-arrow-left"></i> Previous</button>`;
-  if(slide.type !== "quiz" || (quizState[`m_${currentMod}_s_${currentSlide}`] >= slide.content.questions.length)) {
-    html += `<button class="btn btn-gold btn-sm" onclick="nextSlide()">Next <i class="ti ti-arrow-right"></i></button>`;
-  }
-  html += `</div>`;
-
-  out.innerHTML = html;
-  initializeVoiceForSlide(); // HOOKED VOICE INITIALIZATION
-}
-
+async function startCourse() { if (MODULES.length === 0) await initializeApp(); document.getElementById('learner-greeting').textContent = `Learner: ${currentLearner.fname} ${currentLearner.lname} (${currentLearner.org})`; currentProgress = await getLearnerProgress(currentLearner.id); currentMod = currentProgress.currentMod || 0; currentSlide = currentProgress.currentSlide || 0; showScreen('screen-course'); renderTabs(); renderSlide(); }
+function renderTabs() { const container = document.getElementById('nav-tabs'); container.innerHTML = MODULES.map((m, idx) => { let cls = 'tab-btn'; if(idx === currentMod) cls += ' active'; else if(currentProgress.completedMods && currentProgress.completedMods.includes(idx)) cls += ' done'; return `<button class="${cls}" onclick="changeModule(${idx})">${escapeHTML(m.title)}</button>`; }).join(''); }
+function changeModule(idx) { currentMod = idx; currentSlide = 0; renderTabs(); renderSlide(); }
+function updateProgressUI() { const totalSlides = MODULES.reduce((acc, m) => acc + m.slides.length, 0); let viewedCount = 0; for(let i=0; i<currentMod; i++) viewedCount += MODULES[i].slides.length; viewedCount += (currentSlide + 1); const pct = Math.min(100, Math.round((viewedCount / totalSlides) * 100)); document.getElementById('prog').style.width = pct + '%'; document.getElementById('prog-label').textContent = pct + '% complete'; getLearnerProgress(currentLearner.id).then(prog => { currentProgress = prog; prog.pct = Math.max(prog.pct || 0, pct); prog.currentMod = currentMod; prog.currentSlide = currentSlide; setLearnerProgress(currentLearner.id, prog); }); }
+function renderSlide() { const slide = MODULES[currentMod].slides[currentSlide]; const out = document.getElementById('content-area'); updateProgressUI(); if (slide.type === "quiz" && (quizState[`m_${currentMod}_s_${currentSlide}`] || 0) === 0) { currentQuizState = { score: 0, total: 0, answered: false }; } let html = `<div class="slide-header">${escapeHTML(MODULES[currentMod].title)} — Slide ${currentSlide + 1} of ${MODULES[currentMod].slides.length}</div>`; if(slide.type === "intro") { html += `<h3 class="module-title">${escapeHTML(slide.content.heading)}</h3><p class="module-intro">${escapeHTML(slide.content.intro)}</p><div class="card card-gold"><h4 style="font-size:14px;margin-bottom:8px">Topics Covered:</h4><ul style="font-size:14px;padding-left:20px;line-height:1.6">${slide.content.topics.map(t=>`<li>${escapeHTML(t)}</li>`).join('')}</ul></div>`; } else if(slide.type === "concepts") { html += `<h3 class="module-title">${escapeHTML(slide.content.heading)}</h3><div class="concept-grid">${slide.content.items.map(item => `<div class="concept-card"><h3>${escapeHTML(item.term)}</h3><p>${escapeHTML(item.def)}</p><div class="example"><strong>Eg:</strong> ${escapeHTML(item.example)}</div></div>`).join('')}</div>`; } else if(slide.type === "corruption-def" || slide.type === "acab-offenses") { const items = slide.content.types || slide.content.offenses; html += `<h3 class="module-title">${escapeHTML(slide.content.heading)}</h3><p class="module-intro">${escapeHTML(slide.content.def || slide.content.intro)}</p>${items.map(t => `<div class="corruption-type"><h4>${escapeHTML(t.name)}</h4><p>${escapeHTML(t.desc)}</p><div class="eg">Example: ${escapeHTML(t.eg)}</div></div>`).join('')}`; } else if(slide.type === "penalties") { html += `<h3 class="module-title">${escapeHTML(slide.content.heading)}</h3><div class="penalty-grid">${slide.content.penalties.map(p => `<div class="penalty-card"><div class="icon">${p.icon}</div><div class="plabel">${escapeHTML(p.label)}</div><p>${escapeHTML(p.desc)}</p></div>`).join('')}</div>`; } else if(slide.type === "code-of-conduct" || slide.type === "text_list") { const listItems = slide.content.principles || slide.content.items || []; html += `<h3 class="module-title">${escapeHTML(slide.content.heading)}</h3><p class="module-intro">${escapeHTML(slide.content.intro)}</p><div class="card card-gold"><ul style="font-size:14px;padding-left:20px;line-height:1.7">${listItems.map(p=>`<li>${escapeHTML(p)}</li>`).join('')}</ul></div>`; } else if(slide.type === "drag_match") { html += `<h3 class="module-title">${escapeHTML(slide.content.heading)}</h3><div class="card"><p style="font-size:14px;color:#718096;margin-bottom:12px;">Tap a definition, then tap the matching term (works on mobile & desktop):</p><div class="drag-source" id="src-box">${slide.content.defs.map((d,i) => `<div class="drag-item" id="def-${i}" onclick="handleDragItemClick('def-${i}')" draggable="true" ondragstart="handleDragStart(event)">${escapeHTML(d)}</div>`).join('')}</div><div class="drag-area">${slide.content.terms.map((t,i) => `<div class="drag-target" id="tgt-${i}" onclick="handleTargetClick(${i})" ondragover="handleDragOver(event)" ondragleave="handleDragLeave(event)" ondrop="handleDrop(event, ${i})"><h5>${escapeHTML(t)}</h5><div class="drag-items"></div></div>`).join('')}</div><button class="btn btn-gold btn-sm" onclick="checkMatchActivity()">Verify Matches</button><div class="match-feedback" id="match-fdbk"></div></div>`; } else if(slide.type === "quiz") { const qKey = `m_${currentMod}_s_${currentSlide}`; const quizIdx = quizState[qKey] || 0; const questions = slide.content.questions; if(quizIdx >= questions.length) { getLearnerProgress(currentLearner.id).then(prog => { prog.quizScores[slide.id] = { score: currentQuizState.score, total: currentQuizState.total }; setLearnerProgress(currentLearner.id, prog); }); html += `<div class="score-display"><div class="score-big">🎉</div><h3 style="margin:12px 0 6px">Module Knowledge Check Complete!</h3><p style="font-size:14px;color:#4a5568;margin-bottom:16px">You scored ${currentQuizState.score} out of ${currentQuizState.total}.</p><button class="btn btn-gold btn-sm" onclick="finishModule()">Continue</button></div>`; } else { const q = questions[quizIdx]; html += `<div class="quiz-wrap"><div class="quiz-counter">Question ${quizIdx + 1} of ${questions.length}</div>${q.scenario ? `<div class="quiz-scenario"><strong>Context:</strong> ${escapeHTML(q.scenario)}</div>` : ''}<div class="quiz-q">${escapeHTML(q.q)}</div><div>${q.opts.map((o, oIdx) => `<button class="quiz-opt" id="opt-${oIdx}" onclick="checkQuiz(${oIdx}, ${q.ans}, '${btoa(unescape(encodeURIComponent(q.exp)))}', '${slide.id}')">${escapeHTML(o)}</button>`).join('')}</div><div class="quiz-feedback" id="q-fdbk"></div><div id="q-next-wrap" style="margin-top:12px;text-align:right;display:none"><button class="btn btn-gold btn-sm" onclick="nextQuizQ('${qKey}', '${slide.id}')">Next Question <i class="ti ti-arrow-right"></i></button></div></div>`; } } html += `<div class="nav-btns"><button class="btn btn-sm" onclick="prevSlide()" ${currentSlide===0?'disabled':''}><i class="ti ti-arrow-left"></i> Previous</button>`; if(slide.type !== "quiz" || (quizState[`m_${currentMod}_s_${currentSlide}`] >= slide.content.questions.length)) { html += `<button class="btn btn-gold btn-sm" onclick="nextSlide()">Next <i class="ti ti-arrow-right"></i></button>`; } html += `</div>`; out.innerHTML = html; initializeVoiceForSlide(); }
 function prevSlide(){ if(currentSlide > 0) { currentSlide--; renderSlide(); } }
-function nextSlide(){
-  const max = MODULES[currentMod].slides.length;
-  if(currentSlide < max - 1) { currentSlide++; renderSlide(); }
-  else { finishModule(); }
-}
-
-function finishModule() {
-  getLearnerProgress(currentLearner.id).then(prog => {
-    currentProgress = prog; 
-    if(!prog.completedMods.includes(currentMod)) prog.completedMods.push(currentMod);
-    
-    if(currentMod < MODULES.length - 1) {
-      currentMod++; currentSlide = 0;
-      showToast("Excellent work! Advancing to the next module. 🚀");
-      renderTabs(); renderSlide();
-    } else {
-      prog.completedAt = new Date().toISOString();
-      setLearnerProgress(currentLearner.id, prog);
-      renderCompletionScreen();
-    }
-  });
-}
-
-function renderCompletionScreen() {
-  document.getElementById('content-area').innerHTML = `
-    <div class="cert-wrap">
-      <div style="font-size:48px;margin-bottom:10px">🏆</div>
-      <h2>CONGRATULATIONS!</h2>
-      <p style="font-size:14px;color:#2d3748;margin-bottom:8px">You have successfully completed the</p>
-      <h3 style="color:#c8960a;font-size:16px;font-weight:600;margin-bottom:20px">Ethics, Integrity & Professionalism Training</h3>
-      <p style="font-size:12px;color:#718096">Issued by the Anti-Corruption Commission of Bhutan</p>
-      <div style="margin-top:25px;border-top:1px dashed #cbd5e0;padding-top:15px;font-size:11px;color:#4a5568">
-        Learner ID: ${currentLearner.id}<br>Completed on: ${new Date().toLocaleDateString()}
-      </div>
-      <button class="btn btn-gold" style="margin-top:20px" onclick="window.print()"><i class="ti ti-printer"></i> Print Certificate</button>
-    </div>`;
-}
-
-/* ====== INTERACTIVE HELPERS (Mobile Friendly) ====== */
-function handleDragItemClick(itemId) {
-  if (selectedDragItem === itemId) {
-    selectedDragItem = null;
-    document.getElementById(itemId).classList.remove('selected');
-    return;
-  }
-  if (selectedDragItem) document.getElementById(selectedDragItem).classList.remove('selected');
-  selectedDragItem = itemId;
-  document.getElementById(itemId).classList.add('selected');
-}
-
-function handleTargetClick(targetIdx) {
-  if (selectedDragItem) {
-    const targetBox = document.getElementById(`tgt-${targetIdx}`).querySelector('.drag-items');
-    const item = document.getElementById(selectedDragItem);
-    targetBox.appendChild(item);
-    selectedDragItem = null;
-    item.classList.remove('selected');
-  }
-}
-
+function nextSlide(){ const max = MODULES[currentMod].slides.length; if(currentSlide < max - 1) { currentSlide++; renderSlide(); } else { finishModule(); } }
+function finishModule() { getLearnerProgress(currentLearner.id).then(prog => { currentProgress = prog; if(!prog.completedMods.includes(currentMod)) prog.completedMods.push(currentMod); if(currentMod < MODULES.length - 1) { currentMod++; currentSlide = 0; showToast("Excellent work! Advancing to the next module. 🚀"); renderTabs(); renderSlide(); } else { prog.completedAt = new Date().toISOString(); setLearnerProgress(currentLearner.id, prog); renderCompletionScreen(); } }); }
+function renderCompletionScreen() { document.getElementById('content-area').innerHTML = `<div class="cert-wrap"><div style="font-size:56px;margin-bottom:12px">🏆</div><h2>CONGRATULATIONS!</h2><p style="font-size:15px;color:#2d3748;margin-bottom:10px">You have successfully completed the</p><h3 style="color:#c8960a;font-size:18px;font-weight:700;margin-bottom:24px">Ethics, Integrity & Professionalism Training</h3><p style="font-size:13px;color:#718096">Issued by the Anti-Corruption Commission of Bhutan</p><div style="margin-top:28px;border-top:1px dashed #cbd5e0;padding-top:18px;font-size:12px;color:#4a5568">Learner ID: ${escapeHTML(currentLearner.id)}<br>Completed on: ${new Date().toLocaleDateString()}</div><button class="btn btn-gold" style="margin-top:24px" onclick="window.print()"><i class="ti ti-printer"></i> Print Certificate</button></div>`; }
+function handleDragItemClick(itemId) { if (selectedDragItem === itemId) { selectedDragItem = null; document.getElementById(itemId).classList.remove('selected'); return; } if (selectedDragItem) document.getElementById(selectedDragItem).classList.remove('selected'); selectedDragItem = itemId; document.getElementById(itemId).classList.add('selected'); }
+function handleTargetClick(targetIdx) { if (selectedDragItem) { const targetBox = document.getElementById(`tgt-${targetIdx}`).querySelector('.drag-items'); const item = document.getElementById(selectedDragItem); targetBox.appendChild(item); selectedDragItem = null; item.classList.remove('selected'); } }
 function handleDragStart(e){ e.dataTransfer.setData("text", e.target.id); }
 function handleDragOver(e){ e.preventDefault(); e.currentTarget.classList.add('over'); }
 function handleDragLeave(e){ e.currentTarget.classList.remove('over'); }
-function handleDrop(e, targetIdx){
-  e.preventDefault(); e.currentTarget.classList.remove('over');
-  const id = e.dataTransfer.getData("text");
-  document.getElementById(`tgt-${targetIdx}`).querySelector('.drag-items').appendChild(document.getElementById(id));
-}
-
-function checkMatchActivity() {
-  const slide = MODULES[currentMod].slides[currentSlide];
-  let correct = true;
-  slide.content.answers.forEach((ansIdx, targetIdx) => {
-    const box = document.getElementById(`tgt-${targetIdx}`).querySelector('.drag-items');
-    const item = box.querySelector('.drag-item');
-    if(!item || item.id !== `def-${ansIdx}`) correct = false;
-  });
-  const f = document.getElementById('match-fdbk');
-  f.style.color = correct ? '#2e7d32' : '#a32d2d';
-  f.innerHTML = correct ? "🎉 All mappings align correctly!" : "❌ Some records mismatched. Tap to retry.";
-}
-
-function checkQuiz(sel, ans, expB64, slideId) {
-  if (currentQuizState.answered) return;
-  currentQuizState.answered = true;
-  currentQuizState.total++;
-  
-  const exp = atob(expB64);
-  document.querySelectorAll('.quiz-opt').forEach((btn, i) => {
-    btn.disabled = true;
-    if(i === ans) btn.classList.add('correct');
-    if(i === sel && sel !== ans) btn.classList.add('wrong');
-  });
-  
-  const fdbk = document.getElementById('q-fdbk');
-  fdbk.className = `quiz-feedback show ${sel===ans?'feedback-correct':'feedback-wrong'}`;
-  fdbk.innerHTML = `<strong>${sel===ans?'Correct Answer!':'Incorrect.'}</strong> ${exp}`;
-  document.getElementById('q-next-wrap').style.display = 'block';
-
-  if (sel === ans) currentQuizState.score++;
-}
-
-function nextQuizQ(key, slideId) {
-  quizState[key] = (quizState[key] || 0) + 1;
-  currentQuizState.answered = false;
-  renderSlide();
-}
-
-/* ====== ADMINISTRATIVE CONTROL PANELS ====== */
+function handleDrop(e, targetIdx){ e.preventDefault(); e.currentTarget.classList.remove('over'); const id = e.dataTransfer.getData("text"); document.getElementById(`tgt-${targetIdx}`).querySelector('.drag-items').appendChild(document.getElementById(id)); }
+function checkMatchActivity() { const slide = MODULES[currentMod].slides[currentSlide]; let correct = true; slide.content.answers.forEach((ansIdx, targetIdx) => { const box = document.getElementById(`tgt-${targetIdx}`).querySelector('.drag-items'); const item = box.querySelector('.drag-item'); if(!item || item.id !== `def-${ansIdx}`) correct = false; }); const f = document.getElementById('match-fdbk'); f.style.color = correct ? '#2e7d32' : '#dc2626'; f.innerHTML = correct ? "🎉 All mappings align correctly!" : "❌ Some records mismatched. Tap to retry."; }
+function checkQuiz(sel, ans, expB64, slideId) { if (currentQuizState.answered) return; currentQuizState.answered = true; currentQuizState.total++; const exp = decodeURIComponent(escape(atob(expB64))); document.querySelectorAll('.quiz-opt').forEach((btn, i) => { btn.disabled = true; if(i === ans) btn.classList.add('correct'); if(i === sel && sel !== ans) btn.classList.add('wrong'); }); const fdbk = document.getElementById('q-fdbk'); fdbk.className = `quiz-feedback show ${sel===ans?'feedback-correct':'feedback-wrong'}`; fdbk.innerHTML = `<strong>${sel===ans?'Correct Answer!':'Incorrect.'}</strong> ${exp}`; document.getElementById('q-next-wrap').style.display = 'block'; if (sel === ans) currentQuizState.score++; }
+function nextQuizQ(key, slideId) { quizState[key] = (quizState[key] || 0) + 1; currentQuizState.answered = false; renderSlide(); }
 let cacheLearners = [], cacheProgress = {};
-
-async function renderAdmin() {
-  await ensureClient();
-  cacheLearners = await loadLearners();
-  cacheProgress = await loadAllProgress();
-  
-  const total = cacheLearners.filter(l => !l.is_admin).length;
-  const active = Object.values(cacheProgress).filter(p => p.pct > 0 && !p.completedAt).length;
-  const done = Object.values(cacheProgress).filter(p => p.completedAt).length;
-
-  document.getElementById('admin-stats').innerHTML = `
-    <div class="stat-card"><div class="stat-num">${total}</div><div class="stat-label">Total Enrolled</div></div>
-    <div class="stat-card"><div class="stat-num">${active}</div><div class="stat-label">In Progress</div></div>
-    <div class="stat-card"><div class="stat-num">${done}</div><div class="stat-label">Completions</div></div>
-  `;
-  triggerLearnerSearch();
-  renderProgressTable();
-  renderCompletionsTable();
-}
-
-function adminTab(target) {
-  document.querySelectorAll('.admin-tab').forEach(b => b.classList.remove('active'));
-  document.querySelectorAll('.admin-panel').forEach(p => p.classList.remove('active'));
-  document.getElementById(`tab-lnk-${target}`).classList.add('active');
-  document.getElementById(`panel-${target}`).classList.add('active');
-  if(target === 'course') renderCourseManagement(); // HOOKED COURSE MANAGEMENT
-}
-
-function triggerLearnerSearch() {
-  const q = document.getElementById('admin-search').value.toLowerCase();
-  const filtered = cacheLearners.filter(l => !l.is_admin && (
-    l.fname.toLowerCase().includes(q) || l.lname.toLowerCase().includes(q) ||
-    l.email.toLowerCase().includes(q) || l.org.toLowerCase().includes(q)
-  ));
-
-  const container = document.getElementById('admin-learners-table');
-  if(!filtered.length) { container.innerHTML = `<div class="empty-state">No learner records matched.</div>`; return; }
-
-  container.innerHTML = `<table><thead><tr><th>Name</th><th>Email</th><th>Organisation</th><th>Action</th></tr></thead><tbody>
-    ${filtered.map(l => `<tr><td><strong>${l.fname} ${l.lname}</strong><br><small style="color:#718096">${l.role}</small></td>
-    <td>${l.email}</td><td>${l.org}<br><small style="color:#718096">${l.dzong}</small></td>
-    <td><button class="btn btn-danger btn-sm" onclick="deleteLearner('${l.id}')"><i class="ti ti-trash"></i></button></td></tr>`).join('')}
-  </tbody></table>`;
-}
-
-function renderProgressTable() {
-  const container = document.getElementById('admin-progress-table');
-  if(!cacheLearners.length) { container.innerHTML = `<div class="empty-state">No data available.</div>`; return; }
-  container.innerHTML = `<table><thead><tr><th>Learner</th><th>Progress Matrix</th><th>Last Active</th></tr></thead><tbody>
-    ${cacheLearners.filter(l=>!l.is_admin).map(l => {
-      const p = cacheProgress[l.id] || { pct:0, lastSeen: null };
-      return `<tr><td><strong>${l.fname} ${l.lname}</strong></td>
-      <td><div style="font-weight:500">${p.pct}% Complete</div><small style="color:#718096">Module ${(p.currentMod || 0) + 1}, Slide ${(p.currentSlide || 0) + 1}</small></td>
-      <td>${p.lastSeen ? new Date(p.lastSeen).toLocaleDateString() : 'Never'}</td></tr>`;
-    }).join('')}</tbody></table>`;
-}
-
-function renderCompletionsTable() {
-  const container = document.getElementById('admin-completions-table');
-  const completions = cacheLearners.filter(l => !l.is_admin && cacheProgress[l.id]?.completedAt);
-  if(!completions.length) { container.innerHTML = `<div class="empty-state">No learners have finalized all modules yet.</div>`; return; }
-  container.innerHTML = `<table><thead><tr><th>Certificate Recipient</th><th>Firm Link</th><th>Completion Stamp</th></tr></thead><tbody>
-    ${completions.map(l => `<tr><td><strong>${l.fname} ${l.lname}</strong><br><small style="color:#718096">${l.role}</small></td>
-    <td>${l.org}</td><td><span class="badge badge-green">${new Date(cacheProgress[l.id].completedAt).toLocaleDateString()}</span></td></tr>`).join('')}
-  </tbody></table>`;
-}
-
-async function deleteLearner(id){
-  await ensureClient();
-  if(!confirm('Permanently remove this record?')) return;
-  await supabaseClient.from('learners').delete().eq('id', id);
-  await supabaseClient.from('progress').delete().eq('learner_id', id);
-  showToast('Learner record successfully purged.');
-  await renderAdmin();
-}
-
-function exportCSV(){
-  const rows = [['Name','Email','Organisation','Role','Dzongkhag','Phone','Progress %','Status','Completed Date']];
-  cacheLearners.filter(l=>!l.is_admin).forEach(l => {
-    const p = cacheProgress[l.id] || {};
-    rows.push([`${l.fname} ${l.lname}`, l.email, l.org, l.role, l.dzong, l.phone || '', p.pct || 0, p.completedAt ? 'Completed' : p.pct > 0 ? 'In Progress' : 'Not Started', p.completedAt ? new Date(p.completedAt).toLocaleDateString() : '']);
-  });
-  const csv = rows.map(r => r.map(c => `"${c}"`).join(',')).join('\n');
-  const a = document.createElement('a');
-  a.href = 'data:text/csv;charset=utf-8,' + encodeURIComponent(csv);
-  a.download = 'acc_learners_' + new Date().toISOString().slice(0,10) + '.csv';
-  a.click();
-  showToast('Database analytics compiled and exported to CSV.');
-}
-
-/* ====== ENHANCEMENT 1: VOICE INSTRUCTIONS (Web Speech API) ====== */
-let currentVoiceUtterance = null;
-let voiceSettings = { voice_text: '', voice_rate: 1, voice_pitch: 1, voice_language: 'en-US' };
-
-async function initializeVoiceForSlide() {
-  if (!document.getElementById('voice-play')) return; 
-  const slide = MODULES[currentMod].slides[currentSlide];
-  if (!supabaseClient) await ensureClient();
-  const { data } = await supabaseClient.from('voice_settings').select('*').eq('slide_id', slide.id).maybeSingle();
-  
-  if (data && data.voice_text) {
-    voiceSettings = data;
-  } else {
-    voiceSettings.voice_text = generateVoiceText(slide);
-  }
-  document.getElementById('voice-play').style.display = 'inline-flex';
-  document.getElementById('voice-stop').style.display = 'none';
-}
-
-function generateVoiceText(slide) {
-  let text = '';
-  if (slide.type === 'intro') text = `${slide.content.heading}. ${slide.content.intro}`;
-  else if (slide.type === 'concepts') text = slide.content.items.map(i => `${i.term}. ${i.def}`).join('. ');
-  else if (slide.type === 'corruption-def' || slide.type === 'acab-offenses') {
-     const items = slide.content.types || slide.content.offenses;
-     text = `${slide.content.heading}. ${slide.content.def || slide.content.intro}. ` + items.map(i => `${i.name}. ${i.desc}`).join('. ');
-  }
-  else if (slide.type === 'text_list' || slide.type === 'code-of-conduct') {
-     const list = slide.content.items || slide.content.principles || [];
-     text = `${slide.content.heading}. ${slide.content.intro}. ` + list.join('. ');
-  }
-  else if (slide.type === 'quiz') text = "Knowledge Check. Please answer the following questions.";
-  else if (slide.type === 'drag_match') text = "Interactive Activity. Please match the terms with their definitions.";
-  else text = slide.content.heading || "Slide content.";
-  return text;
-}
-
-function playVoiceInstruction() {
-  if (!('speechSynthesis' in window)) return alert('Voice instructions are not supported in your browser.');
-  speechSynthesis.cancel();
-  currentVoiceUtterance = new SpeechSynthesisUtterance(voiceSettings.voice_text);
-  currentVoiceUtterance.rate = voiceSettings.voice_rate;
-  currentVoiceUtterance.pitch = voiceSettings.voice_pitch;
-  currentVoiceUtterance.lang = voiceSettings.voice_language;
-  
-  currentVoiceUtterance.onstart = () => {
-    document.getElementById('voice-play').style.display = 'none';
-    document.getElementById('voice-stop').style.display = 'inline-flex';
-  };
-  currentVoiceUtterance.onend = () => {
-    document.getElementById('voice-play').style.display = 'inline-flex';
-    document.getElementById('voice-stop').style.display = 'none';
-  };
-  speechSynthesis.speak(currentVoiceUtterance);
-}
-
-function stopVoiceInstruction() {
-  speechSynthesis.cancel();
-  document.getElementById('voice-play').style.display = 'inline-flex';
-  document.getElementById('voice-stop').style.display = 'none';
-}
-
-function updateVoiceSpeed(speed) {
-  voiceSettings.voice_rate = parseFloat(speed);
-  if (speechSynthesis.speaking) {
-    stopVoiceInstruction();
-    playVoiceInstruction();
-  }
-}
-
-/* ====== ENHANCEMENT 2: COURSE MANAGEMENT (Admin CMS) ====== */
-async function renderCourseManagement() {
-  await ensureClient();
-  const { data: modules } = await supabaseClient.from('modules').select('*').order('module_number');
-  const container = document.getElementById('admin-course-modules');
-  
-  if (!modules || modules.length === 0) {
-    container.innerHTML = `<div class="empty-state">No modules found.</div>`;
-    return;
-  }
-
-  container.innerHTML = modules.map(m => `
-    <div class="card" style="padding:12px;margin-bottom:10px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px;">
-      <div>
-        <strong>${m.title}</strong> - ${m.subtitle || ''}
-        <br><small>Status: ${m.is_published ? '<span style="color:green">Published</span>' : '<span style="color:orange">Draft</span>'}</small>
-      </div>
-      <div style="display:flex;gap:6px;">
-        <button class="btn btn-sm" onclick="toggleModulePublish('${m.id}', ${!m.is_published})">${m.is_published ? 'Unpublish' : 'Publish'}</button>
-        <button class="btn btn-gold btn-sm" onclick="viewModuleSlides('${m.id}')">Edit Slides</button>
-      </div>
-    </div>
-  `).join('');
-}
-
-async function toggleModulePublish(moduleId, newState) {
-  await ensureClient();
-  await supabaseClient.from('modules').update({ is_published: newState, updated_at: new Date().toISOString() }).eq('id', moduleId);
-  showToast('Module status updated! Refresh the learner app to see changes.');
-  renderCourseManagement();
-}
-
-async function viewModuleSlides(moduleId) {
-  await ensureClient();
-  const { data: slides } = await supabaseClient.from('slides').select('*').eq('module_id', moduleId).order('slide_order');
-  const container = document.getElementById('admin-course-modules');
-  
-  let html = `<button class="btn btn-sm" onclick="renderCourseManagement()" style="margin-bottom:10px;"><i class="ti ti-arrow-left"></i> Back to Modules</button>`;
-  if (!slides || slides.length === 0) {
-    html += `<div class="empty-state">No slides found.</div>`;
-  } else {
-    html += slides.map(s => `
-      <div class="card" style="padding:10px;margin-bottom:8px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px;">
-        <div>
-          <strong>Slide ${s.slide_order}</strong> <span class="badge badge-blue">${s.slide_type}</span>
-          <br><small style="color:#718096">${JSON.stringify(s.content).substring(0, 80)}...</small>
-        </div>
-        <button class="btn btn-gold btn-sm" onclick="editSlide('${s.id}')">Edit JSON</button>
-      </div>
-    `).join('');
-  }
-  container.innerHTML = html;
-}
-
+async function renderAdmin() { await ensureClient(); cacheLearners = await loadLearners(); cacheProgress = await loadAllProgress(); const total = cacheLearners.filter(l => !l.is_admin).length; const active = Object.values(cacheProgress).filter(p => p.pct > 0 && !p.completedAt).length; const done = Object.values(cacheProgress).filter(p => p.completedAt).length; document.getElementById('admin-stats').innerHTML = `<div class="stat-card"><div class="stat-num">${total}</div><div class="stat-label">Total Enrolled</div></div><div class="stat-card"><div class="stat-num">${active}</div><div class="stat-label">In Progress</div></div><div class="stat-card"><div class="stat-num">${done}</div><div class="stat-label">Completions</div></div>`; triggerLearnerSearch(); renderProgressTable(); renderCompletionsTable(); }
+function adminTab(target) { document.querySelectorAll('.admin-tab').forEach(b => b.classList.remove('active')); document.querySelectorAll('.admin-panel').forEach(p => p.classList.remove('active')); document.getElementById(`tab-lnk-${target}`).classList.add('active'); document.getElementById(`panel-${target}`).classList.add('active'); if(target === 'course') renderCourseManagement(); }
+function triggerLearnerSearch() { const q = document.getElementById('admin-search').value.toLowerCase(); const filtered = cacheLearners.filter(l => !l.is_admin && (l.fname.toLowerCase().includes(q) || l.lname.toLowerCase().includes(q) || l.email.toLowerCase().includes(q) || l.org.toLowerCase().includes(q))); const container = document.getElementById('admin-learners-table'); if(!filtered.length) { container.innerHTML = `<div class="empty-state">No learner records matched.</div>`; return; } container.innerHTML = `<table><thead><tr><th>Name</th><th>Email</th><th>Organisation</th><th>Action</th></tr></thead><tbody>${filtered.map(l => `<tr><td><strong>${escapeHTML(l.fname)} ${escapeHTML(l.lname)}</strong><br><small style="color:#718096">${escapeHTML(l.role)}</small></td><td>${escapeHTML(l.email)}</td><td>${escapeHTML(l.org)}<br><small style="color:#718096">${escapeHTML(l.dzong)}</small></td><td><button class="btn btn-danger btn-sm" onclick="deleteLearner('${l.id}')"><i class="ti ti-trash"></i></button></td></tr>`).join('')}</tbody></table>`; }
+function renderProgressTable() { const container = document.getElementById('admin-progress-table'); if(!cacheLearners.length) { container.innerHTML = `<div class="empty-state">No data available.</div>`; return; } container.innerHTML = `<table><thead><tr><th>Learner</th><th>Progress Matrix</th><th>Last Active</th></tr></thead><tbody>${cacheLearners.filter(l=>!l.is_admin).map(l => { const p = cacheProgress[l.id] || { pct:0, lastSeen: null }; return `<tr><td><strong>${escapeHTML(l.fname)} ${escapeHTML(l.lname)}</strong></td><td><div style="font-weight:500">${p.pct}% Complete</div><small style="color:#718096">Module ${(p.currentMod || 0) + 1}, Slide ${(p.currentSlide || 0) + 1}</small></td><td>${p.lastSeen ? new Date(p.lastSeen).toLocaleDateString() : 'Never'}</td></tr>`; }).join('')}</tbody></table>`; }
+function renderCompletionsTable() { const container = document.getElementById('admin-completions-table'); const completions = cacheLearners.filter(l => !l.is_admin && cacheProgress[l.id]?.completedAt); if(!completions.length) { container.innerHTML = `<div class="empty-state">No learners have finalized all modules yet.</div>`; return; } container.innerHTML = `<table><thead><tr><th>Certificate Recipient</th><th>Firm Link</th><th>Completion Stamp</th></tr></thead><tbody>${completions.map(l => `<tr><td><strong>${escapeHTML(l.fname)} ${escapeHTML(l.lname)}</strong><br><small style="color:#718096">${escapeHTML(l.role)}</small></td><td>${escapeHTML(l.org)}</td><td><span class="badge badge-green">${new Date(cacheProgress[l.id].completedAt).toLocaleDateString()}</span></td></tr>`).join('')}</tbody></table>`; }
+async function deleteLearner(id){ await ensureClient(); if(!confirm('Permanently remove this record?')) return; await supabaseClient.from('learners').delete().eq('id', id); await supabaseClient.from('progress').delete().eq('learner_id', id); showToast('Learner record successfully purged.'); await renderAdmin(); }
+function exportCSV(){ const rows = [['Name','Email','Organisation','Role','Dzongkhag','Phone','Progress %','Status','Completed Date']]; cacheLearners.filter(l=>!l.is_admin).forEach(l => { const p = cacheProgress[l.id] || {}; rows.push([`${l.fname} ${l.lname}`, l.email, l.org, l.role, l.dzong, l.phone || '', p.pct || 0, p.completedAt ? 'Completed' : p.pct > 0 ? 'In Progress' : 'Not Started', p.completedAt ? new Date(p.completedAt).toLocaleDateString() : '']); }); const csv = rows.map(r => r.map(c => `"${c}"`).join(',')).join('\n'); const a = document.createElement('a'); a.href = 'data:text/csv;charset=utf-8,' + encodeURIComponent(csv); a.download = 'acc_learners_' + new Date().toISOString().slice(0,10) + '.csv'; a.click(); showToast('Database analytics compiled and exported to CSV.'); }
+let currentVoiceUtterance = null; let voiceSettings = { voice_text: '', voice_rate: 1, voice_pitch: 1, voice_language: 'en-US' };
+async function initializeVoiceForSlide() { if (!document.getElementById('voice-play')) return; const slide = MODULES[currentMod].slides[currentSlide]; if (!supabaseClient) await ensureClient(); const { data } = await supabaseClient.from('voice_settings').select('*').eq('slide_id', slide.id).maybeSingle(); if (data && data.voice_text) { voiceSettings = data; } else { voiceSettings.voice_text = generateVoiceText(slide); } document.getElementById('voice-play').style.display = 'inline-flex'; document.getElementById('voice-stop').style.display = 'none'; }
+function generateVoiceText(slide) { let text = ''; if (slide.type === 'intro') text = `${slide.content.heading}. ${slide.content.intro}`; else if (slide.type === 'concepts') text = slide.content.items.map(i => `${i.term}. ${i.def}`).join('. '); else if (slide.type === 'corruption-def' || slide.type === 'acab-offenses') { const items = slide.content.types || slide.content.offenses; text = `${slide.content.heading}. ${slide.content.def || slide.content.intro}. ` + items.map(i => `${i.name}. ${i.desc}`).join('. '); } else if (slide.type === 'text_list' || slide.type === 'code-of-conduct') { const list = slide.content.items || slide.content.principles || []; text = `${slide.content.heading}. ${slide.content.intro}. ` + list.join('. '); } else if (slide.type === 'quiz') text = "Knowledge Check. Please answer the following questions."; else if (slide.type === 'drag_match') text = "Interactive Activity. Please match the terms with their definitions."; else text = slide.content.heading || "Slide content."; return text; }
+function playVoiceInstruction() { if (!('speechSynthesis' in window)) return alert('Voice instructions are not supported in your browser.'); speechSynthesis.cancel(); currentVoiceUtterance = new SpeechSynthesisUtterance(voiceSettings.voice_text); currentVoiceUtterance.rate = voiceSettings.voice_rate; currentVoiceUtterance.pitch = voiceSettings.voice_pitch; currentVoiceUtterance.lang = voiceSettings.voice_language; currentVoiceUtterance.onstart = () => { document.getElementById('voice-play').style.display = 'none'; document.getElementById('voice-stop').style.display = 'inline-flex'; }; currentVoiceUtterance.onend = () => { document.getElementById('voice-play').style.display = 'inline-flex'; document.getElementById('voice-stop').style.display = 'none'; }; speechSynthesis.speak(currentVoiceUtterance); }
+function stopVoiceInstruction() { speechSynthesis.cancel(); document.getElementById('voice-play').style.display = 'inline-flex'; document.getElementById('voice-stop').style.display = 'none'; }
+function updateVoiceSpeed(speed) { voiceSettings.voice_rate = parseFloat(speed); if (speechSynthesis.speaking) { stopVoiceInstruction(); playVoiceInstruction(); } }
+async function renderCourseManagement() { await ensureClient(); const { data: modules } = await supabaseClient.from('modules').select('*').order('module_number'); const container = document.getElementById('admin-course-modules'); if (!modules || modules.length === 0) { container.innerHTML = `<div class="empty-state">No modules found.</div>`; return; } container.innerHTML = modules.map(m => `<div class="card" style="padding:14px;margin-bottom:12px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px;"><div><strong>${escapeHTML(m.title)}</strong> - ${escapeHTML(m.subtitle || '')}<br><small>Status: ${m.is_published ? '<span style="color:green">Published</span>' : '<span style="color:orange">Draft</span>'}</small></div><div style="display:flex;gap:8px;"><button class="btn btn-sm" onclick="toggleModulePublish('${m.id}', ${!m.is_published})">${m.is_published ? 'Unpublish' : 'Publish'}</button><button class="btn btn-gold btn-sm" onclick="viewModuleSlides('${m.id}')">Edit Slides</button></div></div>`).join(''); }
+async function toggleModulePublish(moduleId, newState) { await ensureClient(); await supabaseClient.from('modules').update({ is_published: newState, updated_at: new Date().toISOString() }).eq('id', moduleId); showToast('Module status updated! Refresh the learner app to see changes.'); renderCourseManagement(); }
+async function viewModuleSlides(moduleId) { await ensureClient(); const { data: slides } = await supabaseClient.from('slides').select('*').eq('module_id', moduleId).order('slide_order'); const container = document.getElementById('admin-course-modules'); let html = `<button class="btn btn-sm" onclick="renderCourseManagement()" style="margin-bottom:12px;"><i class="ti ti-arrow-left"></i> Back to Modules</button>`; if (!slides || slides.length === 0) { html += `<div class="empty-state">No slides found.</div>`; } else { html += slides.map(s => `<div class="card" style="padding:12px;margin-bottom:10px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px;"><div><strong>Slide ${s.slide_order}</strong> <span class="badge badge-blue">${escapeHTML(s.slide_type)}</span><br><small style="color:#718096">${JSON.stringify(s.content).substring(0, 80)}...</small></div><button class="btn btn-gold btn-sm" onclick="editSlide('${s.id}')">Edit JSON</button></div>`).join(''); } container.innerHTML = html; }
 let currentEditingSlideId = null;
-async function editSlide(slideId) {
-  await ensureClient();
-  const { data } = await supabaseClient.from('slides').select('*').eq('id', slideId).single();
-  currentEditingSlideId = slideId;
-  document.getElementById('slide-json-editor').value = JSON.stringify(data.content, null, 2);
-  document.getElementById('admin-slide-editor').style.display = 'block';
-}
-
-async function saveSlideJSON() {
-  try {
-    const newContent = JSON.parse(document.getElementById('slide-json-editor').value);
-    await ensureClient();
-    await supabaseClient.from('slides').update({ content: newContent, updated_at: new Date().toISOString() }).eq('id', currentEditingSlideId);
-    showToast('Slide content updated successfully!');
-    document.getElementById('admin-slide-editor').style.display = 'none';
-    await initializeApp(); 
-  } catch (e) {
-    alert('Invalid JSON format. Please check your syntax and try again.');
-  }
-}
-
-function showToast(msg) {
-  const t = document.getElementById('toast');
-  t.textContent = msg; t.classList.add('show');
-  setTimeout(() => t.classList.remove('show'), 3500);
-}
+async function editSlide(slideId) { await ensureClient(); const { data } = await supabaseClient.from('slides').select('*').eq('id', slideId).single(); currentEditingSlideId = slideId; document.getElementById('slide-json-editor').value = JSON.stringify(data.content, null, 2); document.getElementById('admin-slide-editor').style.display = 'block'; }
+async function saveSlideJSON() { try { const newContent = JSON.parse(document.getElementById('slide-json-editor').value); await ensureClient(); await supabaseClient.from('slides').update({ content: newContent, updated_at: new Date().toISOString() }).eq('id', currentEditingSlideId); showToast('Slide content updated successfully!'); document.getElementById('admin-slide-editor').style.display = 'none'; await initializeApp(); } catch (e) { alert('Invalid JSON format. Please check your syntax and try again.'); } }
+function showToast(msg) { const t = document.getElementById('toast'); t.textContent = msg; t.classList.add('show'); setTimeout(() => t.classList.remove('show'), 3500); }
 </script>
 </body>
 </html>
