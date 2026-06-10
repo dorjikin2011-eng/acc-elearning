@@ -275,7 +275,9 @@
 /* ====== SUPABASE CONNECTION LAYER ====== */
 const SUPABASE_URL = 'https://ohmboguqkyhjtxjojqyz.supabase.co';
 const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im9obWJvZ3Vxa3loanR4am9qcXl6Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODA5NzkzNzcsImV4cCI6MjA5NjU1NTM3N30.j42iLYTHeMg4T7Da1cPbkBWrXvQ3PPdJgknE_n8pgDs';
-const supabaseClient = Supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+
+// Initialize supabaseClient with null, will be created once library is ready
+let supabaseClient = null;
 
 /* ====== GLOBAL STATE ====== */
 let currentLearner = null;
@@ -289,6 +291,17 @@ let currentProgress = {};
 
 /* ====== INITIALIZATION ====== */
 async function initializeApp() {
+  // Check if supabase library is loaded via CDN
+  if (typeof supabase === 'undefined' && typeof Supabase === 'undefined') {
+    console.error("Supabase library not loaded. Retrying in 500ms...");
+    setTimeout(initializeApp, 500);
+    return;
+  }
+
+  // Create the client using the correct global object name
+  const createClient = (typeof supabase !== 'undefined') ? supabase.createClient : Supabase.createClient;
+  supabaseClient = createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+
   const { data: modules, error: modError } = await supabaseClient
     .from('modules')
     .select('id, module_number, title, subtitle')
@@ -318,12 +331,20 @@ async function initializeApp() {
 window.addEventListener('DOMContentLoaded', initializeApp);
 
 /* ====== DATABASE HELPERS ====== */
+async function ensureClient() {
+  if (!supabaseClient) {
+    await initializeApp();
+  }
+}
+
 async function loadLearners() {
+  await ensureClient();
   const { data, error } = await supabaseClient.from('learners').select('*');
   return error ? [] : data;
 }
 
 async function loadAllProgress() {
+  await ensureClient();
   const { data, error } = await supabaseClient.from('progress').select('*');
   if (error) return {};
   return data.reduce((acc, curr) => {
@@ -333,18 +354,21 @@ async function loadAllProgress() {
 }
 
 async function getLearnerProgress(id) {
+  await ensureClient();
   const { data, error } = await supabaseClient.from('progress').select('*').eq('learner_id', id).maybeSingle();
   if (data) return { currentMod: data.current_mod, currentSlide: data.current_slide, quizScores: data.quiz_scores || {}, completedMods: data.completed_mods || [], pct: data.pct || 0, completedAt: data.completed_at, lastSeen: data.last_seen };
   return { currentMod: 0, currentSlide: 0, completedMods: [], quizScores: {}, completedAt: null, lastSeen: null, pct: 0 };
 }
 
 async function setLearnerProgress(id, prog) {
+  await ensureClient();
   const payload = { learner_id: id, current_mod: prog.currentMod, current_slide: prog.currentSlide, quiz_scores: prog.quizScores, completed_mods: prog.completedMods, pct: prog.pct || 0, completed_at: prog.completedAt, last_seen: new Date().toISOString() };
   await supabaseClient.from('progress').upsert(payload, { onConflict: 'learner_id' });
 }
 
 /* ====== AUTHENTICATION LAYER ====== */
 async function registerLearner(){
+  await ensureClient();
   const fname=v('reg-fname'),lname=v('reg-lname'),email=v('reg-email'),org=v('reg-org'),role=v('reg-role'),dzong=v('reg-dzong'),phone=v('reg-phone'),pin=v('reg-pin');
   let ok=true;
   const fe=s=>document.getElementById(s);
@@ -374,6 +398,7 @@ async function registerLearner(){
 }
 
 async function loginLearner(){
+  await ensureClient();
   const email=v('login-email').toLowerCase(), pin=v('login-pin');
   const { data, error } = await supabaseClient.from('learners').select('*').eq('email', email).eq('pin', pin).maybeSingle();
   
@@ -388,6 +413,7 @@ async function loginLearner(){
 }
 
 async function attemptAdminLogin() {
+  await ensureClient();
   const email = prompt("Admin Email:");
   const pin = prompt("Admin PIN:");
   if (!email || !pin) return;
@@ -676,6 +702,7 @@ function nextQuizQ(key, slideId) {
 let cacheLearners = [], cacheProgress = {};
 
 async function renderAdmin() {
+  await ensureClient();
   cacheLearners = await loadLearners();
   cacheProgress = await loadAllProgress();
   
@@ -740,6 +767,7 @@ function renderCompletionsTable() {
 }
 
 async function deleteLearner(id){
+  await ensureClient();
   if(!confirm('Permanently remove this record?')) return;
   await supabaseClient.from('learners').delete().eq('id', id);
   await supabaseClient.from('progress').delete().eq('learner_id', id);
