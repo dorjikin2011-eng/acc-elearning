@@ -624,7 +624,6 @@ function handleTargetClick(targetIdx) {
   }
 }
 
-// Renamed from ds, do, dl, dp to avoid JS reserved keyword conflicts
 function handleDragStart(e){ e.dataTransfer.setData("text", e.target.id); }
 function handleDragOver(e){ e.preventDefault(); e.currentTarget.classList.add('over'); }
 function handleDragLeave(e){ e.currentTarget.classList.remove('over'); }
