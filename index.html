@@ -44,7 +44,8 @@
   tr:last-child td{border-bottom:none}
   .badge{display:inline-block;font-size:10px;padding:2px 8px;border-radius:20px;font-weight:500}
   .badge-green{background:#eaf3de;color:#3b6d11}
-  .admin-tabs{display:flex;gap:6px;margin-bottom:1rem}
+  .badge-blue{background:#e6f1fb;color:#185fa5}
+  .admin-tabs{display:flex;gap:6px;margin-bottom:1rem;flex-wrap:wrap}
   .admin-tab{padding:6px 14px;border-radius:8px 8px 0 0;border:0.5px solid #e2e8f0;background:#edf2f7;color:#4a5568;font-size:12px;cursor:pointer;border-bottom:none}
   .admin-tab.active{background:#fff;color:#c8960a;font-weight:500}
   .admin-panel{display:none}.admin-panel.active{display:block}
@@ -238,6 +239,14 @@
       </div>
       <div class="prog-wrap"><div class="prog-fill" id="prog"></div></div>
       <div class="prog-label" id="prog-label">0% complete</div>
+      
+      <!-- VOICE INSTRUCTIONS UI -->
+      <div class="voice-controls" style="display:flex;gap:8px;margin-top:12px;align-items:center;background:rgba(255,255,255,0.15);padding:8px 12px;border-radius:8px;">
+        <button class="btn btn-sm" id="voice-play" onclick="playVoiceInstruction()" style="background:#fff;color:#c8960a;border:none;font-size:11px;"><i class="ti ti-volume-2"></i> Listen</button>
+        <button class="btn btn-sm" id="voice-stop" onclick="stopVoiceInstruction()" style="display:none;background:#fff;color:#a32d2d;border:none;font-size:11px;"><i class="ti ti-player-stop"></i> Stop</button>
+        <input type="range" id="voice-speed" min="0.5" max="2" step="0.1" value="1" style="width:100px" onchange="updateVoiceSpeed(this.value)" />
+        <span style="font-size:11px;color:#fff">Speed</span>
+      </div>
     </div>
     <div class="nav-tabs" id="nav-tabs"></div>
     <div id="content-area"></div>
@@ -254,6 +263,7 @@
       <button class="admin-tab active" id="tab-lnk-learners" onclick="adminTab('learners')">Enrolled Learners</button>
       <button class="admin-tab" id="tab-lnk-progress" onclick="adminTab('progress')">Progress Tracker</button>
       <button class="admin-tab" id="tab-lnk-completions" onclick="adminTab('completions')">Completions</button>
+      <button class="admin-tab" id="tab-lnk-course" onclick="adminTab('course')">Course Management</button>
     </div>
     <div class="admin-panel active card" id="panel-learners">
       <div class="search-bar">
@@ -268,6 +278,20 @@
     <div class="admin-panel card" id="panel-completions">
       <div class="table-wrap" id="admin-completions-table"></div>
     </div>
+    <div class="admin-panel card" id="panel-course">
+      <h3 style="margin-bottom:10px;font-size:14px;">Manage Modules & Slides</h3>
+      <div id="admin-course-modules"></div>
+      
+      <!-- JSON Editor for Slides -->
+      <div id="admin-slide-editor" style="display:none; margin-top:20px; border-top:1px solid #e2e8f0; padding-top:15px;">
+        <h4 style="font-size:13px;margin-bottom:8px;">Edit Slide Content (JSON)</h4>
+        <textarea id="slide-json-editor" style="width:100%;height:250px;font-family:monospace;font-size:12px;padding:8px;border:0.5px solid #cbd5e0;border-radius:8px;"></textarea>
+        <div style="margin-top:10px;display:flex;gap:8px;">
+          <button class="btn btn-gold btn-sm" onclick="saveSlideJSON()">Save Changes</button>
+          <button class="btn btn-sm" onclick="document.getElementById('admin-slide-editor').style.display='none'">Cancel</button>
+        </div>
+      </div>
+    </div>
   </div>
 </div>
 
@@ -275,9 +299,7 @@
 /* ====== SUPABASE CONNECTION LAYER ====== */
 const SUPABASE_URL = 'https://ohmboguqkyhjtxjojqyz.supabase.co';
 const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im9obWJvZ3Vxa3loanR4am9qcXl6Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODA5NzkzNzcsImV4cCI6MjA5NjU1NTM3N30.j42iLYTHeMg4T7Da1cPbkBWrXvQ3PPdJgknE_n8pgDs';
-
-// Initialize supabaseClient with null, will be created once library is ready
-let supabaseClient = null;
+const supabase = Supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 
 /* ====== GLOBAL STATE ====== */
 let currentLearner = null;
@@ -291,18 +313,7 @@ let currentProgress = {};
 
 /* ====== INITIALIZATION ====== */
 async function initializeApp() {
-  // Check if supabase library is loaded via CDN
-  if (typeof supabase === 'undefined' && typeof Supabase === 'undefined') {
-    console.error("Supabase library not loaded. Retrying in 500ms...");
-    setTimeout(initializeApp, 500);
-    return;
-  }
-
-  // Create the client using the correct global object name
-  const createClient = (typeof supabase !== 'undefined') ? supabase.createClient : Supabase.createClient;
-  supabaseClient = createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
-
-  const { data: modules, error: modError } = await supabaseClient
+  const { data: modules, error: modError } = await supabase
     .from('modules')
     .select('id, module_number, title, subtitle')
     .eq('is_published', true)
@@ -311,7 +322,7 @@ async function initializeApp() {
   if (modError) { console.error("Failed to load modules", modError); return; }
 
   const moduleIds = modules.map(m => m.id);
-  const { data: slides, error: slideError } = await supabaseClient
+  const { data: slides, error: slideError } = await supabase
     .from('slides')
     .select('id, module_id, slide_order, slide_type, content')
     .in('module_id', moduleIds)
@@ -331,21 +342,13 @@ async function initializeApp() {
 window.addEventListener('DOMContentLoaded', initializeApp);
 
 /* ====== DATABASE HELPERS ====== */
-async function ensureClient() {
-  if (!supabaseClient) {
-    await initializeApp();
-  }
-}
-
 async function loadLearners() {
-  await ensureClient();
-  const { data, error } = await supabaseClient.from('learners').select('*');
+  const { data, error } = await supabase.from('learners').select('*');
   return error ? [] : data;
 }
 
 async function loadAllProgress() {
-  await ensureClient();
-  const { data, error } = await supabaseClient.from('progress').select('*');
+  const { data, error } = await supabase.from('progress').select('*');
   if (error) return {};
   return data.reduce((acc, curr) => {
     acc[curr.learner_id] = curr;
@@ -354,21 +357,18 @@ async function loadAllProgress() {
 }
 
 async function getLearnerProgress(id) {
-  await ensureClient();
-  const { data, error } = await supabaseClient.from('progress').select('*').eq('learner_id', id).maybeSingle();
+  const { data, error } = await supabase.from('progress').select('*').eq('learner_id', id).maybeSingle();
   if (data) return { currentMod: data.current_mod, currentSlide: data.current_slide, quizScores: data.quiz_scores || {}, completedMods: data.completed_mods || [], pct: data.pct || 0, completedAt: data.completed_at, lastSeen: data.last_seen };
   return { currentMod: 0, currentSlide: 0, completedMods: [], quizScores: {}, completedAt: null, lastSeen: null, pct: 0 };
 }
 
 async function setLearnerProgress(id, prog) {
-  await ensureClient();
   const payload = { learner_id: id, current_mod: prog.currentMod, current_slide: prog.currentSlide, quiz_scores: prog.quizScores, completed_mods: prog.completedMods, pct: prog.pct || 0, completed_at: prog.completedAt, last_seen: new Date().toISOString() };
-  await supabaseClient.from('progress').upsert(payload, { onConflict: 'learner_id' });
+  await supabase.from('progress').upsert(payload, { onConflict: 'learner_id' });
 }
 
 /* ====== AUTHENTICATION LAYER ====== */
 async function registerLearner(){
-  await ensureClient();
   const fname=v('reg-fname'),lname=v('reg-lname'),email=v('reg-email'),org=v('reg-org'),role=v('reg-role'),dzong=v('reg-dzong'),phone=v('reg-phone'),pin=v('reg-pin');
   let ok=true;
   const fe=s=>document.getElementById(s);
@@ -383,7 +383,7 @@ async function registerLearner(){
   if(!ok) return;
 
   const payload = { id: 'acc_'+Date.now(), fname, lname, email: email.toLowerCase(), org, role, dzong, phone, pin, is_admin: false };
-  const { error } = await supabaseClient.from('learners').insert([payload]);
+  const { error } = await supabase.from('learners').insert([payload]);
   
   if (error) {
     const feGen = fe('reg-err-general');
@@ -398,9 +398,8 @@ async function registerLearner(){
 }
 
 async function loginLearner(){
-  await ensureClient();
   const email=v('login-email').toLowerCase(), pin=v('login-pin');
-  const { data, error } = await supabaseClient.from('learners').select('*').eq('email', email).eq('pin', pin).maybeSingle();
+  const { data, error } = await supabase.from('learners').select('*').eq('email', email).eq('pin', pin).maybeSingle();
   
   if (error || !data || data.is_admin) {
     document.getElementById('login-err').style.display='block';
@@ -413,12 +412,11 @@ async function loginLearner(){
 }
 
 async function attemptAdminLogin() {
-  await ensureClient();
   const email = prompt("Admin Email:");
   const pin = prompt("Admin PIN:");
   if (!email || !pin) return;
   
-  const { data, error } = await supabaseClient.from('learners').select('*').eq('email', email.toLowerCase().trim()).eq('pin', pin).eq('is_admin', true).maybeSingle();
+  const { data, error } = await supabase.from('learners').select('*').eq('email', email.toLowerCase().trim()).eq('pin', pin).eq('is_admin', true).maybeSingle();
   
   if (data) {
     currentLearner = data;
@@ -587,6 +585,7 @@ function renderSlide() {
   html += `</div>`;
 
   out.innerHTML = html;
+  initializeVoiceForSlide(); // Initialize voice for the new slide
 }
 
 function prevSlide(){ if(currentSlide > 0) { currentSlide--; renderSlide(); } }
@@ -698,11 +697,78 @@ function nextQuizQ(key, slideId) {
   renderSlide();
 }
 
+/* ====== VOICE INSTRUCTIONS (Web Speech API) ====== */
+let currentVoiceUtterance = null;
+let voiceSettings = { voice_text: '', voice_rate: 1, voice_pitch: 1, voice_language: 'en-US' };
+
+async function initializeVoiceForSlide() {
+  const slide = MODULES[currentMod].slides[currentSlide];
+  const { data } = await supabase.from('voice_settings').select('*').eq('slide_id', slide.id).maybeSingle();
+  
+  if (data && data.voice_text) {
+    voiceSettings = data;
+  } else {
+    voiceSettings.voice_text = generateVoiceText(slide);
+  }
+  document.getElementById('voice-play').style.display = 'inline-flex';
+  document.getElementById('voice-stop').style.display = 'none';
+}
+
+function generateVoiceText(slide) {
+  let text = '';
+  if (slide.type === 'intro') text = `${slide.content.heading}. ${slide.content.intro}`;
+  else if (slide.type === 'concepts') text = slide.content.items.map(i => `${i.term}. ${i.def}`).join('. ');
+  else if (slide.type === 'corruption-def' || slide.type === 'acab-offenses') {
+     const items = slide.content.types || slide.content.offenses;
+     text = `${slide.content.heading}. ${slide.content.def || slide.content.intro}. ` + items.map(i => `${i.name}. ${i.desc}`).join('. ');
+  }
+  else if (slide.type === 'text_list' || slide.type === 'code-of-conduct') {
+     const list = slide.content.items || slide.content.principles || [];
+     text = `${slide.content.heading}. ${slide.content.intro}. ` + list.join('. ');
+  }
+  else if (slide.type === 'quiz') text = "Knowledge Check. Please answer the following questions.";
+  else if (slide.type === 'drag_match') text = "Interactive Activity. Please match the terms with their definitions.";
+  else text = slide.content.heading || "Slide content.";
+  return text;
+}
+
+function playVoiceInstruction() {
+  if (!('speechSynthesis' in window)) return alert('Voice instructions are not supported in your browser.');
+  speechSynthesis.cancel();
+  currentVoiceUtterance = new SpeechSynthesisUtterance(voiceSettings.voice_text);
+  currentVoiceUtterance.rate = voiceSettings.voice_rate;
+  currentVoiceUtterance.pitch = voiceSettings.voice_pitch;
+  currentVoiceUtterance.lang = voiceSettings.voice_language;
+  
+  currentVoiceUtterance.onstart = () => {
+    document.getElementById('voice-play').style.display = 'none';
+    document.getElementById('voice-stop').style.display = 'inline-flex';
+  };
+  currentVoiceUtterance.onend = () => {
+    document.getElementById('voice-play').style.display = 'inline-flex';
+    document.getElementById('voice-stop').style.display = 'none';
+  };
+  speechSynthesis.speak(currentVoiceUtterance);
+}
+
+function stopVoiceInstruction() {
+  speechSynthesis.cancel();
+  document.getElementById('voice-play').style.display = 'inline-flex';
+  document.getElementById('voice-stop').style.display = 'none';
+}
+
+function updateVoiceSpeed(speed) {
+  voiceSettings.voice_rate = parseFloat(speed);
+  if (speechSynthesis.speaking) {
+    stopVoiceInstruction();
+    playVoiceInstruction();
+  }
+}
+
 /* ====== ADMINISTRATIVE CONTROL PANELS ====== */
 let cacheLearners = [], cacheProgress = {};
 
 async function renderAdmin() {
-  await ensureClient();
   cacheLearners = await loadLearners();
   cacheProgress = await loadAllProgress();
   
@@ -725,6 +791,7 @@ function adminTab(target) {
   document.querySelectorAll('.admin-panel').forEach(p => p.classList.remove('active'));
   document.getElementById(`tab-lnk-${target}`).classList.add('active');
   document.getElementById(`panel-${target}`).classList.add('active');
+  if(target === 'course') renderCourseManagement();
 }
 
 function triggerLearnerSearch() {
@@ -767,10 +834,9 @@ function renderCompletionsTable() {
 }
 
 async function deleteLearner(id){
-  await ensureClient();
   if(!confirm('Permanently remove this record?')) return;
-  await supabaseClient.from('learners').delete().eq('id', id);
-  await supabaseClient.from('progress').delete().eq('learner_id', id);
+  await supabase.from('learners').delete().eq('id', id);
+  await supabase.from('progress').delete().eq('learner_id', id);
   showToast('Learner record successfully purged.');
   await renderAdmin();
 }
@@ -787,6 +853,69 @@ function exportCSV(){
   a.download = 'acc_learners_' + new Date().toISOString().slice(0,10) + '.csv';
   a.click();
   showToast('Database analytics compiled and exported to CSV.');
+}
+
+/* ====== COURSE MANAGEMENT (Admin CMS) ====== */
+async function renderCourseManagement() {
+  const { data: modules } = await supabase.from('modules').select('*').order('module_number');
+  const container = document.getElementById('admin-course-modules');
+  
+  container.innerHTML = modules.map(m => `
+    <div class="card" style="padding:12px;margin-bottom:10px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px;">
+      <div>
+        <strong>${m.title}</strong> - ${m.subtitle}
+        <br><small>Status: ${m.is_published ? '<span style="color:green">Published</span>' : '<span style="color:orange">Draft</span>'}</small>
+      </div>
+      <div style="display:flex;gap:6px;">
+        <button class="btn btn-sm" onclick="toggleModulePublish('${m.id}', ${!m.is_published})">${m.is_published ? 'Unpublish' : 'Publish'}</button>
+        <button class="btn btn-gold btn-sm" onclick="viewModuleSlides('${m.id}')">Edit Slides</button>
+      </div>
+    </div>
+  `).join('');
+}
+
+async function toggleModulePublish(moduleId, newState) {
+  await supabase.from('modules').update({ is_published: newState, updated_at: new Date().toISOString() }).eq('id', moduleId);
+  showToast('Module status updated! Refresh the learner app to see changes.');
+  renderCourseManagement();
+}
+
+async function viewModuleSlides(moduleId) {
+  const { data: slides } = await supabase.from('slides').select('*').eq('module_id', moduleId).order('slide_order');
+  const container = document.getElementById('admin-course-modules');
+  
+  let html = `<button class="btn btn-sm" onclick="renderCourseManagement()" style="margin-bottom:10px;"><i class="ti ti-arrow-left"></i> Back to Modules</button>`;
+  html += slides.map(s => `
+    <div class="card" style="padding:10px;margin-bottom:8px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px;">
+      <div>
+        <strong>Slide ${s.slide_order}</strong> <span class="badge badge-blue">${s.slide_type}</span>
+        <br><small style="color:#718096">${JSON.stringify(s.content).substring(0, 80)}...</small>
+      </div>
+      <button class="btn btn-gold btn-sm" onclick="editSlide('${s.id}')">Edit JSON</button>
+    </div>
+  `).join('');
+  
+  container.innerHTML = html;
+}
+
+let currentEditingSlideId = null;
+async function editSlide(slideId) {
+  const { data } = await supabase.from('slides').select('*').eq('id', slideId).single();
+  currentEditingSlideId = slideId;
+  document.getElementById('slide-json-editor').value = JSON.stringify(data.content, null, 2);
+  document.getElementById('admin-slide-editor').style.display = 'block';
+}
+
+async function saveSlideJSON() {
+  try {
+    const newContent = JSON.parse(document.getElementById('slide-json-editor').value);
+    await supabase.from('slides').update({ content: newContent, updated_at: new Date().toISOString() }).eq('id', currentEditingSlideId);
+    showToast('Slide content updated successfully!');
+    document.getElementById('admin-slide-editor').style.display = 'none';
+    await initializeApp(); 
+  } catch (e) {
+    alert('Invalid JSON format. Please check your syntax and try again.');
+  }
 }
 
 function showToast(msg) {
