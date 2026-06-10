@@ -102,6 +102,7 @@
   .sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);border:0}
   .cert-wrap{text-align:center;padding:1.5rem 1rem;border:3px solid #c8960a;border-radius:16px}
   </style>
+<base target="_blank">
 </head>
 <body>
 
@@ -275,7 +276,7 @@
 /* ====== SUPABASE CONNECTION LAYER ====== */
 const SUPABASE_URL = 'https://ohmboguqkyhjtxjojqyz.supabase.co';
 const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im9obWJvZ3Vxa3loanR4am9qcXl6Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODA5NzkzNzcsImV4cCI6MjA5NjU1NTM3N30.j42iLYTHeMg4T7Da1cPbkBWrXvQ3PPdJgknE_n8pgDs';
-const supabase = Supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+const sbClient = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 
 /* ====== GLOBAL STATE ====== */
 let currentLearner = null;
@@ -289,7 +290,7 @@ let currentProgress = {};
 
 /* ====== INITIALIZATION ====== */
 async function initializeApp() {
-  const { data: modules, error: modError } = await supabase
+  const { data: modules, error: modError } = await sbClient
     .from('modules')
     .select('id, module_number, title, subtitle')
     .eq('is_published', true)
@@ -298,7 +299,7 @@ async function initializeApp() {
   if (modError) { console.error("Failed to load modules", modError); return; }
 
   const moduleIds = modules.map(m => m.id);
-  const { data: slides, error: slideError } = await supabase
+  const { data: slides, error: slideError } = await sbClient
     .from('slides')
     .select('id, module_id, slide_order, slide_type, content')
     .in('module_id', moduleIds)
@@ -319,12 +320,12 @@ window.addEventListener('DOMContentLoaded', initializeApp);
 
 /* ====== DATABASE HELPERS ====== */
 async function loadLearners() {
-  const { data, error } = await supabase.from('learners').select('*');
+  const { data, error } = await sbClient.from('learners').select('*');
   return error ? [] : data;
 }
 
 async function loadAllProgress() {
-  const { data, error } = await supabase.from('progress').select('*');
+  const { data, error } = await sbClient.from('progress').select('*');
   if (error) return {};
   return data.reduce((acc, curr) => {
     acc[curr.learner_id] = curr;
@@ -333,14 +334,14 @@ async function loadAllProgress() {
 }
 
 async function getLearnerProgress(id) {
-  const { data, error } = await supabase.from('progress').select('*').eq('learner_id', id).maybeSingle();
+  const { data, error } = await sbClient.from('progress').select('*').eq('learner_id', id).maybeSingle();
   if (data) return { currentMod: data.current_mod, currentSlide: data.current_slide, quizScores: data.quiz_scores || {}, completedMods: data.completed_mods || [], pct: data.pct || 0, completedAt: data.completed_at, lastSeen: data.last_seen };
   return { currentMod: 0, currentSlide: 0, completedMods: [], quizScores: {}, completedAt: null, lastSeen: null, pct: 0 };
 }
 
 async function setLearnerProgress(id, prog) {
   const payload = { learner_id: id, current_mod: prog.currentMod, current_slide: prog.currentSlide, quiz_scores: prog.quizScores, completed_mods: prog.completedMods, pct: prog.pct || 0, completed_at: prog.completedAt, last_seen: new Date().toISOString() };
-  await supabase.from('progress').upsert(payload, { onConflict: 'learner_id' });
+  await sbClient.from('progress').upsert(payload, { onConflict: 'learner_id' });
 }
 
 /* ====== AUTHENTICATION LAYER ====== */
@@ -359,7 +360,7 @@ async function registerLearner(){
   if(!ok) return;
 
   const payload = { id: 'acc_'+Date.now(), fname, lname, email: email.toLowerCase(), org, role, dzong, phone, pin, is_admin: false };
-  const { error } = await supabase.from('learners').insert([payload]);
+  const { error } = await sbClient.from('learners').insert([payload]);
   
   if (error) {
     const feGen = fe('reg-err-general');
@@ -375,7 +376,7 @@ async function registerLearner(){
 
 async function loginLearner(){
   const email=v('login-email').toLowerCase(), pin=v('login-pin');
-  const { data, error } = await supabase.from('learners').select('*').eq('email', email).eq('pin', pin).maybeSingle();
+  const { data, error } = await sbClient.from('learners').select('*').eq('email', email).eq('pin', pin).maybeSingle();
   
   if (error || !data || data.is_admin) {
     document.getElementById('login-err').style.display='block';
@@ -392,7 +393,7 @@ async function attemptAdminLogin() {
   const pin = prompt("Admin PIN:");
   if (!email || !pin) return;
   
-  const { data, error } = await supabase.from('learners').select('*').eq('email', email.toLowerCase().trim()).eq('pin', pin).eq('is_admin', true).maybeSingle();
+  const { data, error } = await sbClient.from('learners').select('*').eq('email', email.toLowerCase().trim()).eq('pin', pin).eq('is_admin', true).maybeSingle();
   
   if (data) {
     currentLearner = data;
@@ -741,8 +742,8 @@ function renderCompletionsTable() {
 
 async function deleteLearner(id){
   if(!confirm('Permanently remove this record?')) return;
-  await supabase.from('learners').delete().eq('id', id);
-  await supabase.from('progress').delete().eq('learner_id', id);
+  await sbClient.from('learners').delete().eq('id', id);
+  await sbClient.from('progress').delete().eq('learner_id', id);
   showToast('Learner record successfully purged.');
   await renderAdmin();
 }
