@@ -313,7 +313,6 @@
     </div>
   </div>
 </div>
-
 <script>
 /* ====== SUPABASE CONNECTION LAYER ====== */
 const SUPABASE_URL = 'https://ohmboguqkyhjtxjojqyz.supabase.co';
@@ -461,377 +460,185 @@ const MODULES=[
   {id:0,title:"Module 1",subtitle:"Ethics, Integrity & Professionalism",slides:[
     {type:"intro",content:{heading:"Module 1: Understanding Ethics, Integrity & Professionalism",intro:"In this module, you will learn the fundamental concepts that underpin responsible and sustainable practices in the Bhutanese construction industry.",topics:["Defining key terms","Forms of corruption","Significance in Bhutanese construction","Benefits of ethical practices"]}},
     {type:"concepts",content:{heading:"Defining key terms",items:[{term:"Ethics",def:"External rules or principles that govern professional conduct. Ethics dictates what is right or wrong and provides a framework for decision-making.",example:"Adhering to the Ethical Code of Conduct for Contractors and national laws."},{term:"Integrity",def:"An internal moral compass that guides decisions and actions — consistently adhering to strong moral principles, even when no one is watching.",example:"A contractor refuses to use substandard materials, even if it means lower profit."},{term:"Professionalism",def:"A combination of knowledge, skills, and behaviour that defines competence and high standards in a particular field.",example:"Delivering projects on time, within budget, and to technical specifications."}]}},
-    {type:"corruption-def",content:{heading:"What is corruption?",def:"Corruption is the abuse of entrusted power for private gain. The Anti-Corruption Act of Bhutan (ACAB) 2011 defines 35 specific corruption offenses — from bribery and embezzlement to abuse of functions and trading in influence.",types:[{name:"Bid Rigging",desc:"Contractors collude to pre-determine the winner of a bid, eliminating genuine competition and inflating project costs.",eg:"Four companies agree to rotate winning bids on road projects."},{name:"Bribery",desc:"Offering, giving, receiving, or soliciting something of value to influence an official in a public or legal duty.",eg:"Paying a site engineer to approve substandard concrete work."},{name:"Embezzlement",desc:"Fraudulent appropriation of funds or property entrusted to one's care for personal use.",eg:"A site engineer opens a fake company account and diverts project funds."},{name:"False Claims",desc:"Submitting invoices for work not performed, materials not supplied, or for inflated costs.",eg:"Claiming payment for 100 bags of cement when only 70 were used."},{name:"Abuse of Functions",desc:"A public official uses their position to provide an undue advantage to a particular contractor.",eg:"A public official awards a contract to a relative's company."}]}},
-    {type:"drag-match",content:{heading:"Activity: Match each term to its definition",terms:["Ethics","Integrity","Professionalism"],defs:["Rules governing professional conduct","Moral consistency in actions","Knowledge, skills, and behaviour"],answers:[0,1,2]}},
-    {type:"quiz",content:{questions:[{q:"What is the primary difference between ethics and integrity?",opts:["Ethics is internal; integrity is external","Ethics is external; integrity is internal","They mean the same thing","Ethics applies only to professionals"],ans:1,exp:"Ethics refers to external rules and principles, while integrity is an internal moral compass."},{q:"Which best defines professionalism in construction?",opts:["Winning the most government contracts","Using the cheapest materials to maximise profit","Delivering quality work with accountability and compliance","Hiring only family members for key roles"],ans:2,exp:"Professionalism means combining knowledge, skills, and behaviour to deliver quality work."},{q:"A competitor suggests: 'You win this one, I win the next.' What is this?",opts:["Healthy competition","Bid rigging (collusion)","Strategic partnership","Market regulation"],ans:1,exp:"This is bid rigging — contractors colluding to pre-determine the winner, a corruption offense under ACAB 2011."}]}}
-  ]},
-  {id:1,title:"Module 2",subtitle:"Legal Frameworks & Penalties",slides:[
-    {type:"intro",content:{heading:"Module 2: Legal Frameworks & Penalties",intro:"This module covers the legal and regulatory landscape governing construction professionals in Bhutan — the ACAB 2011, penalties for corruption, and the Ethical Code of Conduct for Contractors 2019.",topics:["Key offenses under ACAB 2011","Penalties for corruption","Ethical Code of Conduct for Contractors 2019"]}},
-    {type:"acab-offenses",content:{heading:"ACAB 2011 — Key offenses",intro:"The Anti-Corruption Act of Bhutan (ACAB) 2011 is the primary legal instrument. It defines 35 offenses. Key ones for construction include:",offenses:[{name:"Bribery",desc:"Offering, giving, soliciting, or accepting bribes or undue influence.",eg:"Paying an official to win a contract."},{name:"Embezzlement",desc:"Fraudulent misuse of entrusted property or funds.",eg:"Diverting project payments to personal accounts."},{name:"Abuse of Functions",desc:"Using an official position for private gain, in violation of laws, rules, or procedures.",eg:"Awarding a contract to a relative's firm."},{name:"Failure to Declare Conflict of Interest",desc:"Hiding personal, financial, or relational interests that could improperly influence official duties.",eg:"A procurement officer fails to declare their relative owns a bidding firm."},{name:"False Claims",desc:"Colluding with public servants to submit false claims.",eg:"Billing for unused materials or inflated quantities."}]}},
-    {type:"penalties",content:{heading:"Penalties under ACAB 2011",penalties:[{icon:"⚖️",label:"Restitution",desc:"Required to repay all ill-gotten gains"},{icon:"🔒",label:"Imprisonment",desc:"Up to several years depending on offense"},{icon:"🚫",label:"Debarment",desc:"Banned from public procurement (1–5 years or permanent)"},{icon:"❌",label:"Contract cancellation",desc:"Immediate termination of the project"}]}},
-    {type:"code-of-conduct",content:{heading:"Ethical Code of Conduct for Contractors 2019",intro:"This code provides specific guidelines for ethical behaviour within the construction industry, emphasising:",principles:["Honesty in carrying out responsibilities","Compliance with laws and regulations","Respect for the individual and community","Importance of quality, skills, and standards","Importance of safety and health","Importance of environmental preservation"]}},
-    {type:"quiz",content:{questions:[{q:"Which offense applies to a contractor who pays an official to influence a bid decision?",opts:["Embezzlement","Bribery","False Claims","Money Laundering"],ans:1,exp:"Paying an official to win a contract is bribery — a key offense under ACAB 2011."},{q:"A BHU collapsed due to substandard materials. The site engineer was bribed to falsify documents. Which ACAB offenses were committed?",scenario:"A BHU collapsed during the 2009 earthquake because the contractor used unseasoned timber and ordinary sand. The site engineer was bribed to prepare cost estimates and bills in the contractor's favour.",opts:["Bribery only","Bribery and False Claims","Bribery, Abuse of Functions, and False Claims","None of the above"],ans:2,exp:"Bribery (paying the engineer), abuse of functions (engineer misusing their role), and false claims (falsified documents)."}]}}
-  ]},
-  {id:2,title:"Module 3",subtitle:"Individual & Organisational Responsibilities",slides:[
-    {type:"intro",content:{heading:"Module 3: Individual & Organisational Responsibilities",intro:"This module explores the crucial roles individuals and organisations play in fostering a corruption-free environment.",topics:["The 3R Framework: Refrain, Resist, Report","Types of Conflict of Interest","Mitigation strategies","Gift prohibition under the Gift Rule 2017"]}},
-    {type:"three-r",content:{heading:"The 3R Framework",items:[{label:"Refrain",color:"rr-refrain",desc:"Proactively avoid corrupt practices.",points:["Avoid giving bribes or gratifications to public officials","Ensure quality and compliance in all work","Uphold financial integrity at all times"]},{label:"Resist",color:"rr-resist",desc:"Actively resist attempts to involve you in corrupt activities.",points:["Resist solicitation of bribes","Reject illegal work instructions","Avoid collusion with other contractors"]},{label:"Report",color:"rr-report",desc:"Report any observed or suspected corrupt practices to the ACC.",points:["Call: +975-02-322987","Email: complaint@acc.org.bt","WhatsApp: +975 17123412","Web: www.acc.org.bt"]}]}},
-    {type:"coi",content:{heading:"Managing Conflict of Interest",intro:"A conflict of interest arises when an individual or organisation has competing interests that could compromise objectivity and lead to unethical decisions.",types:[{name:"Potential CoI",desc:"A possibility that personal interest could influence an official duty, even if it hasn't happened yet.",eg:"A contractor's spouse works in a public agency where the contractor intends to submit a bid."},{name:"Perceived CoI",desc:"A reasonable person might believe private interests could influence official duties.",eg:"The contractor bids to an agency where their spouse works, even if the spouse is not on the Tender Committee."},{name:"Actual CoI",desc:"A direct conflict where personal interest directly influences or appears to influence an official duty.",eg:"The contractor's spouse is on the Tender Committee and fails to declare their CoI."}],strategies:["Declare interests transparently to all relevant parties","Recuse yourself — withdraw from decision-making if a CoI exists","Establish clear internal company policies on CoI for all employees"]}},
-    {type:"drag-coi",content:{heading:"Activity: Classify each scenario by CoI type",terms:["Actual CoI","Perceived CoI","Potential CoI"],defs:["A project manager awards a contract to his brother's firm","A contractor bids where his wife works","An engineer plans to start a construction firm while still employed"],answers:[0,1,2]}},
-    {type:"quiz",content:{questions:[{q:"A site engineer discovers their family friend (the contractor) is using substandard cement. What ethical dilemma is this?",opts:["Justice vs. Mercy","Truth vs. Loyalty","Individual vs. Community","Short-term vs. Long-term"],ans:1,exp:"Truth vs. Loyalty — reporting upholds truth but may harm the friendship; staying silent is loyal but unethical."},{q:"Which is NOT a recommended mitigation strategy for a conflict of interest?",opts:["Declaring your interests transparently","Recusing yourself from the relevant decision","Staying involved to ensure a fair outcome","Establishing a clear internal CoI policy"],ans:2,exp:"Staying involved when a CoI exists risks unethical outcomes. You must recuse yourself."}]}}
-  ]},
-  {id:3,title:"Module 4",subtitle:"Ethical Dilemmas & Decision-Making",slides:[
-    {type:"intro",content:{heading:"Module 4: Ethical Dilemmas & Decision-Making",intro:"Construction professionals often face complex situations where two or more ethical values conflict. Kidder's Four Dilemmas and practical ethical tests help navigate these situations.",topics:["Kidder's four ethical dilemmas","The Sunshine Test","The Legal Test","The Publicity Test"]}},
-    {type:"dilemmas",content:{heading:"Kidder's four ethical dilemmas",dilemmas:[{title:"1. Truth vs. Loyalty",desc:"Choosing between honesty and loyalty to a person, group, or organisation.",a:"Truth: Report the issue — which may lead to penalties for the contractor.",b:"Loyalty: Stay silent to protect the friend's business and relationship.",eg:"A site engineer discovers their long-time friend (the contractor) is using substandard cement."},{title:"2. Justice vs. Mercy",desc:"Choosing between fairness and compassion.",a:"Justice: Impose the contractual penalty for late completion.",b:"Mercy: Waive the penalty — the delay was caused by a natural disaster.",eg:"A contractor misses a project deadline due to delays from a natural disaster."},{title:"3. Individual vs. Community",desc:"Pitting personal interests against the interests of the larger community.",a:"Individual: The worker maximises personal earnings.",b:"Community: Other workers' safety and the project's reputation are at risk.",eg:"A worker refuses safety protocols, arguing they slow down work and reduce daily wages."},{title:"4. Short-term vs. Long-term",desc:"Immediate gratification versus long-term consequences.",a:"Short-term: Low-cost materials reduce expenses and increase profit.",b:"Long-term: The building deteriorates faster — costly repairs and safety risks follow.",eg:"A contractor considers using uncertified, cheaper materials to save money."}]}},
-    {type:"ethical-tests",content:{heading:"Ethical tests to guide your decision",tests:[{name:"Sunshine Test",desc:"Would I be comfortable if my actions were published on the front page of Kuensel or broadcast on BBS TV? This encourages transparency and accountability."},{name:"Legal Test",desc:"Is this action legal? Does it violate any laws, regulations, or policies? Illegal actions are by definition unethical and carry severe consequences."},{name:"Publicity Test",desc:"Would I be comfortable explaining my decision to my family, friends, colleagues, or the public? This encourages self-reflection."}]}},
-    {type:"quiz",content:{questions:[{q:"You are building a community school on a tight schedule. The specified cement is out of stock. A local supplier offers cheaper, uncertified cement. The local official hints at wanting a 'token of gratitude' for flexibility. What ethical dilemmas do you face?",scenario:"Scenario: Tight schedule, uncertified cement on offer, local official hinting at a bribe for flexibility.",opts:["Deadline pressure vs. commitment to quality","Temptation to save costs vs. risk of substandard materials","Implicit suggestion of bribery from local official","All of the above"],ans:3,exp:"All three dilemmas apply simultaneously: short-term vs. long-term, individual vs. community, and a clear bribery situation."},{q:"Which ethical test asks: 'Would I be comfortable if my actions were published in Kuensel?'",opts:["The Legal Test","The Publicity Test","The Sunshine Test","The Fairness Test"],ans:2,exp:"The Sunshine Test uses Bhutan's national newspaper, Kuensel, or BBS TV as the benchmark for transparency."},{q:"A public official approves a substandard road project to avoid conflict with a powerful contractor. Which dilemma is this?",opts:["Justice vs. Mercy","Truth vs. Loyalty","Short-term vs. Long-term","Individual vs. Community"],ans:1,exp:"Choosing loyalty to the contractor over the duty to enforce standards is Truth vs. Loyalty."}]}}
-  ]},
-  {id:4,title:"Module 5",subtitle:"Promoting Professionalism & Best Practices",slides:[
-    {type:"intro",content:{heading:"Module 5: Promoting Professionalism & Best Practices",intro:"This final module brings together ethical principles, legal frameworks, and professional responsibilities into practical strategies for the Bhutanese construction industry.",topics:["3-step risk management","Best practices for integrity","Building an ethical culture"]}},
-    {type:"risk-mgmt",content:{heading:"3 steps of risk management",steps:[{num:"1",label:"Identify risks",items:["Use of substandard materials","Safety violations at worksites","Collusion in bidding / unfair competition","Budget mismanagement or inflated bills","Environmental damage during projects"]},{num:"2",label:"Assess controls",items:["Are procurement rules being followed?","Is quality testing of materials done regularly?","Are safety trainings and equipment provided?","Are financial transactions transparent and recorded?"]},{num:"3",label:"Mitigate risks",items:["Strengthen monitoring and audits","Ensure independent quality checks","Adopt digital procurement systems for transparency","Enforce safety compliance and penalties"]}]}},
-    {type:"best-practices",content:{heading:"Best practices to promote integrity",practices:[{icon:"ti-certificate",title:"Quality control",desc:"Regular testing of materials and third-party verification of work completed."},{icon:"ti-scale",title:"Fair bidding",desc:"Open, transparent tendering processes free from collusion."},{icon:"ti-receipt",title:"Transparent finances",desc:"Proper documentation, accurate billing, and regular audits."},{icon:"ti-calendar-check",title:"Timely completion",desc:"Realistic planning, efficient supervision, and honest progress reporting."},{icon:"ti-users",title:"Ethical leadership",desc:"Declaring conflicts of interest, refusing bribery, and promoting accountability throughout the organisation."}]}},
-    {type:"quiz",content:{questions:[{q:"Which of the following are risks in construction projects?",opts:["Substandard materials only","Transparent procurement rules","Substandard materials, safety violations, and inflated billing","Safety violations and environmental damage only"],ans:2,exp:"Construction projects face multiple risks: substandard materials, safety violations, collusion, budget mismanagement, and environmental damage. Transparent procurement is a control, not a risk."},{q:"A contractor repeatedly delays a rural school project, citing material shortages. Investigations reveal diversion of funds. Which ACAB offense is most likely?",opts:["Bid rigging","Embezzlement","Abuse of functions","Failure to declare CoI"],ans:1,exp:"Diverting project funds for personal use is embezzlement — the fraudulent appropriation of funds entrusted to one's care."},{q:"Which best describes an effective risk mitigation strategy?",opts:["Only the project manager reviews financial records","Strengthening monitoring, independent quality checks, and digital procurement","Reducing safety training to keep costs low","Allowing contractors to self-report on material quality"],ans:1,exp:"Effective mitigation combines strengthened monitoring, independent quality checks, and transparent digital procurement."}]}}
+    {type:"corruption-def",content:{heading:"What is corruption?",def:"Corruption is the abuse of entrusted power for private gain. The Anti-Corruption Act of Bhutan (ACAB) 2011 defines 35 specific corruption offenses.",types:[{name:"Bid Rigging",desc:"Contractors collude to pre-determine the winner of a bid, eliminating genuine competition and inflating project costs.",eg:"Four companies agree to rotate winning bids on road projects."},{name:"Bribery",desc:"Offering, giving, receiving, or soliciting something of value to influence an official in a public or legal duty.",eg:"Paying a site engineer to approve substandard concrete work."}]}},
+    {type:"quiz",content:{questions:[{q:"What is the primary difference between ethics and integrity?",opts:["Ethics is internal; integrity is external","Ethics is external; integrity is internal","They mean the same thing","Ethics applies only to professionals"],ans:1,exp:"Ethics refers to external rules and principles, while integrity is an internal moral compass."}]}}
   ]}
 ];
 
-/* ====== PLATFORM COURSE ENGINE FUNCTIONALITY ====== */
-let completedMods = new Set();
-
+/* ====== LEARNER APP RUNTIME ENGINE ====== */
 async function startCourse(){
+  showScreen('screen-course');
   const prog = await getLearnerProgress(currentLearner.id);
   currentMod = prog.currentMod || 0;
   currentSlide = prog.currentSlide || 0;
-  quizState = prog.quizScores || {};
-  completedMods = new Set(prog.completedMods || []);
-  
-  document.getElementById('learner-greeting').textContent =
-    currentLearner.fname+' '+currentLearner.lname+' · '+currentLearner.org+' · '+currentLearner.role;
-  
-  await showScreen('screen-course');
-  renderTabs(); 
-  renderSlide(); 
-  await updateProgress();
-}
-
-async function saveCourseProgress(){
-  if(!currentLearner) return;
-  const totalSlides = getTotalSlides();
-  const doneSlides = getDoneSlides();
-  const calculatedPct = Math.round((doneSlides / totalSlides) * 100);
-
-  const prog = {
-    currentMod, 
-    currentSlide,
-    quizScores: quizState, 
-    pct: calculatedPct,
-    completedMods: Array.from(completedMods),
-    completedAt: (currentMod === MODULES.length - 1 && currentSlide === MODULES[currentMod].slides.length - 1) ? new Date().toISOString() : null
-  };
-  await setLearnerProgress(currentLearner.id, prog);
-}
-
-function getTotalSlides(){return MODULES.reduce((a,m)=>a+m.slides.length,0);}
-function getDoneSlides(){
-  return MODULES.slice(0,currentMod).reduce((a,m)=>a+m.slides.length,0)+currentSlide;
-}
-
-async function updateProgress(){
-  const pct = Math.round((getDoneSlides()/getTotalSlides())*100);
-  document.getElementById('prog').style.width=pct+'%';
-  document.getElementById('prog-label').textContent=pct+'% complete · Progress auto-saved';
-  await saveCourseProgress();
+  renderTabs();
+  renderSlide();
 }
 
 function renderTabs(){
-  document.getElementById('nav-tabs').innerHTML=MODULES.map((m,i)=>`
-    <button class="tab-btn ${i===currentMod?'active':''} ${completedMods.has(i)?'done':''} ${i>currentMod&&!completedMods.has(i)?'locked':''}"
-      onclick="${i<=currentMod||completedMods.has(i)?`goMod(${i})`:'void(0)'}">${m.title}</button>
-  `).join('');
+  const wrap = document.getElementById('nav-tabs');
+  wrap.innerHTML = MODULES.map((m,idx)=>{
+    let cls = 'tab-btn';
+    if(idx === currentMod) cls += ' active';
+    return `<button class="${cls}" onclick="switchModule(${idx})">${m.title}</button>`;
+  }).join('');
 }
 
-async function goMod(i){
-  if(i>currentMod && !completedMods.has(i)) return;
-  currentMod=i; currentSlide=0; quizState={};
-  renderTabs(); renderSlide(); await updateProgress();
+function switchModule(idx){
+  currentMod = idx; currentSlide = 0;
+  renderTabs(); renderSlide();
 }
 
-async function nextSlide(){
-  const mod=MODULES[currentMod];
-  if(currentSlide<mod.slides.length-1){currentSlide++; renderSlide(); await updateProgress();}
-}
-
-async function prevSlide(){
-  if(currentSlide>0){currentSlide--; renderSlide(); await updateProgress();}
-}
-
-async function nextMod(){
-  completedMods.add(currentMod);
-  currentMod++; currentSlide=0; quizState={};
-  renderTabs(); renderSlide(); await updateProgress();
-  showToast('Module '+(currentMod)+' unlocked!');
-}
-
-async function completeCourse(){
-  completedMods.add(currentMod);
-  await saveCourseProgress();
-  await showCert();
-}
-
-function renderSlide(){
-  const mod=MODULES[currentMod], slide=mod.slides[currentSlide];
-  const isLast=currentSlide===mod.slides.length-1;
-  const isLastMod=currentMod===MODULES.length-1;
-  document.getElementById('content-area').innerHTML=`<div class="card">
-    <div class="slide-header">${mod.title} · ${mod.subtitle} · Slide ${currentSlide+1} of ${mod.slides.length}</div>
-    ${renderSlideContent(slide)}
-    <div class="nav-btns">
-      ${currentSlide>0?'<button class="btn" onclick="prevSlide()"><i class="ti ti-arrow-left" aria-hidden="true"></i> Back</button>':''}
-      ${isLast&&isLastMod?'<button class="btn btn-gold" onclick="completeCourse()"><i class="ti ti-trophy" aria-hidden="true"></i> Complete course</button>':''}
-      ${isLast&&!isLastMod?'<button class="btn btn-gold" onclick="nextMod()">Next module <i class="ti ti-arrow-right" aria-hidden="true"></i></button>':''}
-      ${!isLast?'<button class="btn btn-gold" onclick="nextSlide()">Continue <i class="ti ti-arrow-right" aria-hidden="true"></i></button>':''}
-    </div>
-  </div>`;
-  initDrag();
-}
-
-function renderSlideContent(slide){
-  const t=slide.type, c=slide.content;
-  if(t==='intro') return`<div style="font-size:15px;font-weight:500;color:#c8960a;margin-bottom:6px">${c.heading}</div><div class="module-intro">${c.intro}</div><div style="background:#edf2f7;border-radius:10px;padding:12px">${c.topics.map(x=>`<div style="display:flex;align-items:center;gap:8px;padding:3px 0;font-size:12px"><i class="ti ti-circle-check" style="color:#c8960a" aria-hidden="true"></i>${x}</div>`).join('')}</div>`;
-  if(t==='concepts') return`<div class="module-title">${c.heading}</div><div class="concept-grid">${c.items.map(i=>`<div class="concept-card"><h3>${i.term}</h3><p>${i.def}</p><div class="example">Example: ${i.example}</div></div>`).join('')}</div>`;
-  if(t==='corruption-def') return`<div class="module-title">${c.heading}</div><div class="card-gold card" style="font-size:12px;margin-bottom:1rem">${c.def}</div>${c.types.map(t=>`<div class="corruption-type"><h4>${t.name}</h4><p>${t.desc}</p><div class="eg">Example: ${t.eg}</div></div>`).join('')}`;
-  if(t==='acab-offenses') return`<div class="module-title">${c.heading}</div><div class="card-gold card" style="font-size:12px;margin-bottom:1rem">${c.intro}</div>${c.offenses.map(o=>`<div class="corruption-type"><h4>${o.name}</h4><p>${o.desc}</p><div class="eg">Example: ${o.eg}</div></div>`).join('')}`;
-  if(t==='penalties') return`<div class="module-title">${c.heading}</div><div class="penalty-grid">${c.penalties.map(p=>`<div class="penalty-card"><div class="icon">${p.icon}</div><div class="plabel">${p.label}</div><p>${p.desc}</p></div>`).join('')}</div>`;
-  if(t==='code-of-conduct') return`<div class="module-title">${c.heading}</div><div style="font-size:12px;color:#4a5568;margin-bottom:12px">${c.intro}</div>${c.principles.map(p=>`<div style="display:flex;align-items:center;gap:8px;padding:7px 0;border-bottom:0.5px solid #e2e8f0;font-size:12px"><i class="ti ti-circle-check" style="color:#c8960a;flex-shrink:0" aria-hidden="true"></i>${p}</div>`).join('')}`;
-  if(t==='three-r') return`<div class="module-title">${c.heading}</div><div class="rr-grid">${c.items.map(i=>`<div class="rr-card ${i.color}"><h3>${i.label}</h3><p style="margin-bottom:7px;font-size:11px">${i.desc}</p>${i.points.map(pt=>`<div style="font-size:10px;padding:2px 0">· ${pt}</div>`).join('')}</div>`).join('')}</div>`;
-  if(t==='coi') return`<div class="module-title">${c.heading}</div><div style="font-size:12px;color:#4a5568;margin-bottom:12px">${c.intro}</div>${c.types.map(ty=>`<div class="coi-item"><h4>${ty.name}</h4><p>${ty.desc}</p><div style="font-size:10px;color:#718096;margin-top:4px;font-style:italic">Example: ${ty.eg}</div></div>`).join('')}<div style="font-size:11px;font-weight:500;color:#4a5568;margin:12px 0 6px">Mitigation strategies:</div>${c.strategies.map(s=>`<div style="display:flex;align-items:flex-start;gap:7px;padding:5px 0;border-bottom:0.5px solid #e2e8f0;font-size:11px"><i class="ti ti-shield" style="color:#c8960a;flex-shrink:0" aria-hidden="true"></i>${s}</div>`).join('')}`;
-  if(t==='dilemmas') return`<div class="module-title">${c.heading}</div>${c.dilemmas.map(d=>`<div class="dilemma-card"><h4>${d.title}</h4><p style="font-size:11px;color:#4a5568;margin-bottom:5px">${d.desc}</p><div style="font-size:10px;color:#718096;font-style:italic;margin-bottom:7px">Scenario: ${d.eg}</div><div class="dilemma-sides"><div class="side-a">${d.a}</div><div class="side-b">${d.b}</div></div></div>`).join('')}`;
-  if(t==='ethical-tests') return`<div class="module-title">${c.heading}</div>${c.tests.map(te=>`<div style="border:0.5px solid #e2e8f0;border-radius:10px;padding:12px;margin-bottom:8px"><div style="font-size:12px;font-weight:500;color:#c8960a;margin-bottom:5px"><i class="ti ti-bulb" aria-hidden="true"></i> ${te.name}</div><p style="font-size:12px;color:#4a5568;line-height:1.6">${te.desc}</p></div>`).join('')}`;
-  if(t==='risk-mgmt') return`<div class="module-title">${c.heading}</div><div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(175px,1fr));gap:10px;margin-top:1rem">${c.steps.map(s=>`<div style="border:0.5px solid #e2e8f0;border-radius:10px;padding:12px"><div style="font-size:22px;font-weight:500;color:#c8960a">${s.num}</div><div style="font-size:12px;font-weight:500;margin:3px 0 8px">${s.label}</div>${s.items.map(i=>`<div style="font-size:10px;color:#4a5568;padding:2px 0;border-bottom:0.5px solid #e2e8f0">· ${i}</div>`).join('')}</div>`).join('')}</div>`;
-  if(t==='best-practices') return`<div class="module-title">${c.heading}</div>${c.practices.map(p=>`<div class="best-practice"><i class="ti ${p.icon} bp-icon" aria-hidden="true"></i><div class="bp-text"><h4>${p.title}</h4><p>${p.desc}</p></div></div>`).join('')}<div class="card-gold card" style="margin-top:1rem;font-size:12px;line-height:1.6"><i class="ti ti-crown" aria-hidden="true"></i> HM The King at the 14th RUB Convocation (2019): <em>"One of the key attributes that will set us apart from others is the value of integrity. We must be a nation of honest, reliable and trustworthy people."</em></div>`;
-  if(t==='drag-match'||t==='drag-coi') return renderDrag(c);
-  if(t==='quiz') return renderQuiz(c);
-  return '';
-}
-
-function renderDrag(c){
-  const id='dg'+Date.now();
-  return`<div class="module-title">${c.heading}</div>
-  <div class="drag-source" id="src_${id}">${c.defs.map((d,i)=>`<div class="drag-item" draggable="true" data-idx="${i}" id="di_${id}_${i}">${d}</div>`).join('')}</div>
-  <div class="drag-area">${c.terms.map((t,i)=>`<div class="drag-target" id="dt_${id}_${i}" data-correct="${i}"><h5>${t}</h5><div class="drag-items" id="dim_${id}_${i}"></div></div>`).join('')}</div>
-  <div class="match-feedback" id="mfb_${id}"></div>
-  <button class="btn btn-gold" onclick="checkDrag('${id}',${JSON.stringify(c.answers)})" style="margin-top:6px">Check answers</button>`;
-}
-
-function initDrag(){
-  document.querySelectorAll('[draggable="true"]').forEach(el=>{
-    el.addEventListener('dragstart',e=>e.dataTransfer.setData('text',e.target.id));
-  });
-  document.querySelectorAll('.drag-target').forEach(t=>{
-    t.addEventListener('dragover',e=>{e.preventDefault();t.classList.add('over');});
-    t.addEventListener('dragleave',()=>t.classList.remove('over'));
-    t.addEventListener('drop',e=>{
-      e.preventDefault(); t.classList.remove('over');
-      const el=document.getElementById(e.dataTransfer.getData('text'));
-      if(el) t.querySelector('.drag-items').appendChild(el);
-    });
-  });
-}
-
-function checkDrag(id,answers){
-  let ok=0;
-  answers.forEach((ans,i)=>{
-    document.getElementById('dt_'+id+'_'+i).querySelectorAll('.drag-item').forEach(el=>{
-      if(parseInt(el.dataset.idx)===ans){el.style.background='#4caf50';ok++;}
-      else el.style.background='#e91e63';
-    });
-  });
-  const fb=document.getElementById('mfb_'+id);
-  fb.textContent=ok===answers.length?'✓ All correct!':'Some items need adjusting — highlighted in red.';
-  fb.style.color=ok===answers.length?'#1b5e20':'#880e4f';
-}
-
-function renderQuiz(c){
-  const key=currentMod+'_'+currentSlide;
-  if(!quizState[key]) quizState[key]={q:0,score:0,done:false};
-  const state=quizState[key];
-  if(state.done) return`<div class="score-display"><div style="font-size:13px;color:#4a5568;margin-bottom:6px">Quiz complete</div><div class="score-big">${state.score}/${c.questions.length}</div><div style="font-size:12px;color:#4a5568;margin-top:4px">${state.score===c.questions.length?'Perfect score! 🎉':'Good effort — review the explanations above.'}</div></div>`;
-  const qi=state.q, q=c.questions[qi];
-  return`<div class="quiz-wrap">
-    <div class="quiz-counter">Question ${qi+1} of ${c.questions.length}</div>
-    <div class="quiz-q">${q.q}</div>
-    ${q.scenario?`<div class="quiz-scenario">${q.scenario}</div>`:''}
-    ${q.opts.map((o,i)=>`<button class="quiz-opt" onclick="answerQ(${i},${q.ans},'${key}',${c.questions.length},'${q.exp.replace(/'/g,"&#39;")}')">${String.fromCharCode(65+i)}) ${o}</button>`).join('')}
-    <div class="quiz-feedback" id="qfb"></div>
-  </div>`;
-}
-
-function answerQ(chosen,correct,key,total,exp){
-  document.querySelectorAll('.quiz-opt').forEach((o,i)=>{o.disabled=true;if(i===correct)o.classList.add('correct');else if(i===chosen)o.classList.add('wrong');});
-  const fb=document.getElementById('qfb');
-  fb.textContent=(chosen===correct?'✓ Correct! ':'✗ Incorrect. ')+exp.replace(/&#39;/g,"'");
-  fb.className='quiz-feedback show '+(chosen===correct?'feedback-correct':'feedback-wrong');
-  const state=quizState[key];
-  if(chosen===correct) state.score++;
-  setTimeout(async ()=>{
-    state.q++;
-    const mod=MODULES[currentMod], slide=mod.slides[currentSlide];
-    if(state.q>=slide.content.questions.length) state.done=true;
-    await saveCourseProgress();
-    renderSlide();
-  },2200);
-}
-
-async function showCert(){
-  const prog = await getLearnerProgress(currentLearner.id);
-  const date=new Date(prog.completedAt||Date.now()).toLocaleDateString('en-BT',{year:'numeric',month:'long',day:'numeric'});
-  document.getElementById('content-area').innerHTML=`<div class="card"><div class="cert-wrap">
-    <div style="font-size:12px;font-weight:500;color:#c8960a;letter-spacing:0.05em">ANTI-CORRUPTION COMMISSION · BHUTAN</div>
-    <div style="font-size:40px;margin:14px 0">🏆</div>
-    <h2>Certificate of Completion</h2>
-    <p style="font-size:12px;color:#4a5568;margin:10px 0 4px">This is to certify that</p>
-    <p style="font-size:18px;font-weight:500;color:#c8960a">${currentLearner.fname} ${currentLearner.lname}</p>
-    <p style="font-size:12px;color:#4a5568">${currentLearner.role} · ${currentLearner.org} · ${currentLearner.dzong}</p>
-    <p style="font-size:12px;color:#4a5568;margin:10px 0 4px">has successfully completed</p>
-    <p style="font-size:14px;font-weight:500;color:#c8960a">Ethics, Integrity & Professionalism</p>
-    <p style="font-size:11px;color:#4a5568;margin:4px 0 14px">For Bhutanese Construction Professionals</p>
-    <p style="font-size:11px;color:#718096">Completed: ${date}</p>
-    <p style="font-size:10px;color:#718096;margin-top:16px">5 modules · ACAB 2011 · Ethical Code of Conduct for Contractors 2019 · Gift Rule 2017</p>
-    <p style="font-size:10px;color:#718096;margin-top:6px">www.acc.org.bt · complaint@acc.org.bt · +975-02-322987</p>
-  </div></div>`;
-  document.getElementById('prog').style.width='100%';
-  document.getElementById('prog-label').textContent='100% complete 🎉';
-  renderTabs();
-}
-
-/* ====== CENTRAL ADMINISTRATIVE MANAGEMENT ====== */
-let activeAdminTab='learners';
-
-function adminTab(tab){
-  activeAdminTab=tab;
-  document.querySelectorAll('.admin-tab').forEach(t => t.classList.remove('active'));
-  document.getElementById('tab-lnk-' + tab).classList.add('active');
+async function renderSlide(){
+  const slide = MODULES[currentMod].slides[currentSlide];
+  const area = document.getElementById('content-area');
   
-  document.querySelectorAll('.admin-panel').forEach(p=>p.classList.remove('active'));
-  document.getElementById('panel-'+tab).classList.add('active');
+  let html = `<div class="card card-gold"><div class="slide-header">${MODULES[currentMod].title} · Slide ${currentSlide + 1} of ${MODULES[currentMod].slides.length}</div>`;
+  
+  if(slide.type === 'intro'){
+    html += `<h2 class="module-title">${slide.content.heading}</h2><p class="module-intro">${slide.content.intro}</p><ul>` + 
+            slide.content.topics.map(t=>`<li style="margin:6px 0 6px 20px; font-size:13px;">${t}</li>`).join('') + `</ul>`;
+  } else if(slide.type === 'concepts'){
+    html += `<h2 class="module-title">${slide.content.heading}</h2><div class="concept-grid">` +
+            slide.content.items.map(i=>`<div class="concept-card"><h3>${i.term}</h3><p>${i.def}</p><div class="example">${i.example}</div></div>`).join('') + `</div>`;
+  } else if(slide.type === 'corruption-def'){
+    html += `<h2 class="module-title">${slide.content.heading}</h2><p class="module-intro">${slide.content.def}</p>` +
+            slide.content.types.map(t=>`<div class="corruption-type"><h4>${t.name}</h4><p>${t.desc}</p><div class="eg">Example: ${t.eg}</div></div>`).join('');
+  } else if(slide.type === 'quiz'){
+    const q = slide.content.questions[0];
+    html += `<div class="quiz-wrap"><div class="quiz-q">${q.q}</div>` +
+            q.opts.map((o,oi)=>`<button class="quiz-opt" onclick="checkQuizAnswer(${oi}, ${q.ans}, '${q.exp.replace(/'/g, "\\'")}')">${o}</button>`).join('') +
+            `<div id="quiz-fb" class="quiz-feedback"></div></div>`;
+  }
+  
+  html += `</div><div class="nav-btns">`;
+  if(currentSlide > 0) html += `<button class="btn" onclick="prevSlide()"><i class="ti ti-arrow-left"></i> Previous</button>`;
+  if(currentSlide < MODULES[currentMod].slides.length - 1) {
+    html += `<button class="btn btn-gold" onclick="nextSlide()">Next <i class="ti ti-arrow-right"></i></button>`;
+  } else {
+    html += `<button class="btn btn-gold" onclick="completeModule()"><i class="ti ti-circle-check"></i> Complete Module</button>`;
+  }
+  html += `</div>`;
+  area.innerHTML = html;
+  await updateProgressBar();
 }
 
+function checkQuizAnswer(selected, correct, exp){
+  const fb = document.getElementById('quiz-fb');
+  fb.className = "quiz-feedback show " + (selected === correct ? "feedback-correct" : "feedback-wrong");
+  fb.innerHTML = `<strong>${selected === correct ? 'Correct!' : 'Incorrect.'}</strong> ${exp}`;
+}
+
+async function nextSlide(){ currentSlide++; renderSlide(); }
+async function prevSlide(){ currentSlide--; renderSlide(); }
+
+async function completeModule(){
+  showToast("Module completed! Progress synchronized safely.");
+  const prog = await getLearnerProgress(currentLearner.id);
+  if(!prog.completedMods.includes(currentMod)) prog.completedMods.push(currentMod);
+  prog.pct = Math.min(100, Math.round((prog.completedMods.length / MODULES.length) * 100));
+  if(prog.pct === 100) prog.completedAt = new Date().toISOString();
+  await setLearnerProgress(currentLearner.id, prog);
+  await updateProgressBar();
+}
+
+async function updateProgressBar(){
+  if(!currentLearner) return;
+  const p = await getLearnerProgress(currentLearner.id);
+  const fill = document.getElementById('prog');
+  const lbl = document.getElementById('prog-label');
+  if(fill && lbl) {
+    fill.style.width = p.pct + '%';
+    lbl.textContent = p.pct + '% complete';
+  }
+}
+
+/* ====== ADMINISTRATIVE PANEL ====== */
 async function renderAdmin(){
   const learners = await loadLearners();
   const progAll = await loadAllProgress();
   
-  const completed=learners.filter(l=>progAll[l.id]&&progAll[l.id].completedAt);
-  const inProgress=learners.filter(l=>progAll[l.id]&&!progAll[l.id].completedAt&&(progAll[l.id].pct||0)>0);
-  
-  document.getElementById('admin-stats').innerHTML=`
-    <div class="stat-card"><div class="stat-num">${learners.length}</div><div class="stat-label">Enrolled learners</div></div>
-    <div class="stat-card"><div class="stat-num">${inProgress.length}</div><div class="stat-label">In progress</div></div>
-    <div class="stat-card"><div class="stat-num">${completed.length}</div><div class="stat-label">Completed</div></div>
-    <div class="stat-card"><div class="stat-num">${learners.length>0?Math.round(completed.length/learners.length*100):0}%</div><div class="stat-label">Completion rate</div></div>`;
-  
+  const total = learners.length;
+  const completed = Object.values(progAll).filter(p=>p.completedAt).length;
+  const active = total - completed;
+
+  document.getElementById('admin-stats').innerHTML = `
+    <div class="stat-card"><div class="stat-num">${total}</div><div class="stat-label">Total Registered</div></div>
+    <div class="stat-card"><div class="stat-num">${active}</div><div class="stat-label">In Progress</div></div>
+    <div class="stat-card"><div class="stat-num">${completed}</div><div class="stat-label">Completions</div></div>`;
+
   renderAdminLearnersTable(learners, progAll);
-  renderAdminProgressTable(learners, progAll);
-  renderAdminCompletionsTable(learners, progAll);
 }
 
-function renderAdminLearnersTable(learners, prog) {
-  const q=(document.getElementById('admin-search')?.value||'').toLowerCase();
-  const filtered = learners.filter(l => !q || (l.fname+' '+l.lname+' '+l.email+' '+l.org+' '+l.dzong).toLowerCase().includes(q));
+function renderAdminLearnersTable(learners, progAll){
+  const wrap = document.getElementById('admin-learners-table');
+  if(!learners.length) { wrap.innerHTML = '<div class="empty-state">No learners enrolled.</div>'; return; }
   
-  if(!filtered.length){
-    document.getElementById('admin-learners-table').innerHTML=`<div class="empty-state"><i class="ti ti-users-off" aria-hidden="true"></i><br>No matching records discovered.</div>`;
-    return;
+  let html = `<table><thead><tr><th>Name</th><th>Email</th><th>Organisation</th><th>Dzongkhag</th><th>Progress</th><th>Actions</th></tr></thead><tbody>`;
+  learners.forEach(l => {
+    const p = progAll[l.id] || { pct: 0 };
+    html += `<tr>
+      <td><strong>${l.fname} ${l.lname}</strong><br><small style="color:#718096">${l.role}</small></td>
+      <td>${l.email}</td>
+      <td>${l.org}</td>
+      <td>${l.dzong}</td>
+      <td><span class="badge ${p.pct===100?'badge-green':p.pct>0?'badge-blue':'badge-gray'}">${p.pct}%</span></td>
+      <td><button class="btn btn-sm btn-danger" onclick="deleteLearner('${l.id}')"><i class="ti ti-trash"></i></button></td>
+    </tr>`;
+  });
+  html += `</tbody></table>`;
+  wrap.innerHTML = html;
+}
+
+function adminTab(target){
+  document.querySelectorAll('.admin-tab').forEach(t=>t.classList.remove('active'));
+  document.querySelectorAll('.admin-panel').forEach(p=>p.classList.remove('active'));
+  if(target === 'learners') {
+    document.getElementById('tab-lnk-learners').classList.add('active');
+    document.getElementById('panel-learners').style.display = 'block';
   }
-  
-  document.getElementById('admin-learners-table').innerHTML=`<table>
-    <thead><tr><th>Name</th><th>Organisation</th><th>Role</th><th>Dzongkhag</th><th>Enrolled</th><th>Status</th><th>Action</th></tr></thead>
-    <tbody>${filtered.map(l=>{
-      const p=prog[l.id];
-      const pct=p?p.pct||0:0;
-      const status=p&&p.completedAt?'completed':pct>0?'in-progress':'not-started';
-      const badge=status==='completed'?'<span class="badge badge-green">Completed</span>':status==='in-progress'?`<span class="badge badge-amber">${pct}%</span>`:'<span class="badge badge-gray">Not started</span>';
-      return`<tr>
-        <td><strong>${l.fname} ${l.lname}</strong><br><span style="font-size:11px;color:#4a5568">${l.email}</span></td>
-        <td>${l.org}</td><td>${l.role}</td><td>${l.dzong}</td>
-        <td style="font-size:11px">${new Date(l.enrolled_at || Date.now()).toLocaleDateString()}</td>
-        <td>${badge}</td>
-        <td><button class="btn btn-danger btn-sm" onclick="deleteLearner('${l.id}')"><i class="ti ti-trash" aria-hidden="true"></i></button></td>
-      </tr>`;}).join('')}
-    </tbody></table>`;
 }
 
-function renderAdminProgressTable(learners, prog) {
-  if(!learners.length){document.getElementById('admin-progress-table').innerHTML=`<div class="empty-state">No learners enrolled yet.</div>`;return;}
-  document.getElementById('admin-progress-table').innerHTML=`<table>
-    <thead><tr><th>Learner</th><th>Progress</th><th>Current module</th><th>Last active</th></tr></thead>
-    <tbody>${learners.map(l=>{
-      const p=prog[l.id]||{};
-      const pct=p.pct||0;
-      const mod=MODULES[Math.min(p.currentMod||0,MODULES.length-1)];
-      return`<tr>
-        <td><strong>${l.fname} ${l.lname}</strong><br><span style="font-size:11px;color:#4a5568">${l.org}</span></td>
-        <td><div style="background:#edf2f7;border-radius:20px;height:8px;width:120px;overflow:hidden"><div style="height:8px;width:${pct}%;background:#c8960a;border-radius:20px"></div></div><span style="font-size:11px;color:#4a5568">${pct}%</span></td>
-        <td style="font-size:12px">${p.completedAt?'Completed ✓':mod.title+' — '+mod.subtitle}</td>
-        <td style="font-size:11px;color:#4a5568">${p.lastSeen?new Date(p.lastSeen).toLocaleDateString():'—'}</td>
-      </tr>`;}).join('')}
-    </tbody></table>`;
-}
-
-function renderAdminCompletionsTable(learners, prog) {
-  const done=learners.filter(l=>prog[l.id]&&prog[l.id].completedAt);
-  if(!done.length){document.getElementById('admin-completions-table').innerHTML=`<div class="empty-state">No completions logged yet.</div>`;return;}
-  document.getElementById('admin-completions-table').innerHTML=`<table>
-    <thead><tr><th>Name</th><th>Organisation</th><th>Role</th><th>Dzongkhag</th><th>Completed</th></tr></thead>
-    <tbody>${done.map(l=>{
-      const p=prog[l.id];
-      return`<tr>
-        <td><strong>${l.fname} ${l.lname}</strong><br><span style="font-size:11px;color:#4a5568">${l.email}</span></td>
-        <td>${l.org}</td><td>${l.role}</td><td>${l.dzong}</td>
-        <td><span class="badge badge-green">${new Date(p.completedAt).toLocaleDateString()}</span></td>
-      </tr>`;}).join('')}
-    </tbody></table>`;
-}
-
-async function triggerLearnerSearch() {
+async function triggerLearnerSearch(){
+  const q = v('admin-search').toLowerCase();
   const learners = await loadLearners();
   const progAll = await loadAllProgress();
-  renderAdminLearnersTable(learners, progAll);
+  const filtered = learners.filter(l => 
+    l.fname.toLowerCase().includes(q) || l.lname.toLowerCase().includes(q) || 
+    l.email.toLowerCase().includes(q) || l.org.toLowerCase().includes(q)
+  );
+  renderAdminLearnersTable(filtered, progAll);
 }
 
 async function deleteLearner(id){
-  if(!confirm('Permanently remove this record from the database ecosystem?')) return;
+  if(!confirm('Permanently remove this record?')) return;
   const { error } = await supabase.from('learners').delete().eq('id', id);
   if (!error) {
+    await supabase.from('progress').delete().eq('learner_id', id);
     await renderAdmin();
-    showToast('Learner metadata removed.');
-  } else {
-    alert('Failed to remove learner record from database.');
+    showToast('Learner record deleted.');
   }
 }
 
 async function exportCSV(){
   const learners = await loadLearners();
   const prog = await loadAllProgress();
-  const rows=[['Name','Email','Organisation','Role','Dzongkhag','Phone','Enrolled','Progress %','Status','Completed']];
-  
+  const rows = [['Name','Email','Organisation','Role','Dzongkhag','Progress %']];
   learners.forEach(l=>{
-    const p=prog[l.id]||{};
-    rows.push([l.fname+' '+l.lname, l.email, l.org, l.role, l.dzong, l.phone||'',
-      new Date(l.enrolled_at || Date.now()).toLocaleDateString(), p.pct||0,
-      p.completedAt?'Completed':p.pct>0?'In Progress':'Not Started',
-      p.completedAt?new Date(p.completedAt).toLocaleDateString():'']);
+    const p = prog[l.id] || {};
+    rows.push([l.fname+' '+l.lname, l.email, l.org, l.role, l.dzong, p.pct||0]);
   });
-  
-  const csv=rows.map(r=>r.map(c=>`"${c}"`).join(',')).join('\n');
-  const a=document.createElement('a');
-  a.href='data:text/csv;charset=utf-8,'+encodeURIComponent(csv);
-  a.download='acc_learners_'+new Date().toISOString().slice(0,10)+'.csv';
+  const csv = rows.map(r=>r.map(c=>`"${c}"`).join(',')).join('\n');
+  const a = document.createElement('a');
+  a.href = 'data:text/csv;charset=utf-8,' + encodeURIComponent(csv);
+  a.download = 'acc_learners_' + new Date().toISOString().slice(0,10) + '.csv';
   a.click();
-  showToast('Database exported to CSV file.');
 }
 
 function showToast(msg){
-  const t=document.getElementById('toast');
-  t.textContent=msg; t.classList.add('show');
-  setTimeout(()=>t.classList.remove('show'),3000);
+  const t = document.getElementById('toast');
+  t.textContent = msg; t.classList.add('show');
+  setTimeout(()=>t.classList.remove('show'), 3000);
 }
 </script>
 </body>
