@@ -4,25 +4,19 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>ACC Bhutan E-Learning: Ethics, Integrity and Professionalism</title>
-  
-  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-  
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></7script>
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/tabler-icons.min.css">
-
   <style>
   *{box-sizing:border-box;margin:0;padding:0}
   body{font-family:var(--font-sans,sans-serif);background:#f5f7fb;color:#2d3748}
   .app{max-width:720px;margin:0 auto;padding:1rem}
   .screen{display:none}.screen.active{display:block}
-  /* Header */
   .header{background:#c8960a;border-radius:12px;padding:1.25rem 1.5rem;margin-bottom:1rem;color:#fff}
   .header h1{font-size:20px;font-weight:500;margin-bottom:2px}
   .header p{font-size:12px;opacity:0.85}
   .acc-badge{display:inline-flex;align-items:center;gap:6px;background:rgba(255,255,255,0.2);border-radius:20px;padding:3px 10px;font-size:11px;margin-bottom:10px}
-  /* Cards */
   .card{background:#fff;border:0.5px solid #e2e8f0;border-radius:12px;padding:1.25rem;margin-bottom:1rem;box-shadow: 0 1px 3px rgba(0,0,0,0.05)}
   .card-gold{border-left:4px solid #c8960a;border-radius:0 12px 12px 0}
-  /* Forms */
   .form-group{margin-bottom:14px}
   .form-label{font-size:12px;color:#4a5568;margin-bottom:5px;display:block}
   .form-input{width:100%;padding:8px 12px;border:0.5px solid #cbd5e0;border-radius:8px;background:#fff;color:#2d3748;font-size:13px}
@@ -30,24 +24,19 @@
   .form-row{display:grid;grid-template-columns:1fr 1fr;gap:10px}
   .form-select{width:100%;padding:8px 12px;border:0.5px solid #cbd5e0;border-radius:8px;background:#fff;color:#2d3748;font-size:13px}
   .form-error{font-size:11px;color:#a32d2d;margin-top:4px;display:none}
-  /* Buttons */
   .btn{padding:8px 20px;border-radius:8px;border:0.5px solid #cbd5e0;background:#fff;color:#2d3748;font-size:13px;cursor:pointer;display:inline-flex;align-items:center;gap:6px}
   .btn-gold{background:#c8960a;color:#fff;border-color:#c8960a;font-size:13px}
   .btn-gold:hover{background:#b8860a}
   .btn-sm{padding:5px 12px;font-size:12px}
   .btn-danger{background:#fcebeb;color:#a32d2d;border-color:#f09595}
-  /* Nav */
   .top-nav{display:flex;align-items:center;justify-content:space-between;margin-bottom:1rem}
   .nav-tabs{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:1rem}
   .tab-btn{padding:6px 14px;border-radius:20px;border:0.5px solid #cbd5e0;background:#fff;color:#4a5568;font-size:12px;cursor:pointer}
   .tab-btn.active{background:#c8960a;color:#fff;border-color:#c8960a}
   .tab-btn.done{background:#eaf3de;color:#3b6d11;border-color:#3b6d11}
-  .tab-btn.locked{opacity:0.45;cursor:not-allowed}
-  /* Progress */
   .prog-wrap{background:rgba(255,255,255,0.25);border-radius:20px;height:6px;margin-top:12px}
   .prog-fill{height:6px;border-radius:20px;background:#fff;transition:width 0.4s}
   .prog-label{font-size:11px;opacity:0.85;margin-top:5px}
-  /* Tables */
   .table-wrap{overflow-x:auto}
   table{width:100%;border-collapse:collapse;font-size:13px}
   th{text-align:left;padding:8px 10px;border-bottom:0.5px solid #cbd5e0;font-size:11px;font-weight:500;color:#4a5568;text-transform:uppercase;letter-spacing:0.04em}
@@ -55,20 +44,14 @@
   tr:last-child td{border-bottom:none}
   .badge{display:inline-block;font-size:10px;padding:2px 8px;border-radius:20px;font-weight:500}
   .badge-green{background:#eaf3de;color:#3b6d11}
-  .badge-amber{background:#faeeda;color:#854f0b}
-  .badge-blue{background:#e6f1fb;color:#185fa5}
-  .badge-gray{background:#edf2f7;color:#4a5568}
-  /* Admin tabs */
   .admin-tabs{display:flex;gap:6px;margin-bottom:1rem}
   .admin-tab{padding:6px 14px;border-radius:8px 8px 0 0;border:0.5px solid #e2e8f0;background:#edf2f7;color:#4a5568;font-size:12px;cursor:pointer;border-bottom:none}
   .admin-tab.active{background:#fff;color:#c8960a;font-weight:500}
   .admin-panel{display:none}.admin-panel.active{display:block}
-  /* Stat cards */
   .stat-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:10px;margin-bottom:1rem}
   .stat-card{background:#edf2f7;border-radius:10px;padding:12px;text-align:center}
   .stat-num{font-size:28px;font-weight:500;color:#c8960a}
   .stat-label{font-size:11px;color:#4a5568;margin-top:2px}
-  /* Course content */
   .module-title{font-size:15px;font-weight:500;color:#c8960a;margin-bottom:6px}
   .module-intro{font-size:13px;color:#4a5568;line-height:1.6;margin-bottom:1rem}
   .slide-header{font-size:10px;color:#718096;text-transform:uppercase;letter-spacing:0.05em;margin-bottom:8px}
@@ -90,15 +73,6 @@
   .rr-card{border-radius:10px;padding:12px;text-align:center}
   .rr-card h3{font-size:13px;font-weight:500;margin-bottom:5px}
   .rr-card p{font-size:11px;line-height:1.5}
-  .rr-refrain{background:#e8f5e9;color:#2e7d32}
-  .rr-resist{background:#fff3e0;color:#e65100}
-  .rr-report{background:#e3f2fd;color:#1565c0}
-  .dilemma-card{border:0.5px solid #e2e8f0;border-radius:10px;padding:12px;margin-bottom:10px}
-  .dilemma-card h4{font-size:12px;font-weight:500;color:#c8960a;margin-bottom:5px}
-  .dilemma-sides{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:7px}
-  .side-a,.side-b{border-radius:6px;padding:7px;font-size:11px;line-height:1.4}
-  .side-a{background:#e8f5e9;color:#1b5e20}
-  .side-b{background:#fce4ec;color:#880e4f}
   .quiz-wrap{background:#edf2f7;border-radius:12px;padding:1.25rem}
   .quiz-q{font-size:13px;font-weight:500;margin-bottom:12px;line-height:1.5}
   .quiz-scenario{background:#fff8e1;border-left:3px solid #c8960a;padding:8px 12px;border-radius:0 8px 8px 0;font-size:12px;line-height:1.5;margin-bottom:12px}
@@ -115,30 +89,22 @@
   .score-display{text-align:center;padding:1.5rem;background:#edf2f7;border-radius:12px}
   .score-big{font-size:44px;font-weight:500;color:#c8960a}
   .nav-btns{display:flex;gap:8px;justify-content:flex-end;margin-top:1rem;flex-wrap:wrap}
-  .coi-item{border:0.5px solid #e2e8f0;border-radius:8px;padding:10px;margin-bottom:7px}
-  .coi-item h4{font-size:12px;font-weight:500;margin-bottom:3px}
-  .coi-item p{font-size:12px;color:#4a5568;line-height:1.5}
-  .best-practice{display:flex;align-items:flex-start;gap:10px;padding:9px 0;border-bottom:0.5px solid #e2e8f0}
-  .best-practice:last-child{border-bottom:none}
-  .bp-icon{font-size:18px;color:#c8960a;flex-shrink:0;margin-top:2px}
-  .bp-text h4{font-size:12px;font-weight:500;margin-bottom:2px}
-  .bp-text p{font-size:11px;color:#4a5568;line-height:1.4}
-  .cert-wrap{text-align:center;padding:1.5rem 1rem;border:3px solid #c8960a;border-radius:16px}
-  .cert-wrap h2{font-size:18px;color:#c8960a;margin-bottom:6px}
   .drag-source{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:10px}
   .drag-area{display:flex;gap:10px;flex-wrap:wrap;margin:1rem 0}
-  .drag-target{flex:1;min-width:130px;border:2px dashed #cbd5e0;border-radius:10px;padding:10px;min-height:70px}
+  .drag-target{flex:1;min-width:130px;border:2px dashed #cbd5e0;border-radius:10px;padding:10px;min-height:70px;cursor:pointer;transition:border-color 0.2s}
   .drag-target.over{border-color:#c8960a}
-  .drag-target h5{font-size:11px;font-weight:500;color:#4a5568;margin-bottom:7px;text-align:center}
-  .drag-items{display:flex;flex-wrap:wrap;gap:5px}
-  .drag-item{background:#c8960a;color:#fff;border-radius:6px;padding:5px 9px;font-size:10px;cursor:grab;user-select:none;border:none}
+  .drag-target h5{font-size:11px;font-weight:500;color:#4a5568;margin-bottom:7px;text-align:center;pointer-events:none}
+  .drag-items{display:flex;flex-wrap:wrap;gap:5px;min-height:30px}
+  .drag-item{background:#c8960a;color:#fff;border-radius:6px;padding:5px 9px;font-size:10px;cursor:grab;user-select:none;border:2px solid transparent;transition:border-color 0.2s}
+  .drag-item.selected{border-color:#fff;box-shadow:0 0 0 2px #c8960a}
   .match-feedback{font-size:11px;color:#4a5568;margin-top:6px}
-  .toast{position:fixed;bottom:24px;right:24px;background:#1b5e20;color:#fff;padding:10px 18px;border-radius:10px;font-size:13px;z-index:999;opacity:0;transition:opacity 0.3s}
+  .toast{position:fixed;bottom:24px;right:24px;background:#1b5e20;color:#fff;padding:10px 18px;border-radius:10px;font-size:13px;z-index:999;opacity:0;transition:opacity 0.3s;pointer-events:none}
   .toast.show{opacity:1}
   .search-bar{display:flex;gap:8px;margin-bottom:12px}
   .search-bar input{flex:1}
   .empty-state{text-align:center;padding:2rem;color:#4a5568;font-size:13px}
   .sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);border:0}
+  .cert-wrap{text-align:center;padding:1.5rem 1rem;border:3px solid #c8960a;border-radius:16px}
   </style>
 </head>
 <body>
@@ -160,9 +126,9 @@
       <div style="display:flex;gap:10px;justify-content:center;flex-wrap:wrap">
         <button class="btn btn-gold" onclick="showScreen('screen-register')"><i class="ti ti-user-plus" aria-hidden="true"></i> Register & Enrol</button>
         <button class="btn" onclick="showScreen('screen-login')"><i class="ti ti-login" aria-hidden="true"></i> Continue learning</button>
-        <button class="btn" onclick="showScreen('screen-admin')"><i class="ti ti-layout-dashboard" aria-hidden="true"></i> Admin dashboard</button>
+        <button class="btn" onclick="attemptAdminLogin()"><i class="ti ti-layout-dashboard" aria-hidden="true"></i> Admin dashboard</button>
       </div>
-      <div style="margin-top:20px;display:flex;gap:16px;justify-content:center;flex-wrap:wrap">
+   div style="margin-top:20px;display:flex;gap:16px;justify-content:center;flex-wrap:wrap">
         <span style="font-size:12px;color:#4a5568"><i class="ti ti-clock" aria-hidden="true"></i> 4+ Hours</span>
         <span style="font-size:12px;color:#4a5568"><i class="ti ti-book" aria-hidden="true"></i> 5 Modules</span>
         <span style="font-size:12px;color:#4a5568"><i class="ti ti-certificate" aria-hidden="true"></i> Certificate on completion</span>
@@ -206,13 +172,8 @@
           <label class="form-label">Role *</label>
           <select class="form-select" id="reg-role">
             <option value="">Select role...</option>
-            <option>Contractor</option>
-            <option>Site Engineer</option>
-            <option>Project Manager</option>
-            <option>Procurement Officer</option>
-            <option>Supervisor</option>
-            <option>Architect</option>
-            <option>Other</option>
+            <option>Contractor</option><option>Site Engineer</option><option>Project Manager</option>
+            <option>Procurement Officer</option><option>Supervisor</option><option>Architect</option><option>Other</option>
           </select>
           <div class="form-error" id="err-role">Required</div>
         </div>
@@ -313,75 +274,81 @@
     </div>
   </div>
 </div>
+
 <script>
 /* ====== SUPABASE CONNECTION LAYER ====== */
 const SUPABASE_URL = 'https://ohmboguqkyhjtxjojqyz.supabase.co';
 const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im9obWJvZ3Vxa3loanR4am9qcXl6Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODA5NzkzNzcsImV4cCI6MjA5NjU1NTM3N30.j42iLYTHeMg4T7Da1cPbkBWrXvQ3PPdJgknE_n8pgDs';
-
 const supabase = Supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 
+/* ====== GLOBAL STATE ====== */
+let currentLearner = null;
+let currentMod = 0;
+let currentSlide = 0;
+let quizState = {};
+let currentQuizState = { score: 0, total: 0, answered: false };
+let MODULES = []; // Will be populated from database
+let selectedDragItem = null; // For mobile-friendly drag and drop
+
+/* ====== INITIALIZATION ====== */
+async function initializeApp() {
+  const { data: modules, error: modError } = await supabase
+    .from('modules')
+    .select('id, module_number, title, subtitle')
+    .eq('is_published', true)
+    .order('module_number', { ascending: true });
+
+  if (modError) { console.error("Failed to load modules", modError); return; }
+
+  const moduleIds = modules.map(m => m.id);
+  const { data: slides, error: slideError } = await supabase
+    .from('slides')
+    .select('id, module_id, slide_order, slide_type, content')
+    .in('module_id', moduleIds)
+    .order('slide_order', { ascending: true });
+
+  if (slideError) { console.error("Failed to load slides", slideError); return; }
+
+  MODULES = modules.map(mod => ({
+    id: mod.module_number - 1,
+    title: mod.title,
+    subtitle: mod.subtitle,
+    slides: slides
+      .filter(s => s.module_id === mod.id)
+      .map(s => ({ id: s.id, type: s.slide_type, content: s.content }))
+  }));
+}
+window.addEventListener('DOMContentLoaded', initializeApp);
+
+/* ====== DATABASE HELPERS ====== */
 async function loadLearners() {
   const { data, error } = await supabase.from('learners').select('*');
-  if (error) { console.error("Database connection failure:", error); return []; }
-  return data;
+  return error ? [] : data;
 }
 
 async function loadAllProgress() {
   const { data, error } = await supabase.from('progress').select('*');
-  if (error) { console.error("Progress metrics read failure:", error); return {}; }
+  if (error) return {};
   return data.reduce((acc, curr) => {
-    acc[curr.learner_id] = {
-      currentMod: curr.current_mod,
-      currentSlide: curr.current_slide,
-      quizScores: curr.quiz_scores,
-      completedMods: curr.completed_mods,
-      pct: curr.pct,
-      completedAt: curr.completed_at,
-      lastSeen: curr.last_seen
-    };
+    acc[curr.learner_id] = curr;
     return acc;
   }, {});
 }
 
 async function getLearnerProgress(id) {
   const { data, error } = await supabase.from('progress').select('*').eq('learner_id', id).maybeSingle();
-  if (error) console.error(error);
-  if (data) {
-    return {
-      currentMod: data.current_mod,
-      currentSlide: data.current_slide,
-      quizScores: data.quiz_scores || {},
-      completedMods: data.completed_mods || [],
-      pct: data.pct || 0,
-      completedAt: data.completed_at,
-      lastSeen: data.last_seen
-    };
-  }
+  if (data) return { currentMod: data.current_mod, currentSlide: data.current_slide, quizScores: data.quiz_scores || {}, completedMods: data.completed_mods || [], pct: data.pct || 0, completedAt: data.completed_at, lastSeen: data.last_seen };
   return { currentMod: 0, currentSlide: 0, completedMods: [], quizScores: {}, completedAt: null, lastSeen: null, pct: 0 };
 }
 
 async function setLearnerProgress(id, prog) {
-  const payload = {
-    learner_id: id,
-    current_mod: prog.currentMod,
-    current_slide: prog.currentSlide,
-    quiz_scores: prog.quizScores,
-    completed_mods: prog.completedMods,
-    pct: prog.pct || 0,
-    completed_at: prog.completedAt,
-    last_seen: new Date().toISOString()
-  };
-  const { error } = await supabase.from('progress').upsert(payload, { onConflict: 'learner_id' });
-  if (error) console.error("Data syncing issue:", error);
+  const payload = { learner_id: id, current_mod: prog.currentMod, current_slide: prog.currentSlide, quiz_scores: prog.quizScores, completed_mods: prog.completedMods, pct: prog.pct || 0, completed_at: prog.completedAt, last_seen: new Date().toISOString() };
+  await supabase.from('progress').upsert(payload, { onConflict: 'learner_id' });
 }
 
 /* ====== AUTHENTICATION LAYER ====== */
-let currentLearner = null;
-
 async function registerLearner(){
-  const fname=v('reg-fname'),lname=v('reg-lname'),email=v('reg-email'),
-        org=v('reg-org'),role=v('reg-role'),dzong=v('reg-dzong'),
-        phone=v('reg-phone'),pin=v('reg-pin');
+  const fname=v('reg-fname'),lname=v('reg-lname'),email=v('reg-email'),org=v('reg-org'),role=v('reg-role'),dzong=v('reg-dzong'),phone=v('reg-phone'),pin=v('reg-pin');
   let ok=true;
   const fe=s=>document.getElementById(s);
   const show=(id,show)=>fe(id).style.display=show?'block':'none';
@@ -394,21 +361,16 @@ async function registerLearner(){
   if(!fname||!lname||!email||!email.includes('@')||!org||!role||!dzong||!pin||pin.length<4) ok=false;
   if(!ok) return;
 
-  const feGen = fe('reg-err-general');
-  const payload = { id: 'acc_'+Date.now(), fname, lname, email: email.toLowerCase(), org, role, dzong, phone, pin };
-
+  const payload = { id: 'acc_'+Date.now(), fname, lname, email: email.toLowerCase(), org, role, dzong, phone, pin, is_admin: false };
   const { error } = await supabase.from('learners').insert([payload]);
+  
   if (error) {
-    if (error.code === '23505') {
-      feGen.textContent = 'This email is already registered. Please sign in instead.';
-    } else {
-      feGen.textContent = 'Network communication failed. Please verify setup constraints.';
-    }
+    const feGen = fe('reg-err-general');
+    feGen.textContent = error.code === '23505' ? 'This email is already registered. Please sign in instead.' : 'Network communication failed.';
     feGen.style.display = 'block'; 
     return;
   }
 
-  feGen.style.display='none';
   currentLearner = payload;
   showToast('Registration successful! Welcome, '+fname+' 🎉');
   await startCourse();
@@ -418,7 +380,7 @@ async function loginLearner(){
   const email=v('login-email').toLowerCase(), pin=v('login-pin');
   const { data, error } = await supabase.from('learners').select('*').eq('email', email).eq('pin', pin).maybeSingle();
   
-  if (error || !data) {
+  if (error || !data || data.is_admin) {
     document.getElementById('login-err').style.display='block';
     return;
   }
@@ -426,6 +388,23 @@ async function loginLearner(){
   currentLearner = data;
   showToast('Welcome back, '+data.fname+'!');
   await startCourse();
+}
+
+async function attemptAdminLogin() {
+  const email = prompt("Admin Email:");
+  const pin = prompt("Admin PIN:");
+  if (!email || !pin) return;
+  
+  const { data, error } = await supabase.from('learners').select('*').eq('email', email.toLowerCase().trim()).eq('pin', pin).eq('is_admin', true).maybeSingle();
+  
+  if (data) {
+    currentLearner = data;
+    document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));
+    document.getElementById('screen-admin').classList.add('active');
+    await renderAdmin();
+  } else {
+    alert("Invalid admin credentials or insufficient privileges.");
+  }
 }
 
 async function exitCourse(){
@@ -439,206 +418,355 @@ async function exitCourse(){
 }
 
 /* ====== UI ENGINE & NAVIGATION ====== */
-async function showScreen(id){
-  if(id==='screen-admin') {
-    const shieldCode = prompt("Enter Administrative Access Code:");
-    if(shieldCode !== "1234") {
-      alert("Access authorization failure.");
-      return;
-    }
-  }
+function showScreen(id){
   document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));
   document.getElementById(id).classList.add('active');
-  if(id==='screen-admin') await renderAdmin();
 }
 function v(id){return document.getElementById(id).value.trim();}
 
-/* ====== COURSE CURRICULUM ARCHIVE ====== */
-let currentMod=0, currentSlide=0, quizState={};
-
-const MODULES=[
-  {id:0,title:"Module 1",subtitle:"Ethics, Integrity & Professionalism",slides:[
-    {type:"intro",content:{heading:"Module 1: Understanding Ethics, Integrity & Professionalism",intro:"In this module, you will learn the fundamental concepts that underpin responsible and sustainable practices in the Bhutanese construction industry.",topics:["Defining key terms","Forms of corruption","Significance in Bhutanese construction","Benefits of ethical practices"]}},
-    {type:"concepts",content:{heading:"Defining key terms",items:[{term:"Ethics",def:"External rules or principles that govern professional conduct. Ethics dictates what is right or wrong and provides a framework for decision-making.",example:"Adhering to the Ethical Code of Conduct for Contractors and national laws."},{term:"Integrity",def:"An internal moral compass that guides decisions and actions — consistently adhering to strong moral principles, even when no one is watching.",example:"A contractor refuses to use substandard materials, even if it means lower profit."},{term:"Professionalism",def:"A combination of knowledge, skills, and behaviour that defines competence and high standards in a particular field.",example:"Delivering projects on time, within budget, and to technical specifications."}]}},
-    {type:"corruption-def",content:{heading:"What is corruption?",def:"Corruption is the abuse of entrusted power for private gain. The Anti-Corruption Act of Bhutan (ACAB) 2011 defines 35 specific corruption offenses.",types:[{name:"Bid Rigging",desc:"Contractors collude to pre-determine the winner of a bid, eliminating genuine competition and inflating project costs.",eg:"Four companies agree to rotate winning bids on road projects."},{name:"Bribery",desc:"Offering, giving, receiving, or soliciting something of value to influence an official in a public or legal duty.",eg:"Paying a site engineer to approve substandard concrete work."}]}},
-    {type:"quiz",content:{questions:[{q:"What is the primary difference between ethics and integrity?",opts:["Ethics is internal; integrity is external","Ethics is external; integrity is internal","They mean the same thing","Ethics applies only to professionals"],ans:1,exp:"Ethics refers to external rules and principles, while integrity is an internal moral compass."}]}}
-  ]}
-];
-
-/* ====== LEARNER APP RUNTIME ENGINE ====== */
-async function startCourse(){
-  showScreen('screen-course');
+async function startCourse() {
+  if (MODULES.length === 0) await initializeApp(); // Ensure loaded
+  document.getElementById('learner-greeting').textContent = `Learner: ${currentLearner.fname} ${currentLearner.lname} (${currentLearner.org})`;
   const prog = await getLearnerProgress(currentLearner.id);
   currentMod = prog.currentMod || 0;
   currentSlide = prog.currentSlide || 0;
+  
+  showScreen('screen-course');
   renderTabs();
   renderSlide();
 }
 
-function renderTabs(){
-  const wrap = document.getElementById('nav-tabs');
-  wrap.innerHTML = MODULES.map((m,idx)=>{
+function renderTabs() {
+  const container = document.getElementById('nav-tabs');
+  container.innerHTML = MODULES.map((m, idx) => {
     let cls = 'tab-btn';
     if(idx === currentMod) cls += ' active';
-    return `<button class="${cls}" onclick="switchModule(${idx})">${m.title}</button>`;
+    else if((currentLearner && (await getLearnerProgress(currentLearner.id)).completedMods.includes(idx))) cls += ' done';
+    return `<button class="${cls}" onclick="changeModule(${idx})">${m.title}</button>`;
   }).join('');
 }
 
-function switchModule(idx){
-  currentMod = idx; currentSlide = 0;
-  renderTabs(); renderSlide();
+function changeModule(idx) {
+  currentMod = idx;
+  currentSlide = 0;
+  renderTabs();
+  renderSlide();
 }
 
-async function renderSlide(){
+function updateProgressUI() {
+  const totalSlides = MODULES.reduce((acc, m) => acc + m.slides.length, 0);
+  let viewedCount = 0;
+  for(let i=0; i<currentMod; i++) viewedCount += MODULES[i].slides.length;
+  viewedCount += (currentSlide + 1);
+  const pct = Math.min(100, Math.round((viewedCount / totalSlides) * 100));
+  
+  document.getElementById('prog').style.width = pct + '%';
+  document.getElementById('prog-label').textContent = pct + '% complete';
+  
+  getLearnerProgress(currentLearner.id).then(prog => {
+    prog.pct = Math.max(prog.pct || 0, pct);
+    prog.currentMod = currentMod;
+    prog.currentSlide = currentSlide;
+    setLearnerProgress(currentLearner.id, prog);
+  });
+}
+
+/* ====== COURSE RENDERING ENGINE ====== */
+function renderSlide() {
   const slide = MODULES[currentMod].slides[currentSlide];
-  const area = document.getElementById('content-area');
-  
-  let html = `<div class="card card-gold"><div class="slide-header">${MODULES[currentMod].title} · Slide ${currentSlide + 1} of ${MODULES[currentMod].slides.length}</div>`;
-  
-  if(slide.type === 'intro'){
-    html += `<h2 class="module-title">${slide.content.heading}</h2><p class="module-intro">${slide.content.intro}</p><ul>` + 
-            slide.content.topics.map(t=>`<li style="margin:6px 0 6px 20px; font-size:13px;">${t}</li>`).join('') + `</ul>`;
-  } else if(slide.type === 'concepts'){
-    html += `<h2 class="module-title">${slide.content.heading}</h2><div class="concept-grid">` +
-            slide.content.items.map(i=>`<div class="concept-card"><h3>${i.term}</h3><p>${i.def}</p><div class="example">${i.example}</div></div>`).join('') + `</div>`;
-  } else if(slide.type === 'corruption-def'){
-    html += `<h2 class="module-title">${slide.content.heading}</h2><p class="module-intro">${slide.content.def}</p>` +
-            slide.content.types.map(t=>`<div class="corruption-type"><h4>${t.name}</h4><p>${t.desc}</p><div class="eg">Example: ${t.eg}</div></div>`).join('');
-  } else if(slide.type === 'quiz'){
-    const q = slide.content.questions[0];
-    html += `<div class="quiz-wrap"><div class="quiz-q">${q.q}</div>` +
-            q.opts.map((o,oi)=>`<button class="quiz-opt" onclick="checkQuizAnswer(${oi}, ${q.ans}, '${q.exp.replace(/'/g, "\\'")}')">${o}</button>`).join('') +
-            `<div id="quiz-fb" class="quiz-feedback"></div></div>`;
+  const out = document.getElementById('content-area');
+  updateProgressUI();
+
+  // Reset quiz state if entering a quiz slide for the first time
+  if (slide.type === "quiz" && (quizState[`m_${currentMod}_s_${currentSlide}`] || 0) === 0) {
+    currentQuizState = { score: 0, total: 0, answered: false };
   }
-  
-  html += `</div><div class="nav-btns">`;
-  if(currentSlide > 0) html += `<button class="btn" onclick="prevSlide()"><i class="ti ti-arrow-left"></i> Previous</button>`;
-  if(currentSlide < MODULES[currentMod].slides.length - 1) {
-    html += `<button class="btn btn-gold" onclick="nextSlide()">Next <i class="ti ti-arrow-right"></i></button>`;
-  } else {
-    html += `<button class="btn btn-gold" onclick="completeModule()"><i class="ti ti-circle-check"></i> Complete Module</button>`;
+
+  let html = `<div class="slide-header">${MODULES[currentMod].title} — Slide ${currentSlide + 1} of ${MODULES[currentMod].slides.length}</div>`;
+
+  if(slide.type === "intro") {
+    html += `<h3 class="module-title">${slide.content.heading}</h3><p class="module-intro">${slide.content.intro}</p>
+             <div class="card card-gold"><h4 style="font-size:13px;margin-bottom:6px">Topics Covered:</h4>
+             <ul style="font-size:12px;padding-left:16px;line-height:1.6">${slide.content.topics.map(t=>`<li>${t}</li>`).join('')}</ul></div>`;
+  }
+  else if(slide.type === "concepts") {
+    html += `<h3 class="module-title">${slide.content.heading}</h3>
+             <div class="concept-grid">${slide.content.items.map(item => `<div class="concept-card"><h3>${item.term}</h3><p>${item.def}</p><div class="example"><strong>Eg:</strong> ${item.example}</div></div>`).join('')}</div>`;
+  }
+  else if(slide.type === "corruption-def" || slide.type === "acab-offenses") {
+    const items = slide.content.types || slide.content.offenses;
+    html += `<h3 class="module-title">${slide.content.heading}</h3><p class="module-intro">${slide.content.def || slide.content.intro}</p>
+             ${items.map(t => `<div class="corruption-type"><h4>${t.name}</h4><p>${t.desc}</p><div class="eg">Example: ${t.eg}</div></div>`).join('')}`;
+  }
+  else if(slide.type === "penalties") {
+    html += `<h3 class="module-title">${slide.content.heading}</h3>
+             <div class="penalty-grid">${slide.content.penalties.map(p => `<div class="penalty-card"><div class="icon">${p.icon}</div><div class="plabel">${p.label}</div><p>${p.desc}</p></div>`).join('')}</div>`;
+  }
+  else if(slide.type === "code-of-conduct" || slide.type === "text_list") {
+    html += `<h3 class="module-title">${slide.content.heading}</h3><p class="module-intro">${slide.content.intro}</p>
+             <div class="card card-gold"><ul style="font-size:12px;padding-left:16px;line-height:1.7">${slide.content.principles?.map(p=>`<li>${p}</li>`).join('') || slide.content.items?.map(p=>`<li>${p}</li>`).join('')}</ul></div>`;
+  }
+  else if(slide.type === "drag_match") {
+    html += `<h3 class="module-title">${slide.content.heading}</h3>
+             <div class="card">
+               <p style="font-size:12px;color:#718096;margin-bottom:10px;">Tap a definition, then tap the matching term (works on mobile & desktop):</p>
+               <div class="drag-source" id="src-box">
+                 ${slide.content.defs.map((d,i) => `<div class="drag-item" id="def-${i}" onclick="handleDragItemClick('def-${i}')" draggable="true" ondragstart="ds(event)">${d}</div>`).join('')}
+               </div>
+               <div class="drag-area">
+                 ${slide.content.terms.map((t,i) => `<div class="drag-target" id="tgt-${i}" onclick="handleTargetClick(${i})" ondragover="do(event)" ondragleave="dl(event)" ondrop="dp(event, ${i})"><h5>${t}</h5><div class="drag-items"></div></div>`).join('')}
+               </div>
+               <button class="btn btn-gold btn-sm" onclick="checkMatchActivity()">Verify Matches</button>
+               <div class="match-feedback" id="match-fdbk"></div>
+             </div>`;
+  }
+  else if(slide.type === "quiz") {
+    const qKey = `m_${currentMod}_s_${currentSlide}`;
+    const quizIdx = quizState[qKey] || 0;
+    const questions = slide.content.questions;
+
+    if(quizIdx >= questions.length) {
+      // Save final score to DB
+      getLearnerProgress(currentLearner.id).then(prog => {
+        prog.quizScores[slide.id] = { score: currentQuizState.score, total: currentQuizState.total };
+        setLearnerProgress(currentLearner.id, prog);
+      });
+      
+      html += `<div class="score-display">
+                 <div class="score-big">🎉</div>
+                 <h3 style="margin:10px 0 5px">Module Knowledge Check Complete!</h3>
+                 <p style="font-size:13px;color:#4a5568;margin-bottom:15px">You scored ${currentQuizState.score} out of ${currentQuizState.total}.</p>
+                 <button class="btn btn-gold btn-sm" onclick="finishModule()">Continue</button>
+               </div>`;
+    } else {
+      const q = questions[quizIdx];
+      html += `<div class="quiz-wrap">
+                 <div class="quiz-counter">Question ${quizIdx + 1} of ${questions.length}</div>
+                 ${q.scenario ? `<div class="quiz-scenario"><strong>Context:</strong> ${q.scenario}</div>` : ''}
+                 <div class="quiz-q">${q.q}</div>
+                 <div>
+                   ${q.opts.map((o, oIdx) => `<button class="quiz-opt" id="opt-${oIdx}" onclick="checkQuiz(${oIdx}, ${q.ans}, '${btoa(q.exp)}', '${slide.id}')">${o}</button>`).join('')}
+                 </div>
+                 <div class="quiz-feedback" id="q-fdbk"></div>
+                 <div id="q-next-wrap" style="margin-top:10px;text-align:right;display:none">
+                   <button class="btn btn-gold btn-sm" onclick="nextQuizQ('${qKey}', '${slide.id}')">Next Question <i class="ti ti-arrow-right"></i></button>
+                 </div>
+               </div>`;
+    }
+  }
+
+  /* Structural Navigation Footers */
+  html += `<div class="nav-btns">
+             <button class="btn btn-sm" onclick="prevSlide()" ${currentSlide===0?'disabled':''}><i class="ti ti-arrow-left"></i> Previous</button>`;
+  if(slide.type !== "quiz" || (quizState[`m_${currentMod}_s_${currentSlide}`] >= slide.content.questions.length)) {
+    html += `<button class="btn btn-gold btn-sm" onclick="nextSlide()">Next <i class="ti ti-arrow-right"></i></button>`;
   }
   html += `</div>`;
-  area.innerHTML = html;
-  await updateProgressBar();
+
+  out.innerHTML = html;
 }
 
-function checkQuizAnswer(selected, correct, exp){
-  const fb = document.getElementById('quiz-fb');
-  fb.className = "quiz-feedback show " + (selected === correct ? "feedback-correct" : "feedback-wrong");
-  fb.innerHTML = `<strong>${selected === correct ? 'Correct!' : 'Incorrect.'}</strong> ${exp}`;
+function prevSlide(){ if(currentSlide > 0) { currentSlide--; renderSlide(); } }
+function nextSlide(){
+  const max = MODULES[currentMod].slides.length;
+  if(currentSlide < max - 1) { currentSlide++; renderSlide(); }
+  else { finishModule(); }
 }
 
-async function nextSlide(){ currentSlide++; renderSlide(); }
-async function prevSlide(){ currentSlide--; renderSlide(); }
-
-async function completeModule(){
-  showToast("Module completed! Progress synchronized safely.");
-  const prog = await getLearnerProgress(currentLearner.id);
-  if(!prog.completedMods.includes(currentMod)) prog.completedMods.push(currentMod);
-  prog.pct = Math.min(100, Math.round((prog.completedMods.length / MODULES.length) * 100));
-  if(prog.pct === 100) prog.completedAt = new Date().toISOString();
-  await setLearnerProgress(currentLearner.id, prog);
-  await updateProgressBar();
+function finishModule() {
+  getLearnerProgress(currentLearner.id).then(prog => {
+    if(!prog.completedMods.includes(currentMod)) prog.completedMods.push(currentMod);
+    
+    if(currentMod < MODULES.length - 1) {
+      currentMod++; currentSlide = 0;
+      showToast("Excellent work! Advancing to the next module. 🚀");
+      renderTabs(); renderSlide();
+    } else {
+      prog.completedAt = new Date().toISOString();
+      setLearnerProgress(currentLearner.id, prog);
+      renderCompletionScreen();
+    }
+  });
 }
 
-async function updateProgressBar(){
-  if(!currentLearner) return;
-  const p = await getLearnerProgress(currentLearner.id);
-  const fill = document.getElementById('prog');
-  const lbl = document.getElementById('prog-label');
-  if(fill && lbl) {
-    fill.style.width = p.pct + '%';
-    lbl.textContent = p.pct + '% complete';
+function renderCompletionScreen() {
+  document.getElementById('content-area').innerHTML = `
+    <div class="cert-wrap">
+      <div style="font-size:48px;margin-bottom:10px">🏆</div>
+      <h2>CONGRATULATIONS!</h2>
+      <p style="font-size:14px;color:#2d3748;margin-bottom:8px">You have successfully completed the</p>
+      <h3 style="color:#c8960a;font-size:16px;font-weight:600;margin-bottom:20px">Ethics, Integrity & Professionalism Training</h3>
+      <p style="font-size:12px;color:#718096">Issued by the Anti-Corruption Commission of Bhutan</p>
+      <div style="margin-top:25px;border-top:1px dashed #cbd5e0;padding-top:15px;font-size:11px;color:#4a5568">
+        Learner ID: ${currentLearner.id}<br>Completed on: ${new Date().toLocaleDateString()}
+      </div>
+      <button class="btn btn-gold" style="margin-top:20px" onclick="window.print()"><i class="ti ti-printer"></i> Print Certificate</button
+    </div>`;
+}
+
+/* ====== INTERACTIVE HELPERS (Mobile Friendly) ====== */
+function handleDragItemClick(itemId) {
+  if (selectedDragItem === itemId) {
+    selectedDragItem = null;
+    document.getElementById(itemId).classList.remove('selected');
+    return;
+  }
+  if (selectedDragItem) document.getElementById(selectedDragItem).classList.remove('selected');
+  selectedDragItem = itemId;
+  document.getElementById(itemId).classList.add('selected');
+}
+
+function handleTargetClick(targetIdx) {
+  if (selectedDragItem) {
+    const targetBox = document.getElementById(`tgt-${targetIdx}`).querySelector('.drag-items');
+    const item = document.getElementById(selectedDragItem);
+    targetBox.appendChild(item);
+    selectedDragItem = null;
+    item.classList.remove('selected');
   }
 }
 
-/* ====== ADMINISTRATIVE PANEL ====== */
-async function renderAdmin(){
-  const learners = await loadLearners();
-  const progAll = await loadAllProgress();
+function ds(e){ e.dataTransfer.setData("text", e.target.id); }
+function do(e){ e.preventDefault(); e.currentTarget.classList.add('over'); }
+function dl(e){ e.currentTarget.classList.remove('over'); }
+function dp(e, targetIdx){
+  e.preventDefault(); e.currentTarget.classList.remove('over');
+  const id = e.dataTransfer.getData("text");
+  document.getElementById(`tgt-${targetIdx}`).querySelector('.drag-items').appendChild(document.getElementById(id));
+}
+
+function checkMatchActivity() {
+  const slide = MODULES[currentMod].slides[currentSlide];
+  let correct = true;
+  slide.content.answers.forEach((ansIdx, targetIdx) => {
+    const box = document.getElementById(`tgt-${targetIdx}`).querySelector('.drag-items');
+    const item = box.querySelector('.drag-item');
+    if(!item || item.id !== `def-${ansIdx}`) correct = false;
+  });
+  const f = document.getElementById('match-fdbk');
+  f.style.color = correct ? '#2e7d32' : '#a32d2d';
+  f.innerHTML = correct ? "🎉 All mappings align correctly!" : "❌ Some records mismatched. Tap to retry.";
+}
+
+function checkQuiz(sel, ans, expB64, slideId) {
+  if (currentQuizState.answered) return;
+  currentQuizState.answered = true;
+  currentQuizState.total++;
   
-  const total = learners.length;
-  const completed = Object.values(progAll).filter(p=>p.completedAt).length;
-  const active = total - completed;
+  const exp = atob(expB64);
+  document.querySelectorAll('.quiz-opt').forEach((btn, i) => {
+    btn.disabled = true;
+    if(i === ans) btn.classList.add('correct');
+    if(i === sel && sel !== ans) btn.classList.add('wrong');
+  });
+  
+  const fdbk = document.getElementById('q-fdbk');
+  fdbk.className = `quiz-feedback show ${sel===ans?'feedback-correct':'feedback-wrong'}`;
+  fdbk.innerHTML = `<strong>${sel===ans?'Correct Answer!':'Incorrect.'}</strong> ${exp}`;
+  document.getElementById('q-next-wrap').style.display = 'block';
+
+  if (sel === ans) currentQuizState.score++;
+}
+
+function nextQuizQ(key, slideId) {
+  quizState[key] = (quizState[key] || 0) + 1;
+  currentQuizState.answered = false;
+  renderSlide();
+}
+
+/* ====== ADMINISTRATIVE CONTROL PANELS ====== */
+let cacheLearners = [], cacheProgress = {};
+
+async function renderAdmin() {
+  cacheLearners = await loadLearners();
+  cacheProgress = await loadAllProgress();
+  
+  const total = cacheLearners.filter(l => !l.is_admin).length;
+  const active = Object.values(cacheProgress).filter(p => p.pct > 0 && !p.completedAt).length;
+  const done = Object.values(cacheProgress).filter(p => p.completedAt).length;
 
   document.getElementById('admin-stats').innerHTML = `
-    <div class="stat-card"><div class="stat-num">${total}</div><div class="stat-label">Total Registered</div></div>
+    <div class="stat-card"><div class="stat-num">${total}</div><div class="stat-label">Total Enrolled</div></div>
     <div class="stat-card"><div class="stat-num">${active}</div><div class="stat-label">In Progress</div></div>
-    <div class="stat-card"><div class="stat-num">${completed}</div><div class="stat-label">Completions</div></div>`;
-
-  renderAdminLearnersTable(learners, progAll);
+    <div class="stat-card"><div class="stat-num">${done}</div><div class="stat-label">Completions</div></div>
+  `;
+  triggerLearnerSearch();
+  renderProgressTable();
+  renderCompletionsTable();
 }
 
-function renderAdminLearnersTable(learners, progAll){
-  const wrap = document.getElementById('admin-learners-table');
-  if(!learners.length) { wrap.innerHTML = '<div class="empty-state">No learners enrolled.</div>'; return; }
-  
-  let html = `<table><thead><tr><th>Name</th><th>Email</th><th>Organisation</th><th>Dzongkhag</th><th>Progress</th><th>Actions</th></tr></thead><tbody>`;
-  learners.forEach(l => {
-    const p = progAll[l.id] || { pct: 0 };
-    html += `<tr>
-      <td><strong>${l.fname} ${l.lname}</strong><br><small style="color:#718096">${l.role}</small></td>
-      <td>${l.email}</td>
-      <td>${l.org}</td>
-      <td>${l.dzong}</td>
-      <td><span class="badge ${p.pct===100?'badge-green':p.pct>0?'badge-blue':'badge-gray'}">${p.pct}%</span></td>
-      <td><button class="btn btn-sm btn-danger" onclick="deleteLearner('${l.id}')"><i class="ti ti-trash"></i></button></td>
-    </tr>`;
-  });
-  html += `</tbody></table>`;
-  wrap.innerHTML = html;
+function adminTab(target) {
+  document.querySelectorAll('.admin-tab').forEach(b => b.classList.remove('active'));
+  document.querySelectorAll('.admin-panel').forEach(p => p.classList.remove('active'));
+  document.getElementById(`tab-lnk-${target}`).classList.add('active');
+  document.getElementById(`panel-${target}`).classList.add('active');
 }
 
-function adminTab(target){
-  document.querySelectorAll('.admin-tab').forEach(t=>t.classList.remove('active'));
-  document.querySelectorAll('.admin-panel').forEach(p=>p.classList.remove('active'));
-  if(target === 'learners') {
-    document.getElementById('tab-lnk-learners').classList.add('active');
-    document.getElementById('panel-learners').style.display = 'block';
-  }
-}
-
-async function triggerLearnerSearch(){
-  const q = v('admin-search').toLowerCase();
-  const learners = await loadLearners();
-  const progAll = await loadAllProgress();
-  const filtered = learners.filter(l => 
-    l.fname.toLowerCase().includes(q) || l.lname.toLowerCase().includes(q) || 
+function triggerLearnerSearch() {
+  const q = document.getElementById('admin-search').value.toLowerCase();
+  const filtered = cacheLearners.filter(l => !l.is_admin && (
+    l.fname.toLowerCase().includes(q) || l.lname.toLowerCase().includes(q) ||
     l.email.toLowerCase().includes(q) || l.org.toLowerCase().includes(q)
-  );
-  renderAdminLearnersTable(filtered, progAll);
+  ));
+
+  const container = document.getElementById('admin-learners-table');
+  if(!filtered.length) { container.innerHTML = `<div class="empty-state">No learner records matched.</div>`; return; }
+
+  container.innerHTML = `<table><thead><tr><th>Name</th><th>Email</th><th>Organisation</th><th>Action</th></tr></thead><tbody>
+    ${filtered.map(l => `<tr><td><strong>${l.fname} ${l.lname}</strong><br><small style="color:#718096">${l.role}</small></td>
+    <td>${l.email}</td><td>${l.org}<br><small style="color:#718096">${l.dzong}</small></td>
+    <td><button class="btn btn-danger btn-sm" onclick="deleteLearner('${l.id}')"><i class="ti ti-trash"></i></button></td></tr>`).join('')}
+  </tbody></table>`;
+}
+
+function renderProgressTable() {
+  const container = document.getElementById('admin-progress-table');
+  if(!cacheLearners.length) { container.innerHTML = `<div class="empty-state">No data available.</div>`; return; }
+  container.innerHTML = `<table><thead><tr><th>Learner</th><th>Progress Matrix</th><th>Last Active</th></tr></thead><tbody>
+    ${cacheLearners.filter(l=>!l.is_admin).map(l => {
+      const p = cacheProgress[l.id] || { pct:0, lastSeen: null };
+      return `<tr><td><strong>${l.fname} ${l.lname}</strong></td>
+      <td><div style="font-weight:500">${p.pct}% Complete</div><small style="color:#718096">Module ${p.currentMod || 0 + 1}, Slide ${p.currentSlide || 0 + 1}</small></td>
+      <td>${p.lastSeen ? new Date(p.lastSeen).toLocaleDateString() : 'Never'}</td></tr>`;
+    }).join('')}</tbody></table>`;
+}
+
+function renderCompletionsTable() {
+  const container = document.getElementById('admin-completions-table');
+  const completions = cacheLearners.filter(l => !l.is_admin && cacheProgress[l.id]?.completedAt);
+  if(!completions.length) { container.innerHTML = `<div class="empty-state">No learners have finalized all modules yet.</div>`; return; }
+  container.innerHTML = `<table><thead><tr><th>Certificate Recipient</th><th>Firm Link</th><th>Completion Stamp</th></tr></thead><tbody>
+    ${completions.map(l => `<tr><td><strong>${l.fname} ${l.lname}</strong><br><small style="color:#718096">${l.role}</small></td>
+    <td>${l.org}</td><td><span class="badge badge-green">${new Date(cacheProgress[l.id].completedAt).toLocaleDateString()}</span></td></tr>`).join('')}
+  </tbody></table>`;
 }
 
 async function deleteLearner(id){
   if(!confirm('Permanently remove this record?')) return;
-  const { error } = await supabase.from('learners').delete().eq('id', id);
-  if (!error) {
-    await supabase.from('progress').delete().eq('learner_id', id);
-    await renderAdmin();
-    showToast('Learner record deleted.');
-  }
+  await supabase.from('learners').delete().eq('id', id);
+  await supabase.from('progress').delete().eq('learner_id', id);
+  showToast('Learner record successfully purged.');
+  await renderAdmin();
 }
 
-async function exportCSV(){
-  const learners = await loadLearners();
-  const prog = await loadAllProgress();
-  const rows = [['Name','Email','Organisation','Role','Dzongkhag','Progress %']];
-  learners.forEach(l=>{
-    const p = prog[l.id] || {};
-    rows.push([l.fname+' '+l.lname, l.email, l.org, l.role, l.dzong, p.pct||0]);
+function exportCSV(){
+  const rows = [['Name','Email','Organisation','Role','Dzongkhag','Phone','Progress %','Status','Completed Date']];
+  cacheLearners.filter(l=>!l.is_admin).forEach(l => {
+    const p = cacheProgress[l.id] || {};
+    rows.push([`${l.fname} ${l.lname}`, l.email, l.org, l.role, l.dzong, l.phone || '', p.pct || 0, p.completedAt ? 'Completed' : p.pct > 0 ? 'In Progress' : 'Not Started', p.completedAt ? new Date(p.completedAt).toLocaleDateString() : '']);
   });
-  const csv = rows.map(r=>r.map(c=>`"${c}"`).join(',')).join('\n');
+  const csv = rows.map(r => r.map(c => `"${c}"`).join(',')).join('\n');
   const a = document.createElement('a');
   a.href = 'data:text/csv;charset=utf-8,' + encodeURIComponent(csv);
   a.download = 'acc_learners_' + new Date().toISOString().slice(0,10) + '.csv';
   a.click();
+  showToast('Database analytics compiled and exported to CSV.');
 }
 
-function showToast(msg){
+function showToast(msg) {
   const t = document.getElementById('toast');
   t.textContent = msg; t.classList.add('show');
-  setTimeout(()=>t.classList.remove('show'), 3000);
+  setTimeout(() => t.classList.remove('show'), 3500);
 }
 </script>
 </body>
