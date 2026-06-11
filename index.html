@@ -5,36 +5,36 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes">
   <title>ACC Bhutan E-Learning: Ethics, Integrity and Professionalism</title>
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/tabler-icons.min.css">
   <style>
     *{box-sizing:border-box;margin:0;padding:0}
-    body{font-family:system-ui,-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;background:#f5f7fb;color:#1e293b;font-size:16px;line-height:1.5}
-    .app{max-width:900px;margin:0 auto;padding:1rem}
+    body{font-family:system-ui,-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;background:#f0f4f8;color:#1e293b;font-size:16px;line-height:1.5}
+    .app{max-width:800px;margin:0 auto;padding:1rem}
     .screen{display:none}.screen.active{display:block}
     .header{background:#c8960a;border-radius:20px;padding:1.5rem;margin-bottom:1.5rem;color:#fff}
-    .header h1{font-size:26px;font-weight:700;margin-bottom:4px}
-    .acc-badge{display:inline-flex;align-items:center;gap:8px;background:rgba(255,255,255,0.2);border-radius:40px;padding:5px 14px;font-size:12px;margin-bottom:12px}
-    .card{background:#fff;border:1px solid #e2e8f0;border-radius:20px;padding:1.5rem;margin-bottom:1.25rem;box-shadow:0 2px 8px rgba(0,0,0,0.04)}
-    .btn{padding:10px 20px;border-radius:12px;border:1px solid #cbd5e0;background:#fff;font-size:14px;font-weight:500;cursor:pointer;display:inline-flex;align-items:center;gap:8px;min-height:44px}
+    .header h1{font-size:24px;font-weight:700;margin-bottom:4px}
+    .acc-badge{display:inline-flex;align-items:center;gap:6px;background:rgba(255,255,255,0.2);border-radius:40px;padding:4px 12px;font-size:11px;margin-bottom:10px}
+    .card{background:#fff;border-radius:20px;padding:1.5rem;margin-bottom:1rem;box-shadow:0 2px 8px rgba(0,0,0,0.04);border:1px solid #e2e8f0}
+    .card-gold{border-left:4px solid #c8960a}
+    .btn{padding:10px 20px;border-radius:12px;border:1px solid #cbd5e0;background:#fff;font-size:14px;font-weight:500;cursor:pointer;display:inline-flex;align-items:center;gap:6px;min-height:44px}
     .btn-gold{background:#c8960a;color:#fff;border-color:#c8960a}
+    .btn-gold:hover{background:#b07e08}
     .btn-sm{padding:8px 16px;font-size:13px;min-height:38px}
     .btn-danger{background:#fef2f2;color:#dc2626;border-color:#fecaca}
-    .form-input,.form-select{width:100%;padding:12px 14px;border:1px solid #cbd5e0;border-radius:12px;font-size:15px}
+    .form-input,.form-select{width:100%;padding:12px 14px;border:1px solid #cbd5e0;border-radius:12px;font-size:15px;background:#fff}
+    .form-input:focus,.form-select:focus{outline:none;border-color:#c8960a}
     .form-group{margin-bottom:18px}
-    .form-label{font-size:14px;font-weight:500;margin-bottom:6px;display:block}
+    .form-label{font-size:14px;font-weight:500;margin-bottom:6px;display:block;color:#334155}
     .form-row{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+    .form-error{font-size:12px;color:#dc2626;margin-top:4px;display:none}
     .top-nav{display:flex;justify-content:space-between;align-items:center;margin-bottom:1.25rem;flex-wrap:wrap;gap:12px}
-    .stat-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:16px;margin-bottom:1.5rem}
-    .stat-card{background:#f8fafc;border-radius:16px;padding:16px;text-align:center;border:1px solid #e2e8f0;cursor:pointer;transition:transform 0.2s}
-    .stat-card:hover{transform:translateY(-2px)}
-    .stat-num{font-size:32px;font-weight:700;color:#c8960a}
-    .stat-label{font-size:12px;color:#64748b;margin-top:4px}
-    .admin-tabs{display:flex;gap:8px;margin-bottom:1rem;flex-wrap:wrap;border-bottom:1px solid #e2e8f0;padding-bottom:8px}
-    .admin-tab{padding:10px 20px;font-size:14px;font-weight:500;background:transparent;border:none;color:#64748b;cursor:pointer;border-radius:10px}
-    .admin-tab.active{background:#c8960a;color:#fff}
-    .admin-panel{display:none}.admin-panel.active{display:block}
-    .table-wrap{overflow-x:auto;border-radius:12px}
+    .nav-tabs{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:1.25rem}
+    .tab-btn{padding:8px 18px;border-radius:40px;border:1px solid #cbd5e0;background:#fff;font-size:13px;font-weight:500;cursor:pointer}
+    .tab-btn.active{background:#c8960a;color:#fff;border-color:#c8960a}
+    .tab-btn.done{background:#dcfce7;color:#166534;border-color:#bbf7d0}
+    .prog-wrap{background:#e2e8f0;border-radius:20px;height:8px;overflow:hidden}
+    .prog-fill{background:#c8960a;height:100%;width:0%;transition:width 0.3s}
+    .table-wrap{overflow-x:auto}
     table{width:100%;border-collapse:collapse;font-size:14px}
     th,td{padding:12px;text-align:left;border-bottom:1px solid #e2e8f0}
     th{background:#f8fafc;font-weight:600;font-size:12px;color:#64748b}
@@ -42,24 +42,45 @@
     .badge-green{background:#dcfce7;color:#166534}
     .badge-blue{background:#dbeafe;color:#1e40af}
     .badge-orange{background:#ffedd5;color:#9a3412}
-    .prog-wrap{background:#e2e8f0;border-radius:20px;height:8px;overflow:hidden}
-    .prog-fill{background:#c8960a;height:100%;width:0%;border-radius:20px;transition:width 0.3s}
+    .stat-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:16px;margin-bottom:1.5rem}
+    .stat-card{background:#fff;border-radius:16px;padding:16px;text-align:center;border:1px solid #e2e8f0}
+    .stat-num{font-size:32px;font-weight:700;color:#c8960a}
+    .stat-label{font-size:12px;color:#64748b;margin-top:4px}
+    .admin-tabs{display:flex;gap:6px;margin-bottom:1rem;flex-wrap:wrap}
+    .admin-tab{padding:8px 16px;font-size:13px;font-weight:500;background:#f1f5f9;border:none;border-radius:10px;cursor:pointer}
+    .admin-tab.active{background:#c8960a;color:#fff}
+    .admin-panel{display:none}.admin-panel.active{display:block}
+    .search-bar{display:flex;gap:10px;margin-bottom:16px;flex-wrap:wrap}
+    .search-bar input{flex:1;min-width:160px}
+    .empty-state{text-align:center;padding:2rem;color:#64748b}
     .toast{position:fixed;bottom:20px;right:20px;background:#1e293b;color:#fff;padding:12px 20px;border-radius:40px;font-size:13px;z-index:999;opacity:0;transition:opacity 0.3s;pointer-events:none}
     .toast.show{opacity:1}
     .loading-overlay{position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.5);display:flex;align-items:center;justify-content:center;z-index:1000}
     .spinner{width:40px;height:40px;border:4px solid #fff;border-top-color:#c8960a;border-radius:50%;animation:spin 0.8s linear infinite}
     @keyframes spin{to{transform:rotate(360deg)}}
-    .modal-overlay{position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.5);display:flex;align-items:center;justify-content:center;z-index:2000}
-    .modal-content{background:#fff;border-radius:24px;max-width:500px;width:90%;max-height:80vh;overflow:auto}
-    .modal-header{display:flex;justify-content:space-between;align-items:center;padding:1rem 1.5rem;border-bottom:1px solid #e2e8f0}
-    .modal-body{padding:1.5rem}
-    .modal-actions{display:flex;gap:10px;margin-top:20px;flex-wrap:wrap}
-    .bulk-actions-bar{background:#f8fafc;padding:12px;border-radius:12px;margin-bottom:16px;display:flex;align-items:center;gap:12px;flex-wrap:wrap}
-    .filter-group{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:16px}
-    .checkbox-col{width:30px}
-    .empty-state{text-align:center;padding:2rem;color:#64748b}
     .voice-controls{display:flex;gap:10px;margin-top:12px;align-items:center;flex-wrap:wrap}
-    @media (max-width:640px){.form-row{grid-template-columns:1fr}.admin-tabs{gap:4px}.admin-tab{padding:8px 12px;font-size:12px}}
+    .quiz-opt{display:block;width:100%;text-align:left;padding:12px;margin-bottom:8px;border:1px solid #cbd5e0;border-radius:12px;background:#fff;cursor:pointer}
+    .quiz-opt.correct{background:#dcfce7;border-color:#22c55e}
+    .quiz-opt.wrong{background:#fee2e2;border-color:#ef4444}
+    .quiz-feedback{padding:12px;border-radius:12px;margin-top:10px}
+    .feedback-correct{background:#dcfce7;color:#166534}
+    .feedback-wrong{background:#fee2e2;color:#991b1b}
+    .drag-source{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:16px}
+    .drag-item{background:#c8960a;color:#fff;padding:8px 14px;border-radius:10px;font-size:13px;cursor:grab;display:inline-block}
+    .drag-target{border:2px dashed #cbd5e0;border-radius:12px;padding:12px;min-height:70px;margin-bottom:10px}
+    .drag-target.over{border-color:#c8960a;background:#fef3c7}
+    .drag-target h5{font-size:12px;margin-bottom:8px;color:#64748b}
+    .drag-items{display:flex;flex-wrap:wrap;gap:6px;min-height:40px}
+    .concept-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:16px;margin:16px 0}
+    .concept-card{background:#c8960a;border-radius:16px;padding:16px;color:#fff}
+    .concept-card h3{font-size:15px;margin-bottom:6px}
+    .concept-card p{font-size:12px;opacity:0.9}
+    .penalty-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:12px;margin:16px 0}
+    .penalty-card{background:#f8fafc;border-radius:12px;padding:12px;text-align:center;border:1px solid #e2e8f0}
+    .corruption-type{border:1px solid #e2e8f0;border-radius:12px;padding:12px;margin-bottom:10px}
+    .module-title{font-size:18px;font-weight:700;color:#c8960a;margin-bottom:8px}
+    .module-intro{font-size:14px;color:#475569;margin-bottom:16px}
+    @media (max-width:640px){.form-row{grid-template-columns:1fr}.app{padding:0.75rem}.btn{padding:8px 16px}}
   </style>
 </head>
 <body>
@@ -69,71 +90,110 @@
   <!-- LANDING SCREEN -->
   <div class="screen active" id="screen-landing">
     <div class="header">
-      <div class="acc-badge"><span>🛡️</span> Anti-Corruption Commission · Bhutan</div>
+      <div class="acc-badge"><i class="ti ti-shield-check"></i> Anti-Corruption Commission · Bhutan</div>
       <h1>Ethics, Integrity & Professionalism</h1>
       <p>For Bhutanese Construction Professionals</p>
     </div>
     <div class="card" style="text-align:center">
       <div style="font-size:48px;margin-bottom:12px">🏗️</div>
-      <div style="font-size:18px;font-weight:600">Welcome to ACC E-Learning</div>
-      <div style="margin:20px 0;display:flex;gap:12px;justify-content:center;flex-wrap:wrap">
-        <button class="btn btn-gold" onclick="showScreen('screen-register')">📝 Register</button>
-        <button class="btn" onclick="showScreen('screen-login')">🔐 Login</button>
-        <button class="btn" onclick="showAdminLoginModal()">👑 Admin</button>
+      <div style="font-size:18px;font-weight:600;margin-bottom:6px">Welcome to ACC E-Learning</div>
+      <div style="font-size:13px;color:#64748b;margin-bottom:24px">Complete all modules to earn your certificate</div>
+      <div style="display:flex;gap:12px;justify-content:center;flex-wrap:wrap">
+        <button class="btn btn-gold" onclick="showScreen('screen-register')"><i class="ti ti-user-plus"></i> Register</button>
+        <button class="btn" onclick="showScreen('screen-login')"><i class="ti ti-login"></i> Login</button>
+        <button class="btn" onclick="showAdminLogin()"><i class="ti ti-layout-dashboard"></i> Admin</button>
       </div>
     </div>
   </div>
 
   <!-- REGISTER SCREEN -->
   <div class="screen" id="screen-register">
-    <div class="top-nav"><button class="btn btn-sm" onclick="showScreen('screen-landing')">← Back</button><span style="font-weight:600">Registration</span><div></div></div>
+    <div class="top-nav"><button class="btn btn-sm" onclick="showScreen('screen-landing')"><i class="ti ti-arrow-left"></i> Back</button><span style="font-weight:600">Registration</span><div></div></div>
     <div class="card">
-      <div class="form-row"><div class="form-group"><label class="form-label">First name *</label><input class="form-input" id="reg-fname"><div class="form-error" id="err-fname" style="color:#dc2626;font-size:12px;display:none">Required</div></div><div class="form-group"><label class="form-label">Last name *</label><input class="form-input" id="reg-lname"><div class="form-error" id="err-lname" style="display:none">Required</div></div></div>
-      <div class="form-group"><label class="form-label">Email *</label><input class="form-input" id="reg-email" type="email"></div>
-      <div class="form-row"><div class="form-group"><label class="form-label">Organisation *</label><input class="form-input" id="reg-org"></div><div class="form-group"><label class="form-label">Role *</label><select class="form-select" id="reg-role"><option value="">Select</option><option>Contractor</option><option>Site Engineer</option><option>Project Manager</option></select></div></div>
-      <div class="form-row"><div class="form-group"><label class="form-label">Dzongkhag *</label><select class="form-select" id="reg-dzong"><option value="">Select</option><option>Thimphu</option><option>Paro</option><option>Punakha</option></select></div><div class="form-group"><label class="form-label">Phone</label><input class="form-input" id="reg-phone"></div></div>
-      <div class="form-group"><label class="form-label">PIN (4-6 digits) *</label><input class="form-input" id="reg-pin" type="password" maxlength="6"></div>
-      <button class="btn btn-gold" onclick="registerLearner()" style="width:100%">✅ Register & Enrol</button>
+      <div class="form-row">
+        <div class="form-group"><label class="form-label">First name *</label><input class="form-input" id="reg-fname"><div class="form-error" id="err-fname">Required</div></div>
+        <div class="form-group"><label class="form-label">Last name *</label><input class="form-input" id="reg-lname"><div class="form-error" id="err-lname">Required</div></div>
+      </div>
+      <div class="form-group"><label class="form-label">Email *</label><input class="form-input" id="reg-email" type="email"><div class="form-error" id="err-email">Valid email required</div></div>
+      <div class="form-row">
+        <div class="form-group"><label class="form-label">Organisation *</label><input class="form-input" id="reg-org"><div class="form-error" id="err-org">Required</div></div>
+        <div class="form-group"><label class="form-label">Role *</label><select class="form-select" id="reg-role"><option value="">Select</option><option>Contractor</option><option>Site Engineer</option><option>Project Manager</option><option>Procurement Officer</option><option>Supervisor</option><option>Architect</option><option>Other</option></select><div class="form-error" id="err-role">Required</div></div>
+      </div>
+      <div class="form-row">
+        <div class="form-group"><label class="form-label">Dzongkhag *</label><select class="form-select" id="reg-dzong"><option value="">Select</option><option>Thimphu</option><option>Paro</option><option>Punakha</option><option>Wangdue Phodrang</option><option>Bumthang</option><option>Trongsa</option><option>Sarpang</option><option>Tsirang</option><option>Dagana</option><option>Chukha</option><option>Haa</option><option>Gasa</option><option>Pemagatshel</option><option>Mongar</option><option>Trashigang</option><option>Trashiyangtse</option><option>Lhuentse</option><option>Zhemgang</option><option>Samdrup Jongkhar</option><option>Samtse</option></select><div class="form-error" id="err-dzong">Required</div></div>
+        <div class="form-group"><label class="form-label">Contact number</label><input class="form-input" id="reg-phone" placeholder="+975 XXXXXXXX"></div>
+      </div>
+      <div class="form-group"><label class="form-label">PIN (4-6 digits) *</label><input class="form-input" id="reg-pin" type="password" maxlength="6"><div class="form-error" id="err-pin">4-6 digits required</div></div>
+      <div id="reg-error" style="color:#dc2626;margin-bottom:12px;display:none"></div>
+      <button class="btn btn-gold" onclick="registerUser()" style="width:100%"><i class="ti ti-user-check"></i> Register & Enrol</button>
     </div>
   </div>
 
   <!-- LOGIN SCREEN -->
   <div class="screen" id="screen-login">
-    <div class="top-nav"><button class="btn btn-sm" onclick="showScreen('screen-landing')">← Back</button><span style="font-weight:600">Login</span><div></div></div>
-    <div class="card" style="max-width:400px;margin:0 auto"><div class="form-group"><label class="form-label">Email</label><input class="form-input" id="login-email"></div><div class="form-group"><label class="form-label">PIN</label><input class="form-input" id="login-pin" type="password"></div><div id="login-err" style="color:#dc2626;display:none;margin-bottom:12px">Invalid credentials</div><button class="btn btn-gold" onclick="loginLearner()" style="width:100%">🔓 Sign in</button></div>
+    <div class="top-nav"><button class="btn btn-sm" onclick="showScreen('screen-landing')"><i class="ti ti-arrow-left"></i> Back</button><span style="font-weight:600">Login</span><div></div></div>
+    <div class="card" style="max-width:400px;margin:0 auto">
+      <div class="form-group"><label class="form-label">Email</label><input class="form-input" id="login-email" type="email"></div>
+      <div class="form-group"><label class="form-label">PIN</label><input class="form-input" id="login-pin" type="password" maxlength="6"></div>
+      <div id="login-error" style="color:#dc2626;margin-bottom:12px;display:none">Invalid email or PIN</div>
+      <button class="btn btn-gold" onclick="loginUser()" style="width:100%"><i class="ti ti-login"></i> Sign in</button>
+    </div>
   </div>
 
   <!-- DASHBOARD SCREEN -->
   <div class="screen" id="screen-dashboard">
-    <div class="top-nav"><span style="font-weight:600">📊 My Dashboard</span><button class="btn btn-sm" onclick="exitToLanding()">🚪 Exit</button></div>
-    <div class="stat-grid" id="dashboard-stats"></div>
-    <div class="card"><h3>📚 Your Progress</h3><div class="prog-wrap"><div class="prog-fill" id="dash-progress-bar"></div></div><p id="dash-progress-text" style="margin-top:8px">0% complete</p><button class="btn btn-gold" onclick="resumeCourse()" style="margin-top:12px">▶ Resume Learning</button></div>
-    <div class="card"><h3>🎓 Certificate</h3><div id="certificate-status"></div></div>
-    <div class="card"><h3>👤 Profile</h3><p id="profile-info"></p><button class="btn btn-sm" onclick="showChangePINModal()">Change PIN</button></div>
+    <div class="top-nav"><span style="font-weight:600"><i class="ti ti-dashboard"></i> My Dashboard</span><button class="btn btn-sm" onclick="logoutToLanding()"><i class="ti ti-logout"></i> Exit</button></div>
+    <div class="card">
+      <h3><i class="ti ti-user-circle"></i> Welcome, <span id="dash-name"></span></h3>
+      <p id="dash-org" style="color:#64748b;font-size:13px;margin-top:4px"></p>
+      <div class="prog-wrap" style="margin:16px 0"><div class="prog-fill" id="dash-progress"></div></div>
+      <p id="dash-percent" style="font-size:14px;font-weight:500">0% complete</p>
+      <button class="btn btn-gold" onclick="resumeCourse()" style="margin-top:12px"><i class="ti ti-player-play"></i> Resume Learning</button>
+    </div>
+    <div class="card">
+      <h3><i class="ti ti-certificate"></i> Certificate</h3>
+      <div id="cert-status"></div>
+      <button class="btn btn-sm" onclick="changePin()" style="margin-top:12px"><i class="ti ti-lock"></i> Change PIN</button>
+    </div>
   </div>
 
   <!-- COURSE SCREEN -->
   <div class="screen" id="screen-course">
-    <div class="header"><div style="display:flex;justify-content:space-between;flex-wrap:wrap;gap:10px"><div><div class="acc-badge">ACC Bhutan</div><h1>Ethics, Integrity & Professionalism</h1><p id="learner-name"></p></div><div><button class="btn btn-sm" onclick="goToDashboard()" style="background:transparent;color:#fff;border:1px solid rgba(255,255,255,0.3)">📊 Dashboard</button><button class="btn btn-sm" onclick="exitCourse()" style="background:transparent;color:#fff;border:1px solid rgba(255,255,255,0.3)">🚪 Exit</button></div></div><div class="prog-wrap" style="background:rgba(255,255,255,0.3);margin-top:12px"><div class="prog-fill" id="course-progress" style="background:#fff"></div></div><div class="voice-controls"><button class="btn btn-sm" id="voice-play" onclick="playVoice()">🔊 Listen</button><button class="btn btn-sm" id="voice-stop" onclick="stopVoice()" style="display:none">⏹️ Stop</button><input type="range" id="voice-rate" min="0.5" max="2" step="0.1" value="1" style="width:100px"></div></div>
-    <div class="admin-tabs" id="module-tabs"></div>
+    <div class="header">
+      <div style="display:flex;justify-content:space-between;flex-wrap:wrap;gap:10px">
+        <div><div class="acc-badge">ACC Bhutan</div><h1>Ethics, Integrity & Professionalism</h1><p id="course-user-name" style="font-size:12px;opacity:0.9"></p></div>
+        <div><button class="btn btn-sm" onclick="goToDashboard()" style="background:transparent;color:#fff;border:1px solid rgba(255,255,255,0.3)"><i class="ti ti-dashboard"></i> Dashboard</button><button class="btn btn-sm" onclick="exitCourse()" style="background:transparent;color:#fff;border:1px solid rgba(255,255,255,0.3)"><i class="ti ti-logout"></i> Exit</button></div>
+      </div>
+      <div class="prog-wrap" style="background:rgba(255,255,255,0.3);margin-top:12px"><div class="prog-fill" id="course-progress" style="background:#fff"></div></div>
+      <div class="voice-controls"><button class="btn btn-sm" id="voice-play" onclick="playVoice()" style="background:#fff;color:#c8960a"><i class="ti ti-volume-2"></i> Listen</button><button class="btn btn-sm" id="voice-stop" onclick="stopVoice()" style="display:none;background:#fff;color:#dc2626"><i class="ti ti-player-stop"></i> Stop</button><input type="range" id="voice-rate" min="0.5" max="2" step="0.1" value="1" style="width:100px"></div>
+    </div>
+    <div class="nav-tabs" id="module-tabs"></div>
     <div id="course-content"></div>
   </div>
 
   <!-- ADMIN SCREEN -->
   <div class="screen" id="screen-admin">
-    <div class="top-nav"><span style="font-weight:600">🛡️ Admin Dashboard</span><button class="btn btn-sm" onclick="logoutAdmin()">Logout</button></div>
-    <div class="admin-tabs"><button class="admin-tab active" data-tab="learners">👥 Learners</button><button class="admin-tab" data-tab="progress">📊 Progress</button><button class="admin-tab" data-tab="completions">🎓 Completions</button><button class="admin-tab" data-tab="analytics">📈 Analytics</button><button class="admin-tab" data-tab="course">⚙️ Course</button><button class="admin-tab" data-tab="logs">📝 Logs</button></div>
-    <div id="admin-learners-panel" class="admin-panel active"><div class="filter-group"><input class="form-input" id="search-learner" placeholder="Search..." style="flex:1"><select id="filter-role-admin"><option value="">All Roles</option><option>Contractor</option><option>Site Engineer</option></select><button class="btn btn-gold btn-sm" onclick="exportLearnersCSV()">📎 Export</button></div><div class="bulk-actions-bar" id="bulk-bar" style="display:none"><span id="selected-count">0</span><button class="btn btn-sm" onclick="bulkEmail()">📧 Email</button><button class="btn btn-sm btn-danger" onclick="bulkDelete()">🗑️ Delete</button><button class="btn btn-sm" onclick="clearSelection()">Clear</button></div><div class="table-wrap"><table id="learners-table"><thead><tr><th class="checkbox-col"><input type="checkbox" onchange="toggleSelectAll()"></th><th>Name</th><th>Email</th><th>Organisation</th><th>Progress</th><th>Status</th><th>Actions</th></tr></thead><tbody id="learners-tbody"></tbody></table></div></div>
-    <div id="admin-progress-panel" class="admin-panel"><div class="table-wrap"><table><thead><tr><th>Name</th><th>Progress</th><th>Module</th><th>Last Active</th></tr></thead><tbody id="progress-tbody"></tbody></table></div></div>
-    <div id="admin-completions-panel" class="admin-panel"><div class="table-wrap"><table><thead><tr><th>Name</th><th>Organisation</th><th>Completed Date</th></tr></thead><tbody id="completions-tbody"></tbody></table></div></div>
-    <div id="admin-analytics-panel" class="admin-panel"><div class="stat-grid" id="analytics-stats"></div><canvas id="enrollChart" style="max-height:200px;margin-bottom:16px"></canvas><canvas id="moduleChart" style="max-height:200px"></canvas></div>
-    <div id="admin-course-panel" class="admin-panel"><div id="module-list-admin"></div><div id="slide-editor" style="display:none;margin-top:16px"><textarea id="slide-json" rows="10" style="width:100%;font-family:monospace;font-size:12px;padding:8px;border-radius:8px;border:1px solid #cbd5e0"></textarea><button class="btn btn-gold btn-sm" onclick="saveSlide()">Save</button><button class="btn btn-sm" onclick="closeSlideEditor()">Cancel</button></div></div>
-    <div id="admin-logs-panel" class="admin-panel"><div class="filter-group"><input class="form-input" id="log-search" placeholder="Search logs..."><button class="btn btn-sm" onclick="clearLogs()">Clear All</button></div><div class="table-wrap"><table><thead><tr><th>Time</th><th>Admin</th><th>Action</th><th>Details</th></tr></thead><tbody id="logs-tbody"></tbody></table></div></div>
+    <div class="top-nav"><span style="font-weight:600"><i class="ti ti-shield"></i> Admin Dashboard</span><button class="btn btn-sm" onclick="adminLogout()"><i class="ti ti-logout"></i> Logout</button></div>
+    <div class="admin-tabs" id="admin-tabs">
+      <button class="admin-tab active" data-panel="learners">👥 Learners</button>
+      <button class="admin-tab" data-panel="progress">📊 Progress</button>
+      <button class="admin-tab" data-panel="completions">🎓 Completions</button>
+    </div>
+    <div id="admin-learners" class="admin-panel active">
+      <div class="search-bar"><input class="form-input" id="search-learners" placeholder="Search by name, email..." oninput="renderLearners()"><button class="btn btn-gold btn-sm" onclick="exportLearners()"><i class="ti ti-download"></i> Export CSV</button></div>
+      <div class="table-wrap"><table style="width:100%"><thead><tr><th>Name</th><th>Email</th><th>Organisation</th><th>Progress</th><th>Status</th><th>Action</th></tr></thead><tbody id="learners-list"></tbody></table></div>
+    </div>
+    <div id="admin-progress" class="admin-panel">
+      <div class="table-wrap"><table style="width:100%"><thead><tr><th>Name</th><th>Progress</th><th>Current Module</th><th>Last Active</th></tr></thead><tbody id="progress-list"></tbody></table></div>
+    </div>
+    <div id="admin-completions" class="admin-panel">
+      <div class="table-wrap"><table style="width:100%"><thead><tr><th>Name</th><th>Organisation</th><th>Completed Date</th></tr></thead><tbody id="completions-list"></tbody></table></div>
+    </div>
   </div>
 </div>
 
 <script>
-// Supabase
+// Supabase Configuration
 const SUPABASE_URL = 'https://ohmboguqkyhjtxjojqyz.supabase.co';
 const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im9obWJvZ3Vxa3loanR4am9qcXl6Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODA5NzkzNzcsImV4cCI6MjA5NjU1NTM3N30.j42iLYTHeMg4T7Da1cPbkBWrXvQ3PPdJgknE_n8pgDs';
 
@@ -142,32 +202,39 @@ let currentUser = null;
 let modules = [];
 let allLearners = [];
 let allProgress = {};
-let selectedIds = new Set();
-let activityLogs = [];
-let currentSlideIndex = 0, currentModuleIndex = 0, userProgress = null;
+let currentModule = 0;
+let currentSlide = 0;
+let userProgress = null;
 let voiceUtterance = null;
-let enrollChart = null, moduleChart = null;
 
-function showToast(msg) { const t = document.getElementById('toast'); t.textContent = msg; t.classList.add('show'); setTimeout(() => t.classList.remove('show'), 3000); }
-function escapeHtml(str) { if(!str) return ''; return str.replace(/[&<>]/g, function(m) { if(m==='&') return '&amp;'; if(m==='<') return '&lt;'; if(m==='>') return '&gt;'; return m; }); }
-function showLoading() { const div = document.createElement('div'); div.className = 'loading-overlay'; div.id = 'loader'; div.innerHTML = '<div class="spinner"></div>'; document.body.appendChild(div); }
-function hideLoading() { const el = document.getElementById('loader'); if(el) el.remove(); }
-function showScreen(id) { document.querySelectorAll('.screen').forEach(s => s.classList.remove('active')); document.getElementById(id).classList.add('active'); }
-
+// Initialize Supabase
 async function initSupabase() {
   if(supabase) return;
-  const { createClient } = supabaseJs || window.supabase;
+  const { createClient } = supabase;
   supabase = createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
-  const { data: mods } = await supabase.from('modules').select('id, module_number, title, subtitle').eq('is_published', true).order('module_number');
-  if(mods) {
-    const ids = mods.map(m => m.id);
-    const { data: slides } = await supabase.from('slides').select('id, module_id, slide_order, slide_type, content').in('module_id', ids).order('slide_order');
-    modules = mods.map(m => ({ id: m.module_number-1, title: m.title, subtitle: m.subtitle, slides: (slides||[]).filter(s => s.module_id === m.id).map(s => ({ id: s.id, type: s.slide_type, content: s.content })) }));
-  }
+  await loadModules();
 }
 initSupabase();
 
-async function registerLearner() {
+async function loadModules() {
+  const { data: mods } = await supabase.from('modules').select('id, module_number, title, subtitle').eq('is_published', true).order('module_number');
+  if(!mods) return;
+  const ids = mods.map(m => m.id);
+  const { data: slides } = await supabase.from('slides').select('id, module_id, slide_order, slide_type, content').in('module_id', ids).order('slide_order');
+  modules = mods.map(m => ({
+    id: m.module_number - 1,
+    title: m.title,
+    slides: (slides || []).filter(s => s.module_id === m.id).map(s => ({ id: s.id, type: s.slide_type, content: s.content }))
+  }));
+}
+
+function showToast(msg) { const t = document.getElementById('toast'); t.textContent = msg; t.classList.add('show'); setTimeout(() => t.classList.remove('show'), 3000); }
+function showLoading() { const d = document.createElement('div'); d.className = 'loading-overlay'; d.id = 'loader'; d.innerHTML = '<div class="spinner"></div>'; document.body.appendChild(d); }
+function hideLoading() { const l = document.getElementById('loader'); if(l) l.remove(); }
+function showScreen(id) { document.querySelectorAll('.screen').forEach(s => s.classList.remove('active')); document.getElementById(id).classList.add('active'); }
+
+// Registration
+async function registerUser() {
   const fname = document.getElementById('reg-fname').value.trim();
   const lname = document.getElementById('reg-lname').value.trim();
   const email = document.getElementById('reg-email').value.trim();
@@ -176,138 +243,283 @@ async function registerLearner() {
   const dzong = document.getElementById('reg-dzong').value;
   const phone = document.getElementById('reg-phone').value.trim();
   const pin = document.getElementById('reg-pin').value;
-  if(!fname||!lname||!email||!org||!role||!dzong||!pin||pin.length<4) { showToast('Please fill all required fields'); return; }
-  const id = 'user_'+Date.now();
+  
+  let valid = true;
+  document.getElementById('err-fname').style.display = fname ? 'none' : 'block';
+  document.getElementById('err-lname').style.display = lname ? 'none' : 'block';
+  document.getElementById('err-email').style.display = (email && email.includes('@')) ? 'none' : 'block';
+  document.getElementById('err-org').style.display = org ? 'none' : 'block';
+  document.getElementById('err-role').style.display = role ? 'none' : 'block';
+  document.getElementById('err-dzong').style.display = dzong ? 'none' : 'block';
+  document.getElementById('err-pin').style.display = (pin && pin.length >= 4) ? 'none' : 'block';
+  if(!fname || !lname || !email || !email.includes('@') || !org || !role || !dzong || !pin || pin.length < 4) return;
+  
+  const id = 'user_' + Date.now();
   const { error } = await supabase.from('learners').insert([{ id, fname, lname, email: email.toLowerCase(), org, role, dzong, phone, pin, is_admin: false, created_at: new Date().toISOString() }]);
-  if(error) { showToast('Registration failed: ' + (error.code==='23505'?'Email exists':error.message)); return; }
+  if(error) { document.getElementById('reg-error').style.display = 'block'; document.getElementById('reg-error').innerText = error.code === '23505' ? 'Email already registered' : 'Registration failed'; return; }
   currentUser = { id, fname, lname, email, org, role, dzong, phone, pin };
-  showToast('Registered!'); await loadUserDashboard();
+  showToast('Registration successful!');
+  await loadDashboard();
 }
-async function loginLearner() {
+
+// Login
+async function loginUser() {
   const email = document.getElementById('login-email').value.trim().toLowerCase();
   const pin = document.getElementById('login-pin').value;
   const { data } = await supabase.from('learners').select('*').eq('email', email).eq('pin', pin).maybeSingle();
-  if(!data || data.is_admin) { document.getElementById('login-err').style.display='block'; return; }
-  document.getElementById('login-err').style.display='none';
+  if(!data || data.is_admin) { document.getElementById('login-error').style.display = 'block'; return; }
+  document.getElementById('login-error').style.display = 'none';
   currentUser = data;
-  showToast(`Welcome ${data.fname}!`);
-  await loadUserDashboard();
+  showToast(`Welcome back, ${data.fname}!`);
+  await loadDashboard();
 }
-async function loadUserDashboard() {
+
+// Dashboard
+async function loadDashboard() {
   const { data: prog } = await supabase.from('progress').select('*').eq('learner_id', currentUser.id).maybeSingle();
-  userProgress = prog || { pct: 0, completedMods: [] };
-  const pct = userProgress.pct || 0;
-  document.getElementById('dash-progress-bar').style.width = pct+'%';
-  document.getElementById('dash-progress-text').innerHTML = pct+'% complete';
-  document.getElementById('profile-info').innerHTML = `<strong>${escapeHtml(currentUser.fname)} ${escapeHtml(currentUser.lname)}</strong><br>${escapeHtml(currentUser.email)}<br>${escapeHtml(currentUser.org)}`;
+  userProgress = prog || { pct: 0, completed_at: null };
+  document.getElementById('dash-name').innerHTML = `${currentUser.fname} ${currentUser.lname}`;
+  document.getElementById('dash-org').innerHTML = currentUser.org;
+  document.getElementById('dash-progress').style.width = (userProgress.pct || 0) + '%';
+  document.getElementById('dash-percent').innerHTML = (userProgress.pct || 0) + '% complete';
   const isComplete = !!userProgress.completed_at;
-  document.getElementById('certificate-status').innerHTML = isComplete ? '<span class="badge badge-green">✓ Certificate Earned</span><button class="btn btn-sm" onclick="alert(\'Certificate for '+currentUser.fname+' '+currentUser.lname+'\')">View</button>' : '<span class="badge badge-orange">🔒 Complete all modules</span>';
+  document.getElementById('cert-status').innerHTML = isComplete ? '<span class="badge badge-green">✅ Certificate Earned</span>' : '<span class="badge badge-orange">🔒 Complete all modules</span>';
   showScreen('screen-dashboard');
 }
+
 function resumeCourse() { startCourse(); }
+function goToDashboard() { showScreen('screen-dashboard'); }
+function logoutToLanding() { currentUser = null; showScreen('screen-landing'); }
+function exitCourse() { currentUser = null; showScreen('screen-landing'); }
+
+// Course
 async function startCourse() {
-  if(!modules.length) await initSupabase();
-  document.getElementById('learner-name').innerHTML = `${currentUser.fname} ${currentUser.lname}`;
+  if(!modules.length) await loadModules();
+  document.getElementById('course-user-name').innerHTML = `${currentUser.fname} ${currentUser.lname}`;
   const { data: prog } = await supabase.from('progress').select('*').eq('learner_id', currentUser.id).maybeSingle();
   userProgress = prog || {};
-  currentModuleIndex = userProgress.current_mod || 0;
-  currentSlideIndex = userProgress.current_slide || 0;
+  currentModule = userProgress.current_mod || 0;
+  currentSlide = userProgress.current_slide || 0;
   renderModuleTabs();
   renderCurrentSlide();
   showScreen('screen-course');
 }
+
 function renderModuleTabs() {
   const container = document.getElementById('module-tabs');
   if(!container) return;
-  container.innerHTML = modules.map((m, i) => `<button class="admin-tab ${i===currentModuleIndex?'active':''}" onclick="changeModule(${i})">${escapeHtml(m.title)}</button>`).join('');
+  container.innerHTML = modules.map((m, i) => `<button class="tab-btn ${i === currentModule ? 'active' : ''}" onclick="changeModule(${i})">${escapeHtml(m.title)}</button>`).join('');
 }
-function changeModule(idx) { currentModuleIndex = idx; currentSlideIndex = 0; renderModuleTabs(); renderCurrentSlide(); }
+
+function changeModule(idx) { currentModule = idx; currentSlide = 0; renderModuleTabs(); renderCurrentSlide(); }
+
 function renderCurrentSlide() {
-  const slide = modules[currentModuleIndex]?.slides[currentSlideIndex];
-  if(!slide) { document.getElementById('course-content').innerHTML = '<div class="card">Module complete! <button class="btn btn-gold" onclick="nextModule()">Next Module</button></div>'; return; }
-  let html = `<div class="slide-header">${escapeHtml(modules[currentModuleIndex].title)} - Slide ${currentSlideIndex+1}/${modules[currentModuleIndex].slides.length}</div>`;
-  if(slide.type === 'intro') html += `<div class="card"><h2>${escapeHtml(slide.content.heading)}</h2><p>${escapeHtml(slide.content.intro)}</p></div>`;
-  else if(slide.type === 'concepts') html += `<div class="card"><h3>${escapeHtml(slide.content.heading)}</h3>${(slide.content.items||[]).map(i=>`<div style="margin:10px 0;padding:10px;background:#fef3c7;border-radius:8px"><strong>${escapeHtml(i.term)}</strong>: ${escapeHtml(i.def)}</div>`).join('')}</div>`;
-  else if(slide.type === 'quiz') { const questions = slide.content.questions || []; html += `<div class="card"><h3>Knowledge Check</h3><div id="quiz-container"></div></div>`; setTimeout(()=>renderQuiz(questions, slide.id), 10); }
-  else html += `<div class="card"><p>${escapeHtml(JSON.stringify(slide.content))}</p></div>`;
-  html += `<div class="nav-btns" style="display:flex;gap:10px;justify-content:space-between;margin-top:16px"><button class="btn btn-sm" onclick="prevSlide()" ${currentSlideIndex===0?'disabled':''}>← Previous</button><button class="btn btn-gold btn-sm" onclick="nextSlide()">Next →</button></div>`;
-  document.getElementById('course-content').innerHTML = html;
+  const slide = modules[currentModule]?.slides[currentSlide];
+  if(!slide) {
+    document.getElementById('course-content').innerHTML = '<div class="card"><p>Module complete!</p><button class="btn btn-gold" onclick="nextModule()">Next Module</button></div>';
+    return;
+  }
+  let html = `<div class="slide-header" style="font-size:12px;color:#64748b;margin-bottom:12px">${escapeHtml(modules[currentModule].title)} - Slide ${currentSlide+1}/${modules[currentModule].slides.length}</div>`;
+  
+  if(slide.type === 'intro') {
+    html += `<h3 class="module-title">${escapeHtml(slide.content.heading)}</h3><p class="module-intro">${escapeHtml(slide.content.intro)}</p>`;
+    if(slide.content.topics) html += `<div class="card card-gold"><ul style="padding-left:20px">${slide.content.topics.map(t => `<li>${escapeHtml(t)}</li>`).join('')}</ul></div>`;
+  }
+  else if(slide.type === 'concepts') {
+    html += `<h3 class="module-title">${escapeHtml(slide.content.heading)}</h3><div class="concept-grid">${(slide.content.items || []).map(item => `<div class="concept-card"><h3>${escapeHtml(item.term)}</h3><p>${escapeHtml(item.def)}</p><div style="font-size:11px;margin-top:8px">Eg: ${escapeHtml(item.example)}</div></div>`).join('')}</div>`;
+  }
+  else if(slide.type === 'corruption-def' || slide.type === 'acab-offenses') {
+    const items = slide.content.types || slide.content.offenses || [];
+    html += `<h3 class="module-title">${escapeHtml(slide.content.heading)}</h3><p>${escapeHtml(slide.content.def || slide.content.intro)}</p>${items.map(t => `<div class="corruption-type"><h4>${escapeHtml(t.name)}</h4><p>${escapeHtml(t.desc)}</p><div class="eg" style="font-size:12px;color:#64748b;margin-top:6px">Example: ${escapeHtml(t.eg)}</div></div>`).join('')}`;
+  }
+  else if(slide.type === 'penalties') {
+    html += `<h3 class="module-title">${escapeHtml(slide.content.heading)}</h3><div class="penalty-grid">${(slide.content.penalties || []).map(p => `<div class="penalty-card"><div style="font-size:24px">${p.icon}</div><div class="plabel" style="font-weight:600">${escapeHtml(p.label)}</div><p style="font-size:12px">${escapeHtml(p.desc)}</p></div>`).join('')}</div>`;
+  }
+  else if(slide.type === 'quiz') {
+    html += `<div class="card"><h3>📝 Knowledge Check</h3><div id="quiz-area"></div></div>`;
+    document.getElementById('course-content')?.insertAdjacentHTML('beforeend', html);
+    renderQuiz(slide.content.questions || [], slide.id);
+    html = '';
+  }
+  else {
+    html += `<div class="card"><p>${escapeHtml(JSON.stringify(slide.content))}</p></div>`;
+  }
+  
+  html += `<div class="nav-btns" style="display:flex;gap:12px;justify-content:space-between;margin-top:20px">
+    <button class="btn btn-sm" onclick="prevSlide()" ${currentSlide === 0 ? 'disabled' : ''}><i class="ti ti-arrow-left"></i> Previous</button>
+    <button class="btn btn-gold btn-sm" onclick="nextSlide()">Next <i class="ti ti-arrow-right"></i></button>
+  </div>`;
+  
+  if(html) document.getElementById('course-content').innerHTML = html;
   updateCourseProgress();
 }
+
 function renderQuiz(questions, slideId) {
-  const container = document.getElementById('quiz-container');
+  const container = document.getElementById('quiz-area');
   if(!container) return;
   let qIndex = 0, score = 0, answered = false;
+  
   function showQuestion() {
-    if(qIndex >= questions.length) { container.innerHTML = `<div class="score-display"><h3>Quiz Complete!</h3><p>Score: ${score}/${questions.length}</p><button class="btn btn-gold" onclick="saveQuizScore(${score},${questions.length},'${slideId}')">Continue</button></div>`; return; }
+    if(qIndex >= questions.length) {
+      container.innerHTML = `<div style="text-align:center;padding:20px"><div style="font-size:40px">🎉</div><h3>Quiz Complete!</h3><p>Score: ${score}/${questions.length}</p><button class="btn btn-gold" onclick="saveQuizScore(${score},${questions.length},'${slideId}')">Continue</button></div>`;
+      return;
+    }
     const q = questions[qIndex];
     let optsHtml = '';
-    q.opts.forEach((opt, i) => { optsHtml += `<button class="quiz-opt" style="display:block;width:100%;margin:5px 0;padding:10px;border:1px solid #cbd5e0;border-radius:8px;background:#fff;text-align:left" onclick="checkAnswer(${i},${q.ans},'${q.exp.replace(/'/g,"\\'")}')">${escapeHtml(opt)}</button>`; });
-    container.innerHTML = `<div class="quiz-q">${escapeHtml(q.q)}</div>${optsHtml}<div id="quiz-feedback" style="margin-top:10px"></div>`;
-    window.checkAnswer = (sel, ans, exp) => { if(answered) return; answered=true; if(sel===ans) score++; document.getElementById('quiz-feedback').innerHTML = `<div class="${sel===ans?'feedback-correct':'feedback-wrong'}" style="padding:10px;border-radius:8px">${sel===ans?'✓ Correct!':'✗ Incorrect'} ${exp}</div><button class="btn btn-gold" style="margin-top:10px" onclick="nextQuestion()">Next</button>`; };
-    window.nextQuestion = () => { qIndex++; answered=false; showQuestion(); };
+    q.opts.forEach((opt, i) => { optsHtml += `<button class="quiz-opt" data-opt="${i}">${escapeHtml(opt)}</button>`; });
+    container.innerHTML = `<div class="quiz-q" style="font-weight:600;margin-bottom:12px">${escapeHtml(q.q)}</div>${optsHtml}<div id="quiz-feedback" style="margin-top:12px"></div>`;
+    document.querySelectorAll('.quiz-opt').forEach(btn => {
+      btn.addEventListener('click', () => {
+        if(answered) return;
+        const selected = parseInt(btn.dataset.opt);
+        answered = true;
+        if(selected === q.ans) score++;
+        const feedback = document.getElementById('quiz-feedback');
+        feedback.innerHTML = `<div class="quiz-feedback ${selected === q.ans ? 'feedback-correct' : 'feedback-wrong'}">${selected === q.ans ? '✓ Correct!' : '✗ Incorrect'} ${escapeHtml(q.exp)}</div><button class="btn btn-gold btn-sm" style="margin-top:10px" onclick="nextQuestion()">Next Question →</button>`;
+        document.querySelectorAll('.quiz-opt').forEach(b => b.style.opacity = '0.5');
+        if(selected === q.ans) btn.classList.add('correct');
+        else { btn.classList.add('wrong'); document.querySelectorAll('.quiz-opt')[q.ans].classList.add('correct'); }
+      });
+    });
   }
+  window.nextQuestion = () => { qIndex++; answered = false; showQuestion(); };
+  window.saveQuizScore = async (s, t, id) => {
+    await supabase.from('progress').upsert({ learner_id: currentUser.id, quiz_scores: { [id]: { score: s, total: t } }, current_mod: currentModule, current_slide: currentSlide });
+    nextSlide();
+  };
   showQuestion();
-  window.saveQuizScore = async (s,t,id) => { await supabase.from('progress').upsert({ learner_id: currentUser.id, quiz_scores: { [id]: { score:s, total:t } }, current_mod: currentModuleIndex, current_slide: currentSlideIndex }); nextSlide(); };
 }
-function prevSlide() { if(currentSlideIndex > 0) { currentSlideIndex--; renderCurrentSlide(); } }
-function nextSlide() { if(currentSlideIndex < modules[currentModuleIndex].slides.length-1) { currentSlideIndex++; renderCurrentSlide(); } else { nextModule(); } }
-async function nextModule() { let completed = userProgress.completedMods || []; if(!completed.includes(currentModuleIndex)) completed.push(currentModuleIndex); if(currentModuleIndex < modules.length-1) { currentModuleIndex++; currentSlideIndex=0; await supabase.from('progress').upsert({ learner_id: currentUser.id, current_mod: currentModuleIndex, current_slide: 0, completed_mods: completed }); renderModuleTabs(); renderCurrentSlide(); } else { await supabase.from('progress').upsert({ learner_id: currentUser.id, completed_at: new Date().toISOString(), completed_mods: completed, pct: 100 }); showToast('🎉 Course Complete! Certificate unlocked'); loadUserDashboard(); } }
-async function updateCourseProgress() { const total = modules.reduce((a,m)=>a+m.slides.length,0); let viewed = 0; for(let i=0;i<currentModuleIndex;i++) viewed+=modules[i].slides.length; viewed+=currentSlideIndex+1; const pct = Math.min(100, Math.round(viewed/total*100)); document.getElementById('course-progress').style.width = pct+'%'; await supabase.from('progress').upsert({ learner_id: currentUser.id, current_mod: currentModuleIndex, current_slide: currentSlideIndex, pct }); }
-function goToDashboard() { showScreen('screen-dashboard'); }
-function exitCourse() { showScreen('screen-landing'); currentUser=null; }
-function exitToLanding() { currentUser=null; showScreen('screen-landing'); }
+
+function prevSlide() { if(currentSlide > 0) { currentSlide--; renderCurrentSlide(); } }
+function nextSlide() { if(currentSlide < modules[currentModule].slides.length - 1) { currentSlide++; renderCurrentSlide(); } else { nextModule(); } }
+async function nextModule() {
+  let completed = userProgress.completed_mods || [];
+  if(!completed.includes(currentModule)) completed.push(currentModule);
+  if(currentModule < modules.length - 1) {
+    currentModule++;
+    currentSlide = 0;
+    await supabase.from('progress').upsert({ learner_id: currentUser.id, current_mod: currentModule, current_slide: 0, completed_mods: completed });
+    renderModuleTabs();
+    renderCurrentSlide();
+  } else {
+    await supabase.from('progress').upsert({ learner_id: currentUser.id, completed_at: new Date().toISOString(), completed_mods: completed, pct: 100 });
+    showToast('🎉 Congratulations! Course completed!');
+    loadDashboard();
+  }
+}
+async function updateCourseProgress() {
+  const total = modules.reduce((a, m) => a + m.slides.length, 0);
+  let viewed = 0;
+  for(let i = 0; i < currentModule; i++) viewed += modules[i].slides.length;
+  viewed += currentSlide + 1;
+  const pct = Math.min(100, Math.round(viewed / total * 100));
+  document.getElementById('course-progress').style.width = pct + '%';
+  await supabase.from('progress').upsert({ learner_id: currentUser.id, current_mod: currentModule, current_slide: currentSlide, pct });
+}
 
 // Voice
-function playVoice() { if(!window.speechSynthesis) return; const rate = parseFloat(document.getElementById('voice-rate')?.value||1); const text = document.querySelector('.slide-header')?.innerText || 'Slide content'; if(voiceUtterance) speechSynthesis.cancel(); voiceUtterance = new SpeechSynthesisUtterance(text); voiceUtterance.rate=rate; voiceUtterance.onstart=()=>{document.getElementById('voice-play').style.display='none'; document.getElementById('voice-stop').style.display='inline-flex';}; voiceUtterance.onend=()=>{document.getElementById('voice-play').style.display='inline-flex'; document.getElementById('voice-stop').style.display='none';}; speechSynthesis.speak(voiceUtterance); }
-function stopVoice() { speechSynthesis.cancel(); document.getElementById('voice-play').style.display='inline-flex'; document.getElementById('voice-stop').style.display='none'; }
+function playVoice() {
+  const text = document.querySelector('.slide-header')?.innerText || document.querySelector('.module-title')?.innerText || 'Slide content';
+  if(voiceUtterance) speechSynthesis.cancel();
+  voiceUtterance = new SpeechSynthesisUtterance(text);
+  voiceUtterance.rate = parseFloat(document.getElementById('voice-rate')?.value || 1);
+  voiceUtterance.onstart = () => { document.getElementById('voice-play').style.display = 'none'; document.getElementById('voice-stop').style.display = 'inline-flex'; };
+  voiceUtterance.onend = () => { document.getElementById('voice-play').style.display = 'inline-flex'; document.getElementById('voice-stop').style.display = 'none'; };
+  speechSynthesis.speak(voiceUtterance);
+}
+function stopVoice() { speechSynthesis.cancel(); document.getElementById('voice-play').style.display = 'inline-flex'; document.getElementById('voice-stop').style.display = 'none'; }
 
-// Admin functions
-async function loadAdminData() { showLoading(); const { data: learners } = await supabase.from('learners').select('*'); const { data: progress } = await supabase.from('progress').select('*'); allLearners = (learners||[]).filter(l=>!l.is_admin); allProgress = {}; (progress||[]).forEach(p => { allProgress[p.learner_id] = p; }); hideLoading(); renderLearnersTable(); renderProgressTable(); renderCompletionsTable(); renderAnalytics(); renderActivityLogs(); renderModuleManagement(); }
-function renderLearnersTable() { const tbody = document.getElementById('learners-tbody'); if(!tbody) return; const search = document.getElementById('search-learner')?.value.toLowerCase()||''; const roleFilter = document.getElementById('filter-role-admin')?.value||''; let filtered = allLearners.filter(l => (l.fname.toLowerCase().includes(search)||l.lname.toLowerCase().includes(search)||l.email.toLowerCase().includes(search)) && (!roleFilter || l.role===roleFilter)); tbody.innerHTML = filtered.map(l => { const prog = allProgress[l.id]||{}; let status = '<span class="badge badge-blue">Active</span>'; if(prog.completed_at) status='<span class="badge badge-green">Completed</span>'; return `<tr><td><input type="checkbox" class="learner-checkbox" data-id="${l.id}" onchange="toggleSelect('${l.id}')"></td><td><strong>${escapeHtml(l.fname)} ${escapeHtml(l.lname)}</strong><br><small>${escapeHtml(l.role)}</small></td><td>${escapeHtml(l.email)}</td><td>${escapeHtml(l.org)}</td><td><div class="prog-wrap" style="width:80px"><div class="prog-fill" style="width:${prog.pct||0}%"></div></div>${prog.pct||0}%</td><td>${status}</td><td><button class="btn btn-sm" onclick="sendReminder('${l.id}')">📧</button> <button class="btn btn-sm btn-danger" onclick="deleteLearner('${l.id}')">🗑️</button></td>`; }).join(''); }
-function renderProgressTable() { const tbody = document.getElementById('progress-tbody'); if(!tbody) return; tbody.innerHTML = allLearners.map(l => { const p = allProgress[l.id]||{}; return `<tr><td><strong>${escapeHtml(l.fname)} ${escapeHtml(l.lname)}</strong></td><td><div class="prog-wrap" style="width:100px"><div class="prog-fill" style="width:${p.pct||0}%"></div></div>${p.pct||0}%</td><td>Module ${(p.current_mod||0)+1}</td><td>${p.last_seen?new Date(p.last_seen).toLocaleDateString():'Never'}</td>`; }).join(''); }
-function renderCompletionsTable() { const tbody = document.getElementById('completions-tbody'); if(!tbody) return; const completed = allLearners.filter(l => allProgress[l.id]?.completed_at); tbody.innerHTML = completed.map(l => `<tr><td><strong>${escapeHtml(l.fname)} ${escapeHtml(l.lname)}</strong></td><td>${escapeHtml(l.org)}</td><td>${new Date(allProgress[l.id].completed_at).toLocaleDateString()}</td>`).join(''); if(!completed.length) tbody.innerHTML = '<tr><td colspan="3"><div class="empty-state">No completions yet</div></td></tr>'; }
-function renderAnalytics() { const total = allLearners.length; const completed = allLearners.filter(l => allProgress[l.id]?.completed_at).length; const avgProg = Math.round(allLearners.reduce((s,l)=>s+(allProgress[l.id]?.pct||0),0)/total||0); document.getElementById('analytics-stats').innerHTML = `<div class="stat-card"><div class="stat-num">${total}</div><div class="stat-label">Total Learners</div></div><div class="stat-card"><div class="stat-num">${completed}</div><div class="stat-label">Completed</div></div><div class="stat-card"><div class="stat-num">${avgProg}%</div><div class="stat-label">Avg Progress</div></div>`; if(enrollChart) enrollChart.destroy(); if(moduleChart) moduleChart.destroy(); const ctx1 = document.getElementById('enrollChart')?.getContext('2d'); if(ctx1) enrollChart = new Chart(ctx1, { type: 'line', data: { labels: ['Week 1','Week 2','Week 3','Week 4'], datasets: [{ label: 'Enrollments', data: [8,12,15,10], borderColor: '#c8960a', fill: true }] } }); const ctx2 = document.getElementById('moduleChart')?.getContext('2d'); if(ctx2 && modules.length) moduleChart = new Chart(ctx2, { type: 'bar', data: { labels: modules.map(m=>m.title), datasets: [{ label: 'Completions', data: modules.map((_,i)=>allLearners.filter(l=>allProgress[l.id]?.completedMods?.includes(i)).length), backgroundColor: '#c8960a' }] } }); }
-function renderActivityLogs() { const tbody = document.getElementById('logs-tbody'); if(!tbody) return; const search = document.getElementById('log-search')?.value.toLowerCase()||''; const filtered = activityLogs.filter(l=>l.action.toLowerCase().includes(search)||l.details.toLowerCase().includes(search)); tbody.innerHTML = filtered.slice(0,50).map(l => `<tr><td><small>${new Date(l.timestamp).toLocaleString()}</small></td><td>${escapeHtml(l.admin)}</td><td><span class="badge badge-blue">${escapeHtml(l.action)}</span></td><td>${escapeHtml(l.details)}</td></tr>`).join(''); }
-function clearLogs() { activityLogs = []; renderActivityLogs(); showToast('Logs cleared'); }
-function logActivity(action, details) { activityLogs.unshift({ id: Date.now(), timestamp: new Date().toISOString(), admin: currentUser?.email||'admin', action, details }); if(activityLogs.length>200) activityLogs.pop(); renderActivityLogs(); }
-function toggleSelect(id) { if(selectedIds.has(id)) selectedIds.delete(id); else selectedIds.add(id); const bar = document.getElementById('bulk-bar'); if(bar) bar.style.display = selectedIds.size>0 ? 'flex' : 'none'; document.getElementById('selected-count').innerHTML = `${selectedIds.size} selected`; }
-function toggleSelectAll() { const checkboxes = document.querySelectorAll('.learner-checkbox'); const allChecked = Array.from(checkboxes).every(cb => cb.checked); checkboxes.forEach(cb => { cb.checked = !allChecked; const id = cb.getAttribute('data-id'); if(id) { if(!allChecked) selectedIds.add(id); else selectedIds.delete(id); } }); const bar = document.getElementById('bulk-bar'); if(bar) bar.style.display = selectedIds.size>0 ? 'flex' : 'none'; document.getElementById('selected-count').innerHTML = `${selectedIds.size} selected`; }
-function clearSelection() { selectedIds.clear(); document.querySelectorAll('.learner-checkbox').forEach(cb => cb.checked=false); const bar = document.getElementById('bulk-bar'); if(bar) bar.style.display='none'; }
-function bulkEmail() { const emails = Array.from(selectedIds).map(id=>allLearners.find(l=>l.id===id)?.email).filter(Boolean); if(!emails.length) return; const subj = prompt('Subject:'); const body = prompt('Message:'); if(subj && body) window.location.href = `mailto:${emails.join(',')}?subject=${encodeURIComponent(subj)}&body=${encodeURIComponent(body)}`; logActivity('Bulk Email', `To ${emails.length} learners`); }
-async function bulkDelete() { if(!selectedIds.size) return; if(!confirm(`Delete ${selectedIds.size} learners?`)) return; for(const id of selectedIds) { await supabase.from('learners').delete().eq('id',id); await supabase.from('progress').delete().eq('learner_id',id); } selectedIds.clear(); await loadAdminData(); showToast('Deleted'); logActivity('Bulk Delete', `${selectedIds.size} deleted`); }
-async function deleteLearner(id) { if(!confirm('Delete?')) return; await supabase.from('learners').delete().eq('id',id); await supabase.from('progress').delete().eq('learner_id',id); await loadAdminData(); showToast('Deleted'); logActivity('Delete Learner', `Deleted ${id}`); }
-function sendReminder(id) { const l = allLearners.find(l=>l.id===id); if(l) window.location.href = `mailto:${l.email}?subject=Complete your ACC training&body=Dear ${l.fname}, please continue your Ethics training.`; }
-function exportLearnersCSV() { let csv = 'Name,Email,Organisation,Progress,Status\n'; allLearners.forEach(l => { const p = allProgress[l.id]||{}; csv += `"${l.fname} ${l.lname}","${l.email}","${l.org}",${p.pct||0},"${p.completed_at?'Completed':'Active'}"\n`; }); const a = document.createElement('a'); a.href = 'data:text/csv;charset=utf-8,'+encodeURIComponent(csv); a.download = `learners_${new Date().toISOString().slice(0,10)}.csv`; a.click(); showToast('Exported'); }
-async function renderModuleManagement() { const container = document.getElementById('module-list-admin'); if(!container) return; const { data: mods } = await supabase.from('modules').select('*').order('module_number'); if(!mods) { container.innerHTML = '<div class="empty-state">No modules</div>'; return; } container.innerHTML = mods.map(m => `<div class="card" style="margin-bottom:12px"><div><strong>${escapeHtml(m.title)}</strong> <span class="badge ${m.is_published?'badge-green':'badge-orange'}">${m.is_published?'Published':'Draft'}</span></div><div style="margin-top:8px"><button class="btn btn-sm" onclick="togglePublish('${m.id}',${!m.is_published})">${m.is_published?'Unpublish':'Publish'}</button><button class="btn btn-gold btn-sm" onclick="editModuleSlides('${m.id}')">Edit Slides</button></div></div>`).join(''); }
-async function togglePublish(id, state) { await supabase.from('modules').update({ is_published: state }).eq('id', id); showToast('Updated'); renderModuleManagement(); }
-async function editModuleSlides(moduleId) { const { data: slides } = await supabase.from('slides').select('*').eq('module_id', moduleId).order('slide_order'); const container = document.getElementById('module-list-admin'); container.innerHTML = `<button class="btn btn-sm" onclick="renderModuleManagement()">← Back</button>` + (slides||[]).map(s => `<div class="card" style="margin-bottom:8px"><div>Slide ${s.slide_order}: ${s.slide_type}</div><button class="btn btn-gold btn-sm" onclick="openSlideEditor('${s.id}', ${JSON.stringify(s.content).replace(/"/g, '&quot;')})">Edit JSON</button></div>`).join(''); }
-function openSlideEditor(id, content) { document.getElementById('slide-json').value = JSON.stringify(content, null, 2); document.getElementById('slide-editor').style.display = 'block'; window.currentSlideId = id; }
-async function saveSlide() { try { const content = JSON.parse(document.getElementById('slide-json').value); await supabase.from('slides').update({ content }).eq('id', window.currentSlideId); showToast('Saved'); document.getElementById('slide-editor').style.display = 'none'; renderModuleManagement(); } catch(e) { alert('Invalid JSON'); } }
-function closeSlideEditor() { document.getElementById('slide-editor').style.display = 'none'; }
-function showAdminLoginModal() { const modal = document.createElement('div'); modal.className = 'modal-overlay'; modal.innerHTML = `<div class="modal-content"><div class="modal-header"><h3>Admin Login</h3><button onclick="this.closest('.modal-overlay').remove()">✕</button></div><div class="modal-body"><input class="form-input" id="admin-email" placeholder="Email" style="margin-bottom:12px"><input class="form-input" id="admin-pin" type="password" placeholder="PIN"><div id="admin-login-error" style="color:#dc2626;margin-top:8px;display:none"></div><div class="modal-actions"><button class="btn btn-gold" onclick="adminLogin()">Login</button><button class="btn" onclick="this.closest('.modal-overlay').remove()">Cancel</button></div></div></div>`; document.body.appendChild(modal); }
-async function adminLogin() { const email = document.getElementById('admin-email').value.toLowerCase(); const pin = document.getElementById('admin-pin').value; const { data } = await supabase.from('learners').select('*').eq('email', email).eq('pin', pin).eq('is_admin', true).maybeSingle(); if(!data) { document.getElementById('admin-login-error').style.display='block'; document.getElementById('admin-login-error').innerText='Invalid credentials'; return; } currentUser = data; document.querySelector('.modal-overlay')?.remove(); showScreen('screen-admin'); logActivity('Login', 'Admin logged in'); await loadAdminData(); }
-function logoutAdmin() { currentUser = null; showScreen('screen-landing'); }
-function showChangePINModal() { const newPin = prompt('Enter new 4-6 digit PIN:'); if(newPin && newPin.length>=4 && newPin.length<=6) { supabase.from('learners').update({ pin: newPin }).eq('id', currentUser.id); showToast('PIN changed'); } }
+// Admin
+async function showAdminLogin() {
+  const email = prompt('Admin Email:');
+  const pin = prompt('Admin PIN:');
+  if(!email || !pin) return;
+  const { data } = await supabase.from('learners').select('*').eq('email', email.toLowerCase()).eq('pin', pin).eq('is_admin', true).maybeSingle();
+  if(!data) { alert('Invalid admin credentials'); return; }
+  currentUser = data;
+  await loadAdminData();
+  showScreen('screen-admin');
+}
 
-// Admin tab switching with safety checks
+async function loadAdminData() {
+  showLoading();
+  const { data: learners } = await supabase.from('learners').select('*');
+  const { data: progress } = await supabase.from('progress').select('*');
+  allLearners = (learners || []).filter(l => !l.is_admin);
+  allProgress = {};
+  (progress || []).forEach(p => { allProgress[p.learner_id] = p; });
+  renderLearners();
+  renderProgress();
+  renderCompletions();
+  hideLoading();
+}
+
+function renderLearners() {
+  const search = document.getElementById('search-learners')?.value.toLowerCase() || '';
+  const filtered = allLearners.filter(l => l.fname.toLowerCase().includes(search) || l.lname.toLowerCase().includes(search) || l.email.toLowerCase().includes(search));
+  const tbody = document.getElementById('learners-list');
+  tbody.innerHTML = filtered.map(l => {
+    const prog = allProgress[l.id] || {};
+    const status = prog.completed_at ? '<span class="badge badge-green">Completed</span>' : '<span class="badge badge-blue">Active</span>';
+    return `<tr><td><strong>${escapeHtml(l.fname)} ${escapeHtml(l.lname)}</strong><br><small style="color:#64748b">${escapeHtml(l.role)}</small></td><td>${escapeHtml(l.email)}</td><td>${escapeHtml(l.org)}</td><td><div class="prog-wrap" style="width:80px"><div class="prog-fill" style="width:${prog.pct || 0}%"></div></div>${prog.pct || 0}%</td><td>${status}</td><td><button class="btn btn-sm" onclick="sendReminder('${l.id}')"><i class="ti ti-mail"></i></button> <button class="btn btn-sm btn-danger" onclick="deleteLearner('${l.id}')"><i class="ti ti-trash"></i></button></td></tr>`;
+  }).join('');
+}
+
+function renderProgress() {
+  const tbody = document.getElementById('progress-list');
+  tbody.innerHTML = allLearners.map(l => {
+    const p = allProgress[l.id] || {};
+    return `<tr><td><strong>${escapeHtml(l.fname)} ${escapeHtml(l.lname)}</strong></td><td><div class="prog-wrap" style="width:100px"><div class="prog-fill" style="width:${p.pct || 0}%"></div></div>${p.pct || 0}%</td><td>Module ${(p.current_mod || 0) + 1}</td><td>${p.last_seen ? new Date(p.last_seen).toLocaleDateString() : 'Never'}</td></tr>`;
+  }).join('');
+}
+
+function renderCompletions() {
+  const tbody = document.getElementById('completions-list');
+  const completed = allLearners.filter(l => allProgress[l.id]?.completed_at);
+  tbody.innerHTML = completed.map(l => `<tr><td><strong>${escapeHtml(l.fname)} ${escapeHtml(l.lname)}</strong></td><td>${escapeHtml(l.org)}</td><td>${new Date(allProgress[l.id].completed_at).toLocaleDateString()}</td></tr>`).join('');
+  if(!completed.length) tbody.innerHTML = '<tr><td colspan="3"><div class="empty-state">No completions yet</div></td></tr>';
+}
+
+function sendReminder(id) {
+  const learner = allLearners.find(l => l.id === id);
+  if(learner) window.location.href = `mailto:${learner.email}?subject=Complete your ACC E-Learning&body=Dear ${learner.fname}, please continue your Ethics and Integrity training.`;
+}
+
+async function deleteLearner(id) {
+  if(!confirm('Delete this learner permanently?')) return;
+  await supabase.from('learners').delete().eq('id', id);
+  await supabase.from('progress').delete().eq('learner_id', id);
+  showToast('Learner deleted');
+  await loadAdminData();
+}
+
+function exportLearners() {
+  let csv = 'Name,Email,Organisation,Role,Progress,Status\n';
+  allLearners.forEach(l => {
+    const p = allProgress[l.id] || {};
+    csv += `"${l.fname} ${l.lname}","${l.email}","${l.org}","${l.role}",${p.pct || 0},"${p.completed_at ? 'Completed' : 'Active'}"\n`;
+  });
+  const a = document.createElement('a');
+  a.href = 'data:text/csv;charset=utf-8,' + encodeURIComponent(csv);
+  a.download = `learners_${new Date().toISOString().slice(0,10)}.csv`;
+  a.click();
+  showToast('Exported');
+}
+
+function adminLogout() { currentUser = null; showScreen('screen-landing'); }
+function changePin() { const newPin = prompt('Enter new 4-6 digit PIN:'); if(newPin && newPin.length >= 4 && newPin.length <= 6) { supabase.from('learners').update({ pin: newPin }).eq('id', currentUser.id); showToast('PIN changed'); } }
+function escapeHtml(str) { if(!str) return ''; return str.replace(/[&<>]/g, function(m) { if(m === '&') return '&amp;'; if(m === '<') return '&lt;'; if(m === '>') return '&gt;'; return m; }); }
+
+// Admin tab switching
 document.querySelectorAll('.admin-tab').forEach(tab => {
   tab.addEventListener('click', function() {
-    const tabId = this.getAttribute('data-tab');
     document.querySelectorAll('.admin-tab').forEach(t => t.classList.remove('active'));
     this.classList.add('active');
-    document.querySelectorAll('.admin-panel').forEach(panel => panel.classList.remove('active'));
-    const targetPanel = document.getElementById(`admin-${tabId}-panel`);
-    if(targetPanel) targetPanel.classList.add('active');
-    if(tabId === 'analytics') setTimeout(() => renderAnalytics(), 50);
-    if(tabId === 'logs') renderActivityLogs();
-    if(tabId === 'course') renderModuleManagement();
+    const panelId = this.dataset.panel;
+    document.querySelectorAll('.admin-panel').forEach(p => p.classList.remove('active'));
+    document.getElementById(`admin-${panelId}`).classList.add('active');
   });
 });
-document.getElementById('search-learner')?.addEventListener('input', () => renderLearnersTable());
-document.getElementById('filter-role-admin')?.addEventListener('change', () => renderLearnersTable());
-document.getElementById('log-search')?.addEventListener('input', () => renderActivityLogs());
-document.getElementById('voice-rate')?.addEventListener('change', function(e) { if(voiceUtterance) voiceUtterance.rate = parseFloat(e.target.value); });
 </script>
 </body>
 </html>
