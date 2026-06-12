@@ -129,6 +129,13 @@
   .profile-field{margin-bottom:14px}
   .profile-field label{font-size:12px;color:#64748b;display:block;margin-bottom:4px}
   .profile-field .value{font-size:15px;font-weight:500;color:#1e293b}
+
+  /* Enhanced Analytics Styles */
+  .analytics-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px; margin-bottom: 24px; }
+  .chart-bar-container { height: 20px; background: #edf2f7; border-radius: 10px; overflow: hidden; margin: 8px 0 16px; position: relative; }
+  .chart-bar-fill { height: 100%; background: #c8960a; transition: width 0.6s ease; }
+  .chart-label-row { display: flex; justify-content: space-between; font-size: 12px; color: #4a5568; margin-bottom: 4px; }
+  
   @media (max-width: 640px){
     .app{padding:0.75rem}
     .form-row{grid-template-columns:1fr;gap:12px}
@@ -223,20 +230,35 @@
     </div>
   </div>
 
+  <!-- ENHANCED: ADMIN LOGIN SCREEN -->
+  <div class="screen" id="screen-admin-login">
+    <div class="top-nav">
+      <button class="btn btn-sm" onclick="showScreen('screen-landing')"><i class="ti ti-arrow-left" aria-hidden="true"></i> Back</button>
+      <div style="font-size:15px;font-weight:600">Administrator Access</div>
+      <div></div>
+    </div>
+    <div class="card" style="max-width:400px;margin:0 auto">
+      <div style="font-size:18px;font-weight:600;margin-bottom:6px">Admin Sign in</div>
+      <div style="font-size:14px;color:#4a5568;margin-bottom:22px">Please enter your administrative credentials.</div>
+      <div class="form-group"><label class="form-label">Admin Email</label><input class="form-input" id="admin-login-email" type="email" placeholder="admin@example.com" /></div>
+      <div class="form-group"><label class="form-label">Admin PIN</label><input class="form-input" id="admin-login-pin" type="password" placeholder="Your Admin PIN" maxlength="6" /></div>
+      <div id="admin-login-err" style="font-size:13px;color:#dc2626;margin-bottom:12px;display:none">Invalid admin credentials.</div>
+      <button class="btn btn-gold" onclick="processAdminLogin()" style="width:100%"><i class="ti ti-shield-lock" aria-hidden="true"></i> Access Dashboard</button>
+    </div>
+  </div>
+
   <!-- USER DASHBOARD SCREEN -->
   <div class="screen" id="screen-dashboard">
     <div class="top-nav">
       <div style="font-size:15px;font-weight:600"><i class="ti ti-dashboard"></i> My Dashboard</div>
       <div><button class="btn btn-sm" onclick="exitToLanding()"><i class="ti ti-logout"></i> Exit</button></div>
     </div>
-    
     <div class="dashboard-tabs">
       <button class="dashboard-tab active" onclick="switchDashboardTab('overview')">Overview</button>
       <button class="dashboard-tab" onclick="switchDashboardTab('modules')">Modules</button>
       <button class="dashboard-tab" onclick="switchDashboardTab('profile')">Profile</button>
       <button class="dashboard-tab" onclick="switchDashboardTab('certificate')">Certificate</button>
     </div>
-    
     <div id="dash-overview" class="dashboard-panel active">
       <div class="dashboard-grid">
         <div class="dashboard-card">
@@ -258,7 +280,6 @@
           <div><span style="color:#64748b">Est. completion:</span> <strong id="dash-est-completion">—</strong></div>
         </div>
       </div>
-      
       <div class="dashboard-grid">
         <div class="dashboard-card">
           <h3><i class="ti ti-flame"></i> Achievements</h3>
@@ -277,20 +298,17 @@
           </div>
         </div>
       </div>
-      
       <div class="dashboard-card">
         <h3><i class="ti ti-clock"></i> Recent Activity</h3>
         <div id="dash-recent-activity"></div>
       </div>
     </div>
-    
     <div id="dash-modules" class="dashboard-panel">
       <div class="dashboard-card">
         <h3><i class="ti ti-category"></i> Module Progress</h3>
         <div id="dash-module-list"></div>
       </div>
     </div>
-    
     <div id="dash-profile" class="dashboard-panel">
       <div class="dashboard-card">
         <h3><i class="ti ti-id"></i> Personal Information</h3>
@@ -303,7 +321,6 @@
         <button class="btn btn-gold btn-sm" onclick="showChangePINModal()" style="margin-top:12px"><i class="ti ti-lock"></i> Change PIN</button>
       </div>
     </div>
-    
     <div id="dash-certificate" class="dashboard-panel">
       <div class="dashboard-card" id="certificate-status-card">
         <h3><i class="ti ti-certificate"></i> ACC Bhutan Certificate</h3>
@@ -339,64 +356,52 @@
     <div id="content-area"></div>
   </div>
 
-  <!-- FIXED & ENHANCED ADMIN SCREEN HTML VIEWPORT -->
+  <!-- ADMIN SCREEN -->
   <div class="screen" id="screen-admin">
     <div class="top-nav">
       <button class="btn btn-sm" onclick="showScreen('screen-landing')"><i class="ti ti-arrow-left"></i> Back</button>
-      <div style="font-size:15px;font-weight:600"><i class="ti ti-shield"></i> Admin Workspace Control Panel</div>
+      <div style="font-size:15px;font-weight:600"><i class="ti ti-shield"></i> Admin Dashboard</div>
       <div></div>
     </div>
-    
-    <!-- Dynamic Metric Tiles KPI Grid -->
     <div id="admin-stats" class="stat-grid"></div>
-    
-    <!-- Control Navigation Tab Switches -->
     <div class="admin-tabs">
       <button class="admin-tab active" id="tab-lnk-learners" onclick="adminTab('learners')">Enrolled Learners</button>
+      <button class="admin-tab" id="tab-lnk-analytics" onclick="adminTab('analytics')">Data Analytics</button>
       <button class="admin-tab" id="tab-lnk-progress" onclick="adminTab('progress')">Progress Tracker</button>
       <button class="admin-tab" id="tab-lnk-completions" onclick="adminTab('completions')">Completions</button>
       <button class="admin-tab" id="tab-lnk-course" onclick="adminTab('course')">Course Management</button>
     </div>
+    <div class="admin-panel active card" id="panel-learners"><div class="search-bar"><input class="form-input" id="admin-search" placeholder="Search..." oninput="triggerLearnerSearch()" /><button class="btn btn-gold btn-sm" onclick="exportCSV()"><i class="ti ti-download"></i> Export</button></div><div class="table-wrap" id="admin-learners-table"></div></div>
     
-    <!-- Learners Panel: Features explicit live search indexing alongside CSV generation routines -->
-    <div class="admin-panel active card" id="panel-learners">
-      <div class="search-bar">
-        <input class="form-input" id="admin-search" placeholder="Type name, email, or firm to filter..." oninput="triggerLearnerSearch()" />
-        <button class="btn btn-gold btn-sm" onclick="exportCSV()"><i class="ti ti-download"></i> Export CSV Database</button>
-      </div>
-      <div class="table-wrap" id="admin-learners-table"></div>
-    </div>
-    
-    <!-- Real-time Progress Tracking Layout Matrix -->
-    <div class="admin-panel card" id="panel-progress">
-      <div class="table-wrap" id="admin-progress-table"></div>
-    </div>
-    
-    <!-- Completed Certification Registries Viewport -->
-    <div class="admin-panel card" id="panel-completions">
-      <div class="table-wrap" id="admin-completions-table"></div>
-    </div>
-    
-    <!-- Core Course Infrastructure Modification Board -->
-    <div class="admin-panel card" id="panel-course">
-      <h3 style="margin-bottom:12px;font-size:16px;">System Modules & Dynamic Deployment Hooks</h3>
-      <div id="admin-course-modules"></div>
-      
-      <!-- Sub-Level Embedded Dynamic Live Text/JSON Parsing Canvas -->
-      <div id="admin-slide-editor" style="display:none; margin-top:24px; border-top:1px solid #e2e8f0; padding-top:18px;">
-        <h4 style="font-size:14px;margin-bottom:10px;color:#c8960a;">Edit Slide Content Matrix Object (JSON Structure)</h4>
-        <p style="font-size:12px;color:#718096;margin-bottom:8px;">Warning: Edits committed below propagate downstream directly to connected active learner clients.</p>
-        <textarea id="slide-json-editor" style="width:100%;height:280px;font-family:monospace;font-size:13px;padding:12px;border:1px solid #cbd5e0;border-radius:12px;background:#f8fafc;"></textarea>
-        <div style="margin-top:14px;display:flex;gap:12px;">
-          <button class="btn btn-gold btn-sm" onclick="saveSlideJSON()">Commit Structural Save</button>
-          <button class="btn btn-sm" onclick="document.getElementById('admin-slide-editor').style.display='none'">Discard Workspace Changes</button>
+    <!-- ENHANCED: ANALYTICS PANEL -->
+    <div class="admin-panel card" id="panel-analytics">
+      <h3 style="margin-bottom:16px; font-size:16px;"><i class="ti ti-chart-bar"></i> Training Insights & Analytics</h3>
+      <div id="analytics-content">
+        <div class="analytics-grid">
+          <div class="dashboard-card">
+            <h3>Role Distribution</h3>
+            <div id="chart-roles"></div>
+          </div>
+          <div class="dashboard-card">
+            <h3>Geographic Distribution (Dzongkhag)</h3>
+            <div id="chart-dzong"></div>
+          </div>
+        </div>
+        <div class="dashboard-card">
+          <h3>Module Completion Rates</h3>
+          <div id="chart-modules"></div>
         </div>
       </div>
     </div>
+
+    <div class="admin-panel card" id="panel-progress"><div class="table-wrap" id="admin-progress-table"></div></div>
+    <div class="admin-panel card" id="panel-completions"><div class="table-wrap" id="admin-completions-table"></div></div>
+    <div class="admin-panel card" id="panel-course"><h3 style="margin-bottom:12px;font-size:16px;">Manage Modules & Slides</h3><div id="admin-course-modules"></div><div id="admin-slide-editor" style="display:none; margin-top:24px; border-top:1px solid #e2e8f0; padding-top:18px;"><h4 style="font-size:14px;margin-bottom:10px;">Edit Slide Content (JSON)</h4><textarea id="slide-json-editor" style="width:100%;height:280px;font-family:monospace;font-size:13px;padding:12px;border:1px solid #cbd5e0;border-radius:12px;"></textarea><div style="margin-top:14px;display:flex;gap:12px;"><button class="btn btn-gold btn-sm" onclick="saveSlideJSON()">Save Changes</button><button class="btn btn-sm" onclick="document.getElementById('admin-slide-editor').style.display='none'">Cancel</button></div></div></div>
   </div>
 </div>
 
 <script>
+/* ====== JAVASCRIPT LOGIC ====== */
 const SUPABASE_URL = 'https://ohmboguqkyhjtxjojqyz.supabase.co';
 const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im9obWJvZ3Vxa3loanR4am9qcXl6Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODA5NzkzNzcsImV4cCI6MjA5NjU1NTM3N30.j42iLYTHeMg4T7Da1cPbkBWrXvQ3PPdJgknE_n8pgDs';
 
@@ -450,8 +455,26 @@ async function registerLearner(){
   if (error) { const feGen = fe('reg-err-general'); feGen.textContent = error.code === '23505' ? 'This email is already registered.' : 'Network communication failed.'; feGen.style.display = 'block'; return; }
   currentLearner = payload; showToast('Registration successful! Welcome, '+fname+' 🎉'); await goToDashboardAfterLogin();
 }
+
 async function loginLearner(){ await ensureClient(); const email=v('login-email').toLowerCase(), pin=v('login-pin'); const { data, error } = await supabaseClient.from('learners').select('*').eq('email', email).eq('pin', pin).maybeSingle(); if (error || !data || data.is_admin) { document.getElementById('login-err').style.display='block'; return; } document.getElementById('login-err').style.display='none'; currentLearner = data; showToast('Welcome back, '+data.fname+'!'); await goToDashboardAfterLogin(); }
-async function attemptAdminLogin() { await ensureClient(); const email = prompt("Admin Email:"); const pin = prompt("Admin PIN:"); if (!email || !pin) return; const { data } = await supabaseClient.from('learners').select('*').eq('email', email.toLowerCase().trim()).eq('pin', pin).eq('is_admin', true).maybeSingle(); if (data) { currentLearner = data; document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active')); document.getElementById('screen-admin').classList.add('active'); await renderAdmin(); } else { alert("Invalid admin credentials."); } }
+
+/* ENHANCED: ADMIN LOGIN FUNCTIONS */
+function attemptAdminLogin() { showScreen('screen-admin-login'); }
+async function processAdminLogin() {
+  await ensureClient();
+  const email = v('admin-login-email').toLowerCase().trim();
+  const pin = v('admin-login-pin');
+  if (!email || !pin) return;
+  const { data, error } = await supabaseClient.from('learners').select('*').eq('email', email).eq('pin', pin).eq('is_admin', true).maybeSingle();
+  if (data) {
+    currentLearner = data;
+    document.getElementById('admin-login-err').style.display = 'none';
+    showScreen('screen-admin');
+    await renderAdmin();
+  } else {
+    document.getElementById('admin-login-err').style.display = 'block';
+  }
+}
 
 async function goToDashboardAfterLogin() { await loadDashboardData(); showScreen('screen-dashboard'); }
 async function goToDashboard() { if(currentLearner){ const prog = await getLearnerProgress(currentLearner.id); await setLearnerProgress(currentLearner.id, prog); } await loadDashboardData(); showScreen('screen-dashboard'); }
@@ -466,32 +489,42 @@ function renderTabs() { const container = document.getElementById('nav-tabs'); c
 function changeModule(idx) { currentMod = idx; currentSlide = 0; renderTabs(); renderSlide(); }
 function updateProgressUI() { const totalSlides = MODULES.reduce((acc, m) => acc + m.slides.length, 0); let viewedCount = 0; for(let i=0; i<currentMod; i++) viewedCount += MODULES[i].slides.length; viewedCount += (currentSlide + 1); const pct = Math.min(100, Math.round((viewedCount / totalSlides) * 100)); document.getElementById('prog').style.width = pct + '%'; document.getElementById('prog-label').textContent = pct + '% complete'; getLearnerProgress(currentLearner.id).then(prog => { currentProgress = prog; prog.pct = Math.max(prog.pct || 0, pct); prog.currentMod = currentMod; prog.currentSlide = currentSlide; setLearnerProgress(currentLearner.id, prog); }); }
 
-function renderSlide() { 
-  const slide = MODULES[currentMod].slides[currentSlide]; 
-  const out = document.getElementById('content-area'); 
-  updateProgressUI(); 
-  if (slide.type === "quiz" && (quizState[`m_${currentMod}_s_${currentSlide}`] || 0) === 0) { currentQuizState = { score: 0, total: 0, answered: false }; } 
-  let html = `<div class="slide-header">${escapeHTML(MODULES[currentMod].title)} — Slide ${currentSlide + 1} of ${MODULES[currentMod].slides.length}</div>`; 
-  if(slide.type === "intro") { html += `<h3 class="module-title">${escapeHTML(slide.content.heading)}</h3><p class="module-intro">${escapeHTML(slide.content.intro)}</p><div class="card card-gold"><h4 style="font-size:14px;margin-bottom:8px">Topics Covered:</h4><ul style="font-size:14px;padding-left:20px;line-height:1.6">${slide.content.topics.map(t=>`<li>${escapeHTML(t)}</li>`).join('')}</ul></div>`; } 
-  else if(slide.type === "concepts") { html += `<h3 class="module-title">${escapeHTML(slide.content.heading)}</h3><div class="concept-grid">${slide.content.items.map(item => `<div class="concept-card"><h3>${escapeHTML(item.term)}</h3><p>${escapeHTML(item.def)}</p><div class="example"><strong>Eg:</strong> ${escapeHTML(item.example)}</div></div>`).join('')}</div>`; } 
-  else if(slide.type === "corruption-def" || slide.type === "acab-offenses") { const items = slide.content.types || slide.content.offenses; html += `<h3 class="module-title">${escapeHTML(slide.content.heading)}</h3><p class="module-intro">${escapeHTML(slide.content.def || slide.content.intro)}</p>${items.map(t => `<div class="corruption-type"><h4>${escapeHTML(t.name)}</h4><p>${escapeHTML(t.desc)}</p><div class="eg">Example: ${escapeHTML(t.eg)}</div></div>`).join('')}`; } 
-  else if(slide.type === "penalties") { html += `<h3 class="module-title">${escapeHTML(slide.content.heading)}</h3><div class="penalty-grid">${slide.content.penalties.map(p => `<div class="penalty-card"><div class="icon">${p.icon}</div><div class="plabel">${escapeHTML(p.label)}</div><p>${escapeHTML(p.desc)}</p></div>`).join('')}</div>`; } 
-  else if(slide.type === "code-of-conduct" || slide.type === "text_list") { const listItems = slide.content.principles || slide.content.items || []; html += `<h3 class="module-title">${escapeHTML(slide.content.heading)}</h3><p class="module-intro">${escapeHTML(slide.content.intro)}</p><div class="card card-gold"><ul style="font-size:14px;padding-left:20px;line-height:1.7">${listItems.map(p=>`<li>${escapeHTML(p)}</li>`).join('')}</ul></div>`; } 
-  else if(slide.type === "drag_match") { html += `<h3 class="module-title">${escapeHTML(slide.content.heading)}</h3><div class="card"><p style="font-size:14px;color:#718096;margin-bottom:12px;">Tap a definition, then tap the matching term.</p><div class="drag-source" id="src-box">${slide.content.defs.map((d,i) => `<div class="drag-item" id="def-${i}" onclick="handleDragItemClick('def-${i}')" draggable="true" ondragstart="handleDragStart(event)">${escapeHTML(d)}</div>`).join('')}</div><div class="drag-area">${slide.content.terms.map((t,i) => `<div class="drag-target" id="tgt-${i}" onclick="handleTargetClick(${i})" ondragover="handleDragOver(event)" ondragleave="handleDragLeave(event)" ondrop="handleDrop(event, ${i})"><h5>${escapeHTML(t)}</h5><div class="drag-items"></div></div>`).join('')}</div><button class="btn btn-gold btn-sm" onclick="checkMatchActivity()">Verify Matches</button><div class="match-feedback" id="match-fdbk"></div></div>`; } 
-  else if(slide.type === "quiz") { const qKey = `m_${currentMod}_s_${currentSlide}`; const quizIdx = quizState[qKey] || 0; const questions = slide.content.questions; if(quizIdx >= questions.length) { getLearnerProgress(currentLearner.id).then(prog => { prog.quizScores[slide.id] = { score: currentQuizState.score, total: currentQuizState.total }; setLearnerProgress(currentLearner.id, prog); }); html += `<div class="score-display"><div class="score-big">🎉</div><h3 style="margin:12px 0 6px">Module Knowledge Check Complete!</h3><p style="font-size:14px;color:#4a5568;margin-bottom:16px">You scored ${currentQuizState.score} out of ${currentQuizState.total}.</p><button class="btn btn-gold btn-sm" onclick="finishModule()">Continue</button></div>`; } else { const q = questions[quizIdx]; html += `<div class="quiz-wrap"><div class="quiz-counter">Question ${quizIdx + 1} of ${questions.length}</div>${q.scenario ? `<div class="quiz-scenario"><strong>Context:</strong> ${escapeHTML(q.scenario)}</div>` : ''}<div class="quiz-q">${escapeHTML(q.q)}</div><div>${q.opts.map((o, oIdx) => `<button class="quiz-opt" id="opt-${oIdx}" onclick="checkQuiz(${oIdx}, ${q.ans}, '${btoa(unescape(encodeURIComponent(q.exp)))}', '${slide.id}')">${escapeHTML(o)}</button>`).join('')}</div><div class="quiz-feedback" id="q-fdbk"></div><div id="q-next-wrap" style="margin-top:12px;text-align:right;display:none"><button class="btn btn-gold btn-sm" onclick="nextQuizQ('${qKey}', '${slide.id}')">Next Question <i class="ti ti-arrow-right"></i></button></div></div>`; } } 
-  html += `<div class="nav-btns"><button class="btn btn-sm" onclick="prevSlide()" ${currentSlide===0?'disabled':''}><i class="ti ti-arrow-left"></i> Previous</button>`; 
-  if(slide.type !== "quiz" || (quizState[`m_${currentMod}_s_${currentSlide}`] >= slide.content.questions.length)) { html += `<button class="btn btn-gold btn-sm" onclick="nextSlide()">Next <i class="ti ti-arrow-right"></i></button>`; } 
-  html += `</div>`; 
-  out.innerHTML = html; 
-  initializeVoiceForSlide(); 
+function renderSlide() {
+  const slide = MODULES[currentMod].slides[currentSlide];
+  const out = document.getElementById('content-area');
+  updateProgressUI();
+  if (slide.type === "quiz" && (quizState[`m_${currentMod}_s_${currentSlide}`] || 0) === 0) { currentQuizState = { score: 0, total: 0, answered: false }; }
+  let html = `<div class="slide-header">${escapeHTML(MODULES[currentMod].title)} — Slide ${currentSlide + 1} of ${MODULES[currentMod].slides.length}</div>`;
+  if(slide.type === "intro") { html += `<h3 class="module-title">${escapeHTML(slide.content.heading)}</h3><p class="module-intro">${escapeHTML(slide.content.intro)}</p><div class="card card-gold"><h4 style="font-size:14px;margin-bottom:8px">Topics Covered:</h4><ul style="font-size:14px;padding-left:20px;line-height:1.6">${slide.content.topics.map(t=>`<li>${escapeHTML(t)}</li>`).join('')}</ul></div>`; }
+  else if(slide.type === "concepts") { html += `<h3 class="module-title">${escapeHTML(slide.content.heading)}</h3><div class="concept-grid">${slide.content.items.map(item => `<div class="concept-card"><h3>${escapeHTML(item.term)}</h3><p>${escapeHTML(item.def)}</p><div class="example"><strong>Eg:</strong> ${escapeHTML(item.example)}</div></div>`).join('')}</div>`; }
+  else if(slide.type === "corruption-def" || slide.type === "acab-offenses") { const items = slide.content.types || slide.content.offenses; html += `<h3 class="module-title">${escapeHTML(slide.content.heading)}</h3><p class="module-intro">${escapeHTML(slide.content.def || slide.content.intro)}</p>${items.map(t => `<div class="corruption-type"><h4>${escapeHTML(t.name)}</h4><p>${escapeHTML(t.desc)}</p><div class="eg">Example: ${escapeHTML(t.eg)}</div></div>`).join('')}`; }
+  else if(slide.type === "penalties") { html += `<h3 class="module-title">${escapeHTML(slide.content.heading)}</h3><div class="penalty-grid">${slide.content.penalties.map(p => `<div class="penalty-card"><div class="icon">${p.icon}</div><div class="plabel">${escapeHTML(p.label)}</div><p>${escapeHTML(p.desc)}</p></div>`).join('')}</div>`; }
+  else if(slide.type === "code-of-conduct" || slide.type === "text_list") { const listItems = slide.content.principles || slide.content.items || []; html += `<h3 class="module-title">${escapeHTML(slide.content.heading)}</h3><p class="module-intro">${escapeHTML(slide.content.intro)}</p><div class="card card-gold"><ul style="font-size:14px;padding-left:20px;line-height:1.7">${listItems.map(p=>`<li>${escapeHTML(p)}</li>`).join('')}</ul></div>`; }
+  else if(slide.type === "drag_match") { html += `<h3 class="module-title">${escapeHTML(slide.content.heading)}</h3><div class="card"><p style="font-size:14px;color:#718096;margin-bottom:12px;">Tap a definition, then tap the matching term.</p><div class="drag-source" id="src-box">${slide.content.defs.map((d,i) => `<div class="drag-item" id="def-${i}" onclick="handleDragItemClick('def-${i}')" draggable="true" ondragstart="handleDragStart(event)">${escapeHTML(d)}</div>`).join('')}</div><div class="drag-area">${slide.content.terms.map((t,i) => `<div class="drag-target" id="tgt-${i}" onclick="handleTargetClick(${i})" ondragover="handleDragOver(event)" ondragleave="handleDragLeave(event)" ondrop="handleDrop(event, ${i})"><h5>${escapeHTML(t)}</h5><div class="drag-items"></div></div>`).join('')}</div><button class="btn btn-gold btn-sm" onclick="checkMatchActivity()">Verify Matches</button><div class="match-feedback" id="match-fdbk"></div></div>`; }
+  else if(slide.type === "quiz") {
+    const qKey = `m_${currentMod}_s_${currentSlide}`;
+    const quizIdx = quizState[qKey] || 0;
+    const questions = slide.content.questions;
+    if(quizIdx >= questions.length) {
+      getLearnerProgress(currentLearner.id).then(prog => { prog.quizScores[slide.id] = { score: currentQuizState.score, total: currentQuizState.total }; setLearnerProgress(currentLearner.id, prog); });
+      html += `<div class="score-display"><div class="score-big">🎉</div><h3 style="margin:12px 0 6px">Module Knowledge Check Complete!</h3><p style="font-size:14px;color:#4a5568;margin-bottom:16px">You scored ${currentQuizState.score} out of ${currentQuizState.total}.</p><button class="btn btn-gold btn-sm" onclick="finishModule()">Continue</button></div>`;
+    } else {
+      const q = questions[quizIdx];
+      html += `<div class="quiz-wrap"><div class="quiz-counter">Question ${quizIdx + 1} of ${questions.length}</div>${q.scenario ? `<div class="quiz-scenario"><strong>Context:</strong> ${escapeHTML(q.scenario)}</div>` : ''}<div class="quiz-q">${escapeHTML(q.q)}</div><div>${q.opts.map((o, oIdx) => `<button class="quiz-opt" id="opt-${oIdx}" onclick="checkQuiz(${oIdx}, ${q.ans}, '${btoa(unescape(encodeURIComponent(q.exp)))}', '${slide.id}')">${escapeHTML(o)}</button>`).join('')}</div><div class="quiz-feedback" id="q-fdbk"></div><div id="q-next-wrap" style="margin-top:12px;text-align:right;display:none"><button class="btn btn-gold btn-sm" onclick="nextQuizQ('${qKey}', '${slide.id}')">Next Question <i class="ti ti-arrow-right"></i></button></div></div>`;
+    }
+  }
+  html += `<div class="nav-btns"><button class="btn btn-sm" onclick="prevSlide()" ${currentSlide===0?'disabled':''}><i class="ti ti-arrow-left"></i> Previous</button>`;
+  if(slide.type !== "quiz" || (quizState[`m_${currentMod}_s_${currentSlide}`] >= slide.content.questions.length)) { html += `<button class="btn btn-gold btn-sm" onclick="nextSlide()">Next <i class="ti ti-arrow-right"></i></button>`; }
+  html += `</div>`;
+  out.innerHTML = html;
+  initializeVoiceForSlide();
 }
 
 function prevSlide(){ if(currentSlide > 0) { currentSlide--; renderSlide(); } }
 function nextSlide(){ const max = MODULES[currentMod].slides.length; if(currentSlide < max - 1) { currentSlide++; renderSlide(); } else { finishModule(); } }
-
 function finishModule() { getLearnerProgress(currentLearner.id).then(prog => { currentProgress = prog; if(!prog.completedMods.includes(currentMod)) prog.completedMods.push(currentMod); if(currentMod < MODULES.length - 1) { currentMod++; currentSlide = 0; showToast("Excellent work! Advancing to the next module. 🚀"); renderTabs(); renderSlide(); } else { prog.completedAt = new Date().toISOString(); setLearnerProgress(currentLearner.id, prog); renderCompletionScreen(); } }); }
-
 function renderCompletionScreen() { document.getElementById('content-area').innerHTML = `<div class="cert-wrap"><div style="font-size:56px;margin-bottom:12px">🏆</div><h2>CONGRATULATIONS!</h2><p style="font-size:15px;color:#2d3748;margin-bottom:10px">You have successfully completed the</p><h3 style="color:#c8960a;font-size:18px;font-weight:700;margin-bottom:24px">Ethics, Integrity & Professionalism Training</h3><p style="font-size:13px;color:#718096">Issued by the Anti-Corruption Commission of Bhutan</p><div style="margin-top:28px;border-top:1px dashed #cbd5e0;padding-top:18px;font-size:12px;color:#4a5568">Learner ID: ${escapeHTML(currentLearner.id)}<br>Completed on: ${new Date().toLocaleDateString()}</div><button class="btn btn-gold" style="margin-top:24px" onclick="window.print()"><i class="ti ti-printer"></i> Print Certificate</button></div>`; }
+
 function handleDragItemClick(itemId) { if (selectedDragItem === itemId) { selectedDragItem = null; document.getElementById(itemId).classList.remove('selected'); return; } if (selectedDragItem) document.getElementById(selectedDragItem).classList.remove('selected'); selectedDragItem = itemId; document.getElementById(itemId).classList.add('selected'); }
 function handleTargetClick(targetIdx) { if (selectedDragItem) { const targetBox = document.getElementById(`tgt-${targetIdx}`).querySelector('.drag-items'); const item = document.getElementById(selectedDragItem); targetBox.appendChild(item); selectedDragItem = null; item.classList.remove('selected'); } }
 function handleDragStart(e){ e.dataTransfer.setData("text", e.target.id); }
@@ -499,305 +532,280 @@ function handleDragOver(e){ e.preventDefault(); e.currentTarget.classList.add('o
 function handleDragLeave(e){ e.currentTarget.classList.remove('over'); }
 function handleDrop(e, targetIdx){ e.preventDefault(); e.currentTarget.classList.remove('over'); const id = e.dataTransfer.getData("text"); document.getElementById(`tgt-${targetIdx}`).querySelector('.drag-items').appendChild(document.getElementById(id)); }
 function checkMatchActivity() { const slide = MODULES[currentMod].slides[currentSlide]; let correct = true; slide.content.answers.forEach((ansIdx, targetIdx) => { const box = document.getElementById(`tgt-${targetIdx}`).querySelector('.drag-items'); const item = box.querySelector('.drag-item'); if(!item || item.id !== `def-${ansIdx}`) correct = false; }); const f = document.getElementById('match-fdbk'); f.style.color = correct ? '#2e7d32' : '#dc2626'; f.innerHTML = correct ? "🎉 All mappings align correctly!" : "❌ Some records mismatched. Tap to retry."; }
+
 function checkQuiz(sel, ans, expB64, slideId) { if (currentQuizState.answered) return; currentQuizState.answered = true; currentQuizState.total++; const exp = decodeURIComponent(escape(atob(expB64))); document.querySelectorAll('.quiz-opt').forEach((btn, i) => { btn.disabled = true; if(i === ans) btn.classList.add('correct'); if(i === sel && sel !== ans) btn.classList.add('wrong'); }); const fdbk = document.getElementById('q-fdbk'); fdbk.className = `quiz-feedback show ${sel===ans?'feedback-correct':'feedback-wrong'}`; fdbk.innerHTML = `<strong>${sel===ans?'Correct Answer!':'Incorrect.'}</strong> ${exp}`; document.getElementById('q-next-wrap').style.display = 'block'; if (sel === ans) currentQuizState.score++; }
-function nextQuizQ(key, slideId) { quizState[key] = (quizState[key] || 0) + 1; currentQuizState.answered = false; renderSlide(); }
+function nextQuizQ(qKey, slideId) { quizState[qKey] = (quizState[qKey] || 0) + 1; renderSlide(); }
 
-let cacheLearners = [], cacheProgress = {};
+function showToast(msg) { const t = document.getElementById('toast'); t.textContent = msg; t.classList.add('show'); setTimeout(() => t.classList.remove('show'), 3000); }
 
-/* ====== ADMIN DASHBOARD ENGINE LOGIC ====== */
-async function renderAdmin() { 
-  await ensureClient(); 
-  cacheLearners = await loadLearners(); 
-  cacheProgress = await loadAllProgress(); 
-  
-  const total = cacheLearners.filter(l => !l.is_admin).length; 
-  const active = Object.values(cacheProgress).filter(p => p.pct > 0 && !p.completedAt).length; 
-  const done = Object.values(cacheProgress).filter(p => p.completedAt).length; 
+/* ADMIN HELPERS */
+let cachedLearners = [];
+let cachedProgress = {};
+
+async function renderAdmin() {
+  showLoading();
+  cachedLearners = await loadLearners();
+  cachedProgress = await loadAllProgress();
+  const total = cachedLearners.length;
+  const completed = Object.values(cachedProgress).filter(p => p.completed_at).length;
+  const avgPct = total > 0 ? Math.round(Object.values(cachedProgress).reduce((a,b)=>a+(b.pct||0),0)/total) : 0;
   
   document.getElementById('admin-stats').innerHTML = `
-    <div class="stat-card"><div class="stat-num">${total}</div><div class="stat-label">Total Enrolled</div></div>
-    <div class="stat-card"><div class="stat-num">${active}</div><div class="stat-label">In Progress</div></div>
-    <div class="stat-card"><div class="stat-num">${done}</div><div class="stat-label">Completions</div></div>
-  `; 
-  
-  triggerLearnerSearch(); 
-  renderProgressTable(); 
-  renderCompletionsTable(); 
+    <div class="stat-card"><div class="stat-num">${total}</div><div class="stat-label">Total Learners</div></div>
+    <div class="stat-card"><div class="stat-num">${completed}</div><div class="stat-label">Completions</div></div>
+    <div class="stat-card"><div class="stat-num">${avgPct}%</div><div class="stat-label">Avg. Progress</div></div>
+  `;
+  renderLearnerTable(cachedLearners);
+  renderProgressTable(cachedLearners);
+  renderCompletionsTable(cachedLearners);
+  hideLoading();
 }
 
-function adminTab(target) { 
-  document.querySelectorAll('.admin-tab').forEach(b => b.classList.remove('active')); 
-  document.querySelectorAll('.admin-panel').forEach(p => p.classList.remove('active')); 
-  document.getElementById(`tab-lnk-${target}`).classList.add('active'); 
-  document.getElementById(`panel-${target}`).classList.add('active'); 
-  if(target === 'course') renderCourseManagement(); 
+function adminTab(target) {
+  document.querySelectorAll('.admin-tab').forEach(b => b.classList.remove('active'));
+  document.querySelectorAll('.admin-panel').forEach(p => p.classList.remove('active'));
+  document.getElementById(`tab-lnk-${target}`).classList.add('active');
+  document.getElementById(`panel-${target}`).classList.add('active');
+  if(target === 'course') renderCourseManagement();
+  if(target === 'analytics') renderAnalytics();
 }
 
-function triggerLearnerSearch() { 
-  const q = document.getElementById('admin-search').value.toLowerCase(); 
-  const filtered = cacheLearners.filter(l => !l.is_admin && (l.fname.toLowerCase().includes(q) || l.lname.toLowerCase().includes(q) || l.email.toLowerCase().includes(q) || l.org.toLowerCase().includes(q))); 
-  const container = document.getElementById('admin-learners-table'); 
+/* ENHANCED: ANALYTICS RENDERER */
+function renderAnalytics() {
+  const roles = {}, dzongs = {}, modProgress = {};
+  cachedLearners.forEach(l => {
+    roles[l.role] = (roles[l.role] || 0) + 1;
+    dzongs[l.dzong] = (dzongs[l.dzong] || 0) + 1;
+    const p = cachedProgress[l.id];
+    if (p && p.completed_mods) {
+      p.completed_mods.forEach(m => { modProgress[m] = (modProgress[m] || 0) + 1; });
+    }
+  });
+
+  const renderBars = (data, total) => Object.entries(data).map(([label, count]) => `
+    <div class="chart-label-row"><span>${escapeHTML(label)}</span><span>${count} (${Math.round(count/total*100)}%)</span></div>
+    <div class="chart-bar-container"><div class="chart-bar-fill" style="width: ${count/total*100}%"></div></div>
+  `).join('');
+
+  document.getElementById('chart-roles').innerHTML = renderBars(roles, cachedLearners.length || 1);
+  document.getElementById('chart-dzong').innerHTML = renderBars(dzongs, cachedLearners.length || 1);
   
-  if(!filtered.length) { 
-    container.innerHTML = `<div class="empty-state">No learner records matched.</div>`; 
-    return; 
-  } 
-  
-  container.innerHTML = `
-    <table>
-      <thead>
-        <tr><th>Name</th><th>Email</th><th>Organisation</th><th>Action</th></tr>
-      </thead>
-      <tbody>
-        ${filtered.map(l => `
-          <tr>
-            <td><strong>${escapeHTML(l.fname)} ${escapeHTML(l.lname)}</strong><br><small style="color:#718096">${escapeHTML(l.role)}</small></td>
-            <td>${escapeHTML(l.email)}</td>
-            <td>${escapeHTML(l.org)}<br><small style="color:#718096">${escapeHTML(l.dzong)}</small></td>
-            <td><button class="btn btn-danger btn-sm" onclick="deleteLearner('${l.id}')"><i class="ti ti-trash"></i></button></td>
-          </tr>
-        `).join('')}
-      </tbody>
-    </table>`; 
+  let modHtml = '';
+  MODULES.forEach((m, idx) => {
+    const count = modProgress[idx] || 0;
+    const pct = Math.round(count / (cachedLearners.length || 1) * 100);
+    modHtml += `
+      <div class="chart-label-row"><span>Module ${idx+1}: ${escapeHTML(m.title)}</span><span>${count} completed</span></div>
+      <div class="chart-bar-container"><div class="chart-bar-fill" style="width: ${pct}%"></div></div>
+    `;
+  });
+  document.getElementById('chart-modules').innerHTML = modHtml;
 }
 
-function renderProgressTable() { 
-  const container = document.getElementById('admin-progress-table'); 
-  if(!cacheLearners.length) { container.innerHTML = `<div class="empty-state">No data available.</div>`; return; } 
-  
-  container.innerHTML = `
-    <table>
-      <thead>
-        <tr><th>Learner</th><th>Progress Matrix</th><th>Last Active</th></tr>
-      </thead>
-      <tbody>
-        ${cacheLearners.filter(l=>!l.is_admin).map(l => { 
-          const p = cacheProgress[l.id] || { pct:0, lastSeen: null }; 
-          return `
-            <tr>
-              <td><strong>${escapeHTML(l.fname)} ${escapeHTML(l.lname)}</strong></td>
-              <td><div style="font-weight:500">${p.pct}% Complete</div><small style="color:#718096">Module ${(p.currentMod || 0) + 1}, Slide ${(p.currentSlide || 0) + 1}</small></td>
-              <td>${p.lastSeen ? new Date(p.lastSeen).toLocaleDateString() : 'Never'}</td>
-            </tr>`; 
-        }).join('')}
-      </tbody>
-    </table>`; 
+function renderLearnerTable(data) {
+  const html = `<table><thead><tr><th>Name</th><th>Email</th><th>Org</th><th>Role</th><th>Dzongkhag</th></tr></thead><tbody>${data.map(l=>`<tr><td>${escapeHTML(l.fname)} ${escapeHTML(l.lname)}</td><td>${l.email}</td><td>${escapeHTML(l.org)}</td><td>${l.role}</td><td>${l.dzong}</td></tr>`).join('')}</tbody></table>`;
+  document.getElementById('admin-learners-table').innerHTML = data.length ? html : '<div class="empty-state">No learners found.</div>';
 }
 
-function renderCompletionsTable() { 
-  const container = document.getElementById('admin-completions-table'); 
-  const completions = cacheLearners.filter(l => !l.is_admin && cacheProgress[l.id]?.completedAt); 
-  
-  if(!completions.length) { container.innerHTML = `<div class="empty-state">No learners have finalized all modules yet.</div>`; return; } 
-  
-  container.innerHTML = `
-    <table>
-      <thead>
-        <tr><th>Certificate Recipient</th><th>Firm Link</th><th>Completion Stamp</th></tr>
-      </thead>
-      <tbody>
-        ${completions.map(l => `
-          <tr>
-            <td><strong>${escapeHTML(l.fname)} ${escapeHTML(l.lname)}</strong><br><small style="color:#718096">${escapeHTML(l.role)}</small></td>
-            <td>${escapeHTML(l.org)}</td>
-            <td><span class="badge badge-green">${new Date(cacheProgress[l.id].completedAt).toLocaleDateString()}</span></td>
-          </tr>
-        `).join('')}
-      </tbody>
-    </table>`; 
+function renderProgressTable(learners) {
+  const html = `<table><thead><tr><th>Learner</th><th>Progress</th><th>Current Mod</th><th>Last Seen</th></tr></thead><tbody>${learners.map(l=>{ const p=cachedProgress[l.id]||{}; return `<tr><td>${escapeHTML(l.fname)}</td><td><div class="badge badge-gold">${p.pct||0}%</div></td><td>${p.current_mod!==undefined ? p.current_mod+1 : '—'}</td><td>${p.last_seen?new Date(p.last_seen).toLocaleDateString():'—'}</td></tr>`; }).join('')}</tbody></table>`;
+  document.getElementById('admin-progress-table').innerHTML = html;
 }
 
-async function deleteLearner(id){ 
-  await ensureClient(); 
-  if(!confirm('Permanently remove this record?')) return; 
-  await supabaseClient.from('learners').delete().eq('id', id); 
-  await supabaseClient.from('progress').delete().eq('learner_id', id); 
-  showToast('Learner record successfully purged.'); 
-  await renderAdmin(); 
+function renderCompletionsTable(learners) {
+  const completed = learners.filter(l => cachedProgress[l.id] && cachedProgress[l.id].completed_at);
+  const html = `<table><thead><tr><th>Learner</th><th>Email</th><th>Org</th><th>Completed On</th></tr></thead><tbody>${completed.map(l=>{ const p=cachedProgress[l.id]; return `<tr><td>${escapeHTML(l.fname)} ${escapeHTML(l.lname)}</td><td>${l.email}</td><td>${escapeHTML(l.org)}</td><td>${new Date(p.completed_at).toLocaleDateString()}</td></tr>`; }).join('')}</tbody></table>`;
+  document.getElementById('admin-completions-table').innerHTML = completed.length ? html : '<div class="empty-state">No completions yet.</div>';
 }
 
-function exportCSV(){ 
-  const rows = [['Name','Email','Organisation','Role','Dzongkhag','Phone','Progress %','Status','Completed Date']]; 
-  cacheLearners.filter(l=>!l.is_admin).forEach(l => { 
-    const p = cacheProgress[l.id] || {}; 
-    rows.push([`${l.fname} ${l.lname}`, l.email, l.org, l.role, l.dzong, l.phone || '', p.pct || 0, p.completedAt ? 'Completed' : p.pct > 0 ? 'In Progress' : 'Not Started', p.completedAt ? new Date(p.completedAt).toLocaleDateString() : '']); 
-  }); 
-  const csv = rows.map(r => r.map(c => `"${c}"`).join(',')).join('\n'); 
-  const a = document.createElement('a'); a.href = 'data:text/csv;charset=utf-8,' + encodeURIComponent(csv); a.download = 'acc_learners_' + new Date().toISOString().slice(0,10) + '.csv'; a.click(); showToast('Database analytics compiled and exported to CSV.'); 
+function triggerLearnerSearch() {
+  const q = v('admin-search').toLowerCase();
+  const filtered = cachedLearners.filter(l => l.fname.toLowerCase().includes(q) || l.lname.toLowerCase().includes(q) || l.email.toLowerCase().includes(q) || l.org.toLowerCase().includes(q));
+  renderLearnerTable(filtered);
 }
 
-/* ====== AUDIO VOICE INSTRUMENTS ====== */
-let currentVoiceUtterance = null; let voiceSettings = { voice_text: '', voice_rate: 1, voice_pitch: 1, voice_language: 'en-US' };
-async function initializeVoiceForSlide() { if (!document.getElementById('voice-play')) return; const slide = MODULES[currentMod].slides[currentSlide]; if (!supabaseClient) await ensureClient(); const { data } = await supabaseClient.from('voice_settings').select('*').eq('slide_id', slide.id).maybeSingle(); if (data && data.voice_text) { voiceSettings = data; } else { voiceSettings.voice_text = generateVoiceText(slide); } document.getElementById('voice-play').style.display = 'inline-flex'; document.getElementById('voice-stop').style.display = 'none'; }
+function exportCSV() {
+  let csv = "First Name,Last Name,Email,Organisation,Role,Dzongkhag,Progress %,Completed At\n";
+  cachedLearners.forEach(l => {
+    const p = cachedProgress[l.id] || {};
+    csv += `"${l.fname}","${l.lname}","${l.email}","${l.org}","${l.role}","${l.dzong}","${p.pct||0}","${p.completed_at||''}"\n`;
+  });
+  const blob = new Blob([csv], { type: 'text/csv' });
+  const url = window.URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.setAttribute('href', url);
+  a.setAttribute('download', `ACC_Bhutan_Learners_${new Date().toISOString().split('T')[0]}.csv`);
+  a.click();
+}
 
-function generateVoiceText(slide) { let text = ''; if (slide.type === 'intro') text = `${slide.content.heading}. ${slide.content.intro}`; else if (slide.type === 'concepts') text = slide.content.items.map(i => `${i.term}. ${i.def}`).join('. '); else if (slide.type === 'corruption-def' || slide.type === 'acab-offenses') { const items = slide.content.types || slide.content.offenses; text = `${slide.content.heading}. ${slide.content.def || slide.content.intro}. ` + items.map(i => `${i.name}. ${i.desc}`).join('. '); } else if (slide.type === 'text_list' || slide.type === 'code-of-conduct') { const list = slide.content.items || slide.content.principles || []; text = `${slide.content.heading}. ${slide.content.intro}. ` + list.join('. '); } else if (slide.type === 'quiz') text = "Knowledge Check. Please answer the following questions."; else if (slide.type === 'drag_match') text = "Interactive Activity. Please match the terms with their definitions."; else text = slide.content.heading || "Slide content."; return text; }
-function playVoiceInstruction() { if (!('speechSynthesis' in window)) return alert('Voice instructions are not supported.'); speechSynthesis.cancel(); currentVoiceUtterance = new SpeechSynthesisUtterance(voiceSettings.voice_text); currentVoiceUtterance.rate = voiceSettings.voice_rate; currentVoiceUtterance.pitch = voiceSettings.voice_pitch; currentVoiceUtterance.lang = voiceSettings.voice_language; currentVoiceUtterance.onstart = () => { document.getElementById('voice-play').style.display = 'none'; document.getElementById('voice-stop').style.display = 'inline-flex'; }; currentVoiceUtterance.onend = () => { document.getElementById('voice-play').style.display = 'inline-flex'; document.getElementById('voice-stop').style.display = 'none'; }; speechSynthesis.speak(currentVoiceUtterance); }
-function stopVoiceInstruction() { speechSynthesis.cancel(); document.getElementById('voice-play').style.display = 'inline-flex'; document.getElementById('voice-stop').style.display = 'none'; }
-function updateVoiceSpeed(speed) { voiceSettings.voice_rate = parseFloat(speed); if (speechSynthesis.speaking) { stopVoiceInstruction(); playVoiceInstruction(); } }
-
-/* ====== SYSTEM ENVIRONMENT DATA MANAGEMENT ====== */
-async function renderCourseManagement() { 
-  await ensureClient(); 
-  const { data: modules } = await supabaseClient.from('modules').select('*').order('module_number'); 
-  const container = document.getElementById('admin-course-modules'); 
-  
-  if (!modules || modules.length === 0) { 
-    container.innerHTML = `<div class="empty-state">No database modules found.</div>`; 
-    return; 
-  } 
-  
-  container.innerHTML = modules.map(m => `
-    <div class="card" style="padding:14px;margin-bottom:12px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px;">
-      <div>
-        <strong>Module ${m.module_number}: ${escapeHTML(m.title)}</strong> - ${escapeHTML(m.subtitle || '')}
-        <br><small>Status: ${m.is_published ? '<span style="color:green;font-weight:600">Published</span>' : '<span style="color:orange;font-weight:600">Draft</span>'}</small>
+/* COURSE MANAGEMENT */
+async function renderCourseManagement() {
+  const container = document.getElementById('admin-course-modules');
+  container.innerHTML = MODULES.map((m, idx) => `
+    <div class="card" style="margin-bottom:10px; padding:12px;">
+      <div style="display:flex; justify-content:space-between; align-items:center;">
+        <strong>Module ${idx+1}: ${escapeHTML(m.title)}</strong>
+        <button class="btn btn-sm" onclick="viewModuleSlides(${idx})">View Slides</button>
       </div>
-      <div style="display:flex;gap:8px;">
-        <button class="btn btn-sm" onclick="toggleModulePublish('${m.id}', ${!m.is_published})">${m.is_published ? 'Unpublish' : 'Publish'}</button>
-        <button class="btn btn-gold btn-sm" onclick="viewModuleSlides('${m.id}')">Edit Slides</button>
-      </div>
+      <div id="mod-slides-${idx}" style="display:none; margin-top:12px; border-top:1px solid #eee; padding-top:8px;"></div>
     </div>
-  `).join(''); 
+  `).join('');
 }
 
-async function toggleModulePublish(moduleId, newState) { 
-  await ensureClient(); 
-  await supabaseClient.from('modules').update({ is_published: newState, updated_at: new Date().toISOString() }).eq('id', moduleId); 
-  showToast('Module status updated across live environments!'); 
-  renderCourseManagement(); 
+function viewModuleSlides(modIdx) {
+  const div = document.getElementById(`mod-slides-${modIdx}`);
+  if (div.style.display === 'block') { div.style.display = 'none'; return; }
+  div.style.display = 'block';
+  div.innerHTML = MODULES[modIdx].slides.map((s, sIdx) => `
+    <div style="font-size:13px; padding:6px 0; border-bottom:1px solid #f9f9f9; display:flex; justify-content:space-between;">
+      <span>Slide ${sIdx+1} (${s.type})</span>
+      <button class="btn btn-sm" style="padding:2px 8px; min-height:28px;" onclick="editSlide(${modIdx}, ${sIdx})">Edit JSON</button>
+    </div>
+  `).join('');
 }
 
-async function viewModuleSlides(moduleId) { 
-  await ensureClient(); 
-  const { data: slides } = await supabaseClient.from('slides').select('*').eq('module_id', moduleId).order('slide_order'); 
-  const container = document.getElementById('admin-course-modules'); 
-  
-  let html = `<button class="btn btn-sm" onclick="renderCourseManagement()" style="margin-bottom:12px;"><i class="ti ti-arrow-left"></i> Back to Modules</button>`; 
-  if (!slides || slides.length === 0) { 
-    html += `<div class="empty-state">No configuration slides mapped to this target module.</div>`; 
-  } else { 
-    html += slides.map(s => `
-      <div class="card" style="padding:12px;margin-bottom:10px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px;">
-        <div>
-          <strong>Slide ${s.slide_order}</strong> <span class="badge badge-blue">${escapeHTML(s.slide_type)}</span>
-          <br><small style="color:#718096">${JSON.stringify(s.content).substring(0, 80)}...</small>
-        </div>
-        <button class="btn btn-gold btn-sm" onclick="editSlide('${s.id}')">Edit JSON</button>
+let editingSlideRef = null;
+function editSlide(modIdx, sIdx) {
+  editingSlideRef = { modIdx, sIdx };
+  const slide = MODULES[modIdx].slides[sIdx];
+  document.getElementById('admin-slide-editor').style.display = 'block';
+  document.getElementById('slide-json-editor').value = JSON.stringify(slide.content, null, 2);
+  document.getElementById('admin-slide-editor').scrollIntoView({ behavior: 'smooth' });
+}
+
+async function saveSlideJSON() {
+  if (!editingSlideRef) return;
+  try {
+    const newContent = JSON.parse(document.getElementById('slide-json-editor').value);
+    const slideId = MODULES[editingSlideRef.modIdx].slides[editingSlideRef.sIdx].id;
+    showLoading();
+    const { error } = await supabaseClient.from('slides').update({ content: newContent }).eq('id', slideId);
+    hideLoading();
+    if (error) throw error;
+    MODULES[editingSlideRef.modIdx].slides[editingSlideRef.sIdx].content = newContent;
+    showToast("Slide updated successfully!");
+    document.getElementById('admin-slide-editor').style.display = 'none';
+  } catch (e) {
+    alert("Invalid JSON format or update failed: " + e.message);
+  }
+}
+
+/* LEARNER DASHBOARD LOGIC */
+async function loadDashboardData() {
+  if(!currentLearner) return;
+  const prog = await getLearnerProgress(currentLearner.id);
+  document.getElementById('dash-welcome-name').textContent = `${currentLearner.fname} ${currentLearner.lname}`;
+  document.getElementById('dash-role').textContent = currentLearner.role;
+  document.getElementById('dash-org').textContent = currentLearner.org;
+  document.getElementById('dash-progress-fill').style.width = (prog.pct || 0) + '%';
+  document.getElementById('dash-progress-pct').textContent = (prog.pct || 0) + '%';
+  document.getElementById('dash-modules-complete').textContent = `${prog.completedMods.length}/${MODULES.length} modules completed`;
+  document.getElementById('dash-start-date').textContent = prog.lastSeen ? new Date(prog.lastSeen).toLocaleDateString() : 'Today';
+  document.getElementById('dash-last-active').textContent = prog.lastSeen ? new Date(prog.lastSeen).toLocaleTimeString() : 'Just now';
+  document.getElementById('dash-streak').textContent = "1"; // Simplified
+  document.getElementById('dash-lessons-done').textContent = prog.completedMods.length * 5; // Estimate
+  document.getElementById('dash-avg-score').textContent = "85"; // Estimate
+  renderModuleList(prog);
+  renderProfileInfo();
+  renderCertificateStatus(prog);
+}
+
+function switchDashboardTab(tab) {
+  document.querySelectorAll('.dashboard-tab').forEach(b => b.classList.remove('active'));
+  document.querySelectorAll('.dashboard-panel').forEach(p => p.classList.remove('active'));
+  document.getElementById(`dash-${tab}`).classList.add('active');
+  // Find the button that was clicked and add active class
+  const btns = document.querySelectorAll('.dashboard-tab');
+  btns.forEach(b => { if(b.textContent.toLowerCase().includes(tab)) b.classList.add('active'); });
+}
+
+function renderModuleList(prog) {
+  const container = document.getElementById('dash-module-list');
+  container.innerHTML = MODULES.map((m, idx) => {
+    const isDone = prog.completedMods.includes(idx);
+    const statusCls = isDone ? 'status-complete' : (idx === prog.currentMod ? 'status-progress' : 'status-pending');
+    const statusTxt = isDone ? 'Completed' : (idx === prog.currentMod ? 'In Progress' : 'Locked');
+    return `
+      <div class="module-list-item">
+        <div><strong>Module ${idx+1}: ${escapeHTML(m.title)}</strong></div>
+        <div class="module-status ${statusCls}">${statusTxt}</div>
       </div>
-    `).join(''); 
-  } 
-  container.innerHTML = html; 
+    `;
+  }).join('');
 }
 
-let currentEditingSlideId = null;
-async function editSlide(slideId) { 
-  await ensureClient(); 
-  const { data } = await supabaseClient.from('slides').select('*').eq('id', slideId).single(); 
-  currentEditingSlideId = slideId; 
-  document.getElementById('slide-json-editor').value = JSON.stringify(data.content, null, 2); 
-  document.getElementById('admin-slide-editor').style.display = 'block'; 
+function renderProfileInfo() {
+  document.getElementById('profile-name').textContent = `${currentLearner.fname} ${currentLearner.lname}`;
+  document.getElementById('profile-email').textContent = currentLearner.email;
+  document.getElementById('profile-org').textContent = currentLearner.org;
+  document.getElementById('profile-role').textContent = currentLearner.role;
+  document.getElementById('profile-dzong').textContent = currentLearner.dzong;
+  document.getElementById('profile-phone').textContent = currentLearner.phone || 'Not provided';
 }
 
-async function saveSlideJSON() { 
-  try { 
-    const newContent = JSON.parse(document.getElementById('slide-json-editor').value); 
-    await ensureClient(); 
-    await supabaseClient.from('slides').update({ content: newContent, updated_at: new Date().toISOString() }).eq('id', currentEditingSlideId); 
-    showToast('Slide data object compiled and pushed upstream!'); 
-    document.getElementById('admin-slide-editor').style.display = 'none'; 
-    await initializeApp(); 
-  } catch (e) { 
-    alert('Invalid JSON syntax configuration. Verify formatting variables before redeployment.'); 
-  } 
+function renderCertificateStatus(prog) {
+  const container = document.getElementById('certificate-content');
+  if (prog.completedAt) {
+    container.innerHTML = `
+      <div style="text-align:center; padding:20px;">
+        <div style="font-size:48px; margin-bottom:16px;">🎓</div>
+        <p>Congratulations! You have earned your certificate.</p>
+        <button class="btn btn-gold" style="margin-top:16px;" onclick="startCourse(); renderCompletionScreen();"><i class="ti ti-eye"></i> View Certificate</button>
+      </div>
+    `;
+  } else {
+    container.innerHTML = `
+      <div style="text-align:center; padding:20px; color:#64748b;">
+        <i class="ti ti-lock" style="font-size:32px; margin-bottom:12px; display:block;"></i>
+        <p>Complete all modules to unlock your certificate.</p>
+        <div class="prog-wrap" style="background:#e2e8f0; margin-top:16px;"><div class="prog-fill" style="background:#c8960a; width:${prog.pct}%"></div></div>
+      </div>
+    `;
+  }
 }
 
-function showToast(msg) { const t = document.getElementById('toast'); t.textContent = msg; t.classList.add('show'); setTimeout(() => t.classList.remove('show'), 3500); }
-
-/* ====== USER ANALYTICS DASHBOARDS ====== */
-let dashboardProgress = null;
-async function loadDashboardData() { if (!currentLearner) return; dashboardProgress = await getLearnerProgress(currentLearner.id); renderDashboard(); }
-function switchDashboardTab(tab) { document.querySelectorAll('.dashboard-tab').forEach(t => t.classList.remove('active')); document.querySelectorAll('.dashboard-panel').forEach(p => p.classList.remove('active')); document.getElementById(`dash-${tab}`).classList.add('active'); event.target.classList.add('active'); }
-
-function renderDashboard() { 
-  if (!currentLearner || !dashboardProgress) return; 
-  document.getElementById('dash-welcome-name').innerHTML = `${escapeHTML(currentLearner.fname)} ${escapeHTML(currentLearner.lname)}`; 
-  document.getElementById('dash-role').innerHTML = escapeHTML(currentLearner.role || 'Professional'); 
-  document.getElementById('dash-org').innerHTML = escapeHTML(currentLearner.org || ''); 
-  const pct = dashboardProgress.pct || 0; 
-  document.getElementById('dash-progress-fill').style.width = pct + '%'; 
-  document.getElementById('dash-progress-pct').innerHTML = pct + '%'; 
-  const completedCount = (dashboardProgress.completedMods || []).length; 
-  document.getElementById('dash-modules-complete').innerHTML = `${completedCount}/${MODULES.length} modules completed`; 
-  const startDate = currentLearner.created_at ? new Date(currentLearner.created_at).toLocaleDateString() : new Date().toLocaleDateString(); 
-  document.getElementById('dash-start-date').innerHTML = startDate; 
-  document.getElementById('dash-last-active').innerHTML = dashboardProgress.lastSeen ? new Date(dashboardProgress.lastSeen).toLocaleDateString() : 'Today'; 
-  const estDate = new Date(); estDate.setDate(estDate.getDate() + (14 - Math.floor(pct/10))); 
-  document.getElementById('dash-est-completion').innerHTML = estDate.toLocaleDateString(); 
-  const streak = Math.floor(Math.random() * 5) + 1; 
-  document.getElementById('dash-streak').innerHTML = streak; 
-  const totalSlides = MODULES.reduce((s,m)=>s+m.slides.length,0); 
-  const slidesDone = Math.floor(pct/100 * totalSlides); 
-  document.getElementById('dash-lessons-done').innerHTML = slidesDone; 
-  document.getElementById('dash-avg-score').innerHTML = '78'; 
-  const activityHtml = ['Completed Ethics module quiz (92%)', 'Finished Module 1: Foundations', 'Started Corruption Types module'].map(a => `<div class="activity-item"><i class="ti ti-check-circle" style="color:#3b6d11"></i> ${a}</div>`).join(''); 
-  document.getElementById('dash-recent-activity').innerHTML = activityHtml || '<div class="empty-state">No recent activity</div>'; 
-  renderModuleList(); 
-  renderProfileInfo(); 
-  renderCertificateStatus(); 
+async function showChangePINModal() {
+  const newPin = prompt("Enter new 4-6 digit PIN:");
+  if (newPin && newPin.length >= 4) {
+    showLoading();
+    const { error } = await supabaseClient.from('learners').update({ pin: newPin }).eq('id', currentLearner.id);
+    hideLoading();
+    if (!error) { currentLearner.pin = newPin; showToast("PIN updated successfully!"); }
+    else { alert("Failed to update PIN."); }
+  }
 }
 
-function renderModuleList() { 
-  const container = document.getElementById('dash-module-list'); 
-  if(!MODULES.length) { container.innerHTML = '<div class="empty-state">Loading modules...</div>'; return; } 
-  const html = MODULES.map((mod, idx) => { 
-    let status = 'pending', statusText = 'Not Started', statusClass = 'status-pending'; 
-    if(dashboardProgress.completedMods && dashboardProgress.completedMods.includes(idx)) { status = 'complete'; statusText = 'Complete'; statusClass = 'status-complete'; } 
-    else if(idx === (dashboardProgress.currentMod || 0)) { status = 'progress'; statusText = 'In Progress'; statusClass = 'status-progress'; } 
-    return `<div class="module-list-item"><div><strong>Module ${idx+1}: ${escapeHTML(mod.title)}</strong><br><small>${mod.slides.length} slides</small></div><span class="module-status ${statusClass}">${statusText}</span></div>`; 
-  }).join(''); 
-  container.innerHTML = html; 
+async function exportMyProgress() {
+  const prog = await getLearnerProgress(currentLearner.id);
+  let text = `Learning Progress Report: ${currentLearner.fname} ${currentLearner.lname}\n`;
+  text += `Organisation: ${currentLearner.org}\n`;
+  text += `Overall Progress: ${prog.pct}%\n`;
+  text += `Modules Completed: ${prog.completedMods.length}/${MODULES.length}\n`;
+  const blob = new Blob([text], { type: 'text/plain' });
+  const url = window.URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.setAttribute('href', url);
+  a.setAttribute('download', `Progress_Report_${currentLearner.fname}.txt`);
+  a.click();
 }
 
-function renderProfileInfo() { 
-  document.getElementById('profile-name').innerHTML = `${escapeHTML(currentLearner.fname)} ${escapeHTML(currentLearner.lname)}`; 
-  document.getElementById('profile-email').innerHTML = escapeHTML(currentLearner.email); 
-  document.getElementById('profile-org').innerHTML = escapeHTML(currentLearner.org || '—'); 
-  document.getElementById('profile-role').innerHTML = escapeHTML(currentLearner.role || '—'); 
-  document.getElementById('profile-dzong').innerHTML = escapeHTML(currentLearner.dzong || '—'); 
-  document.getElementById('profile-phone').innerHTML = escapeHTML(currentLearner.phone || '—'); 
+/* VOICE HELPERS */
+let voiceSynth = window.speechSynthesis;
+let voiceUtterance = null;
+function initializeVoiceForSlide() { stopVoiceInstruction(); }
+function playVoiceInstruction() {
+  stopVoiceInstruction();
+  const text = document.getElementById('content-area').innerText;
+  voiceUtterance = new SpeechSynthesisUtterance(text);
+  voiceUtterance.rate = parseFloat(document.getElementById('voice-speed').value);
+  voiceUtterance.onend = () => { document.getElementById('voice-play').style.display = 'inline-flex'; document.getElementById('voice-stop').style.display = 'none'; };
+  document.getElementById('voice-play').style.display = 'none';
+  document.getElementById('voice-stop').style.display = 'inline-flex';
+  voiceSynth.speak(voiceUtterance);
 }
+function stopVoiceInstruction() { if (voiceSynth.speaking) voiceSynth.cancel(); document.getElementById('voice-play').style.display = 'inline-flex'; document.getElementById('voice-stop').style.display = 'none'; }
+function updateVoiceSpeed(val) { if (voiceUtterance) voiceUtterance.rate = parseFloat(val); }
 
-function renderCertificateStatus() { 
-  const container = document.getElementById('certificate-content'); 
-  const isComplete = dashboardProgress.completedAt; 
-  if(isComplete) { container.innerHTML = `<div style="text-align:center;padding:1rem"><div style="font-size:48px">🏆</div><h3>Certificate Available!</h3><p>You have successfully completed all modules.</p><button class="btn btn-gold" onclick="showCertificateModal()"><i class="ti ti-certificate"></i> View Certificate</button><button class="btn" onclick="window.print()" style="margin-left:10px"><i class="ti ti-printer"></i> Print</button></div>`; } 
-  else { 
-    const pct = dashboardProgress.pct || 0; 
-    container.innerHTML = `<div style="text-align:center;padding:1rem"><div style="font-size:48px">🔒</div><h3>Certificate Locked</h3><p>Complete all ${MODULES.length} modules to unlock your official ACC Bhutan certificate.</p><div class="prog-wrap" style="background:#e2e8f0;margin:1rem 0"><div class="prog-fill" style="background:#c8960a;width:${pct}%"></div></div><div>${pct}% Complete</div></div>`; 
-  } 
-}
-
-function showCertificateModal() { alert('Certificate of Completion\n\nThis certifies that ' + currentLearner.fname + ' ' + currentLearner.lname + ' has successfully completed the Ethics, Integrity & Professionalism training program.\n\nIssued by: Anti-Corruption Commission of Bhutan\nDate: ' + new Date().toLocaleDateString()); }
-function showChangePINModal() { const newPin = prompt('Enter new 4-6 digit PIN:'); if(newPin && newPin.length >=4 && newPin.length <=6) { updateUserPIN(newPin); } else { alert('PIN must be 4-6 digits'); } }
-
-async function updateUserPIN(newPin) { 
-  await ensureClient(); 
-  const { error } = await supabaseClient.from('learners').update({ pin: newPin }).eq('id', currentLearner.id); 
-  if(error) { showToast('Error updating PIN'); } 
-  else { currentLearner.pin = newPin; showToast('PIN updated successfully!'); renderProfileInfo(); } 
-}
-
-function exportMyProgress() { 
-  const rows = [['Module','Status','Slides Completed','Quiz Score']]; 
-  MODULES.forEach((mod,idx) => { 
-    let status = 'Not Started'; 
-    if(dashboardProgress.completedMods && dashboardProgress.completedMods.includes(idx)) status = 'Completed'; 
-    else if(idx === (dashboardProgress.currentMod || 0)) status = 'In Progress'; 
-    rows.push([`Module ${idx+1}: ${mod.title}`, status, 'N/A', 'N/A']); 
-  }); 
-  const csv = rows.map(r => r.map(c => `"${c}"`).join(',')).join('\n'); 
-  const a = document.createElement('a'); a.href = 'data:text/csv;charset=utf-8,' + encodeURIComponent(csv); a.download = `progress_${currentLearner.fname}_${new Date().toISOString().slice(0,10)}.csv`; a.click(); showToast('Progress report exported'); 
-}
 </script>
 </body>
 </html>
