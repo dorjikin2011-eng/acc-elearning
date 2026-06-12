@@ -125,7 +125,7 @@
   .dashboard-tab.active{color:#c8960a;border-bottom-color:#c8960a}
   .dashboard-panel{display:none}
   .dashboard-panel.active{display:block}
-  .streak-fire">font-size:24px;margin-right:8px}
+  .streak-fire{font-size:24px;margin-right:8px}
   .profile-field{margin-bottom:14px}
   .profile-field label{font-size:12px;color:#64748b;display:block;margin-bottom:4px}
   .profile-field .value{font-size:15px;font-weight:500;color:#1e293b}
@@ -230,7 +230,6 @@
       <div><button class="btn btn-sm" onclick="exitToLanding()"><i class="ti ti-logout"></i> Exit</button></div>
     </div>
     
-    <!-- Dashboard Tabs -->
     <div class="dashboard-tabs">
       <button class="dashboard-tab active" onclick="switchDashboardTab('overview')">Overview</button>
       <button class="dashboard-tab" onclick="switchDashboardTab('modules')">Modules</button>
@@ -238,7 +237,6 @@
       <button class="dashboard-tab" onclick="switchDashboardTab('certificate')">Certificate</button>
     </div>
     
-    <!-- Overview Panel -->
     <div id="dash-overview" class="dashboard-panel active">
       <div class="dashboard-grid">
         <div class="dashboard-card">
@@ -286,7 +284,6 @@
       </div>
     </div>
     
-    <!-- Modules Panel -->
     <div id="dash-modules" class="dashboard-panel">
       <div class="dashboard-card">
         <h3><i class="ti ti-category"></i> Module Progress</h3>
@@ -294,7 +291,6 @@
       </div>
     </div>
     
-    <!-- Profile Panel -->
     <div id="dash-profile" class="dashboard-panel">
       <div class="dashboard-card">
         <h3><i class="ti ti-id"></i> Personal Information</h3>
@@ -308,7 +304,6 @@
       </div>
     </div>
     
-    <!-- Certificate Panel -->
     <div id="dash-certificate" class="dashboard-panel">
       <div class="dashboard-card" id="certificate-status-card">
         <h3><i class="ti ti-certificate"></i> ACC Bhutan Certificate</h3>
@@ -344,24 +339,60 @@
     <div id="content-area"></div>
   </div>
 
-  <!-- ADMIN SCREEN -->
+  <!-- FIXED & ENHANCED ADMIN SCREEN HTML VIEWPORT -->
   <div class="screen" id="screen-admin">
     <div class="top-nav">
       <button class="btn btn-sm" onclick="showScreen('screen-landing')"><i class="ti ti-arrow-left"></i> Back</button>
-      <div style="font-size:15px;font-weight:600"><i class="ti ti-shield"></i> Admin Dashboard</div>
+      <div style="font-size:15px;font-weight:600"><i class="ti ti-shield"></i> Admin Workspace Control Panel</div>
       <div></div>
     </div>
+    
+    <!-- Dynamic Metric Tiles KPI Grid -->
     <div id="admin-stats" class="stat-grid"></div>
+    
+    <!-- Control Navigation Tab Switches -->
     <div class="admin-tabs">
       <button class="admin-tab active" id="tab-lnk-learners" onclick="adminTab('learners')">Enrolled Learners</button>
       <button class="admin-tab" id="tab-lnk-progress" onclick="adminTab('progress')">Progress Tracker</button>
       <button class="admin-tab" id="tab-lnk-completions" onclick="adminTab('completions')">Completions</button>
       <button class="admin-tab" id="tab-lnk-course" onclick="adminTab('course')">Course Management</button>
     </div>
-    <div class="admin-panel active card" id="panel-learners"><div class="search-bar"><input class="form-input" id="admin-search" placeholder="Search..." oninput="triggerLearnerSearch()" /><button class="btn btn-gold btn-sm" onclick="exportCSV()"><i class="ti ti-download"></i> Export</button></div><div class="table-wrap" id="admin-learners-table"></div></div>
-    <div class="admin-panel card" id="panel-progress"><div class="table-wrap" id="admin-progress-table"></div></div>
-    <div class="admin-panel card" id="panel-completions"><div class="table-wrap" id="admin-completions-table"></div></div>
-    <div class="admin-panel card" id="panel-course"><h3 style="margin-bottom:12px;font-size:16px;">Manage Modules & Slides</h3><div id="admin-course-modules"></div><div id="admin-slide-editor" style="display:none; margin-top:24px; border-top:1px solid #e2e8f0; padding-top:18px;"><h4 style="font-size:14px;margin-bottom:10px;">Edit Slide Content (JSON)</h4><textarea id="slide-json-editor" style="width:100%;height:280px;font-family:monospace;font-size:13px;padding:12px;border:1px solid #cbd5e0;border-radius:12px;"></textarea><div style="margin-top:14px;display:flex;gap:12px;"><button class="btn btn-gold btn-sm" onclick="saveSlideJSON()">Save Changes</button><button class="btn btn-sm" onclick="document.getElementById('admin-slide-editor').style.display='none'">Cancel</button></div></div></div>
+    
+    <!-- Learners Panel: Features explicit live search indexing alongside CSV generation routines -->
+    <div class="admin-panel active card" id="panel-learners">
+      <div class="search-bar">
+        <input class="form-input" id="admin-search" placeholder="Type name, email, or firm to filter..." oninput="triggerLearnerSearch()" />
+        <button class="btn btn-gold btn-sm" onclick="exportCSV()"><i class="ti ti-download"></i> Export CSV Database</button>
+      </div>
+      <div class="table-wrap" id="admin-learners-table"></div>
+    </div>
+    
+    <!-- Real-time Progress Tracking Layout Matrix -->
+    <div class="admin-panel card" id="panel-progress">
+      <div class="table-wrap" id="admin-progress-table"></div>
+    </div>
+    
+    <!-- Completed Certification Registries Viewport -->
+    <div class="admin-panel card" id="panel-completions">
+      <div class="table-wrap" id="admin-completions-table"></div>
+    </div>
+    
+    <!-- Core Course Infrastructure Modification Board -->
+    <div class="admin-panel card" id="panel-course">
+      <h3 style="margin-bottom:12px;font-size:16px;">System Modules & Dynamic Deployment Hooks</h3>
+      <div id="admin-course-modules"></div>
+      
+      <!-- Sub-Level Embedded Dynamic Live Text/JSON Parsing Canvas -->
+      <div id="admin-slide-editor" style="display:none; margin-top:24px; border-top:1px solid #e2e8f0; padding-top:18px;">
+        <h4 style="font-size:14px;margin-bottom:10px;color:#c8960a;">Edit Slide Content Matrix Object (JSON Structure)</h4>
+        <p style="font-size:12px;color:#718096;margin-bottom:8px;">Warning: Edits committed below propagate downstream directly to connected active learner clients.</p>
+        <textarea id="slide-json-editor" style="width:100%;height:280px;font-family:monospace;font-size:13px;padding:12px;border:1px solid #cbd5e0;border-radius:12px;background:#f8fafc;"></textarea>
+        <div style="margin-top:14px;display:flex;gap:12px;">
+          <button class="btn btn-gold btn-sm" onclick="saveSlideJSON()">Commit Structural Save</button>
+          <button class="btn btn-sm" onclick="document.getElementById('admin-slide-editor').style.display='none'">Discard Workspace Changes</button>
+        </div>
+      </div>
+    </div>
   </div>
 </div>
 
@@ -473,7 +504,7 @@ function nextQuizQ(key, slideId) { quizState[key] = (quizState[key] || 0) + 1; c
 
 let cacheLearners = [], cacheProgress = {};
 
-/* ====== ADMIN DASHBOARD ACTIONS & LOGIC ENHANCEMENTS ====== */
+/* ====== ADMIN DASHBOARD ENGINE LOGIC ====== */
 async function renderAdmin() { 
   await ensureClient(); 
   cacheLearners = await loadLearners(); 
@@ -483,7 +514,6 @@ async function renderAdmin() {
   const active = Object.values(cacheProgress).filter(p => p.pct > 0 && !p.completedAt).length; 
   const done = Object.values(cacheProgress).filter(p => p.completedAt).length; 
   
-  // Render Dynamic Admin Metric KPIs
   document.getElementById('admin-stats').innerHTML = `
     <div class="stat-card"><div class="stat-num">${total}</div><div class="stat-label">Total Enrolled</div></div>
     <div class="stat-card"><div class="stat-num">${active}</div><div class="stat-label">In Progress</div></div>
@@ -596,7 +626,7 @@ function exportCSV(){
   const a = document.createElement('a'); a.href = 'data:text/csv;charset=utf-8,' + encodeURIComponent(csv); a.download = 'acc_learners_' + new Date().toISOString().slice(0,10) + '.csv'; a.click(); showToast('Database analytics compiled and exported to CSV.'); 
 }
 
-/* ====== AUDIO VOICE INSTRUCTION GENERATION ====== */
+/* ====== AUDIO VOICE INSTRUMENTS ====== */
 let currentVoiceUtterance = null; let voiceSettings = { voice_text: '', voice_rate: 1, voice_pitch: 1, voice_language: 'en-US' };
 async function initializeVoiceForSlide() { if (!document.getElementById('voice-play')) return; const slide = MODULES[currentMod].slides[currentSlide]; if (!supabaseClient) await ensureClient(); const { data } = await supabaseClient.from('voice_settings').select('*').eq('slide_id', slide.id).maybeSingle(); if (data && data.voice_text) { voiceSettings = data; } else { voiceSettings.voice_text = generateVoiceText(slide); } document.getElementById('voice-play').style.display = 'inline-flex'; document.getElementById('voice-stop').style.display = 'none'; }
 
@@ -605,7 +635,7 @@ function playVoiceInstruction() { if (!('speechSynthesis' in window)) return ale
 function stopVoiceInstruction() { speechSynthesis.cancel(); document.getElementById('voice-play').style.display = 'inline-flex'; document.getElementById('voice-stop').style.display = 'none'; }
 function updateVoiceSpeed(speed) { voiceSettings.voice_rate = parseFloat(speed); if (speechSynthesis.speaking) { stopVoiceInstruction(); playVoiceInstruction(); } }
 
-/* ====== RE-ENGINEERED LIVE COURSE MANAGEMENT ACTIVATION ====== */
+/* ====== SYSTEM ENVIRONMENT DATA MANAGEMENT ====== */
 async function renderCourseManagement() { 
   await ensureClient(); 
   const { data: modules } = await supabaseClient.from('modules').select('*').order('module_number'); 
@@ -683,7 +713,7 @@ async function saveSlideJSON() {
 
 function showToast(msg) { const t = document.getElementById('toast'); t.textContent = msg; t.classList.add('show'); setTimeout(() => t.classList.remove('show'), 3500); }
 
-/* ====== USER PROFILE ANALYTICS DASHBOARD ====== */
+/* ====== USER ANALYTICS DASHBOARDS ====== */
 let dashboardProgress = null;
 async function loadDashboardData() { if (!currentLearner) return; dashboardProgress = await getLearnerProgress(currentLearner.id); renderDashboard(); }
 function switchDashboardTab(tab) { document.querySelectorAll('.dashboard-tab').forEach(t => t.classList.remove('active')); document.querySelectorAll('.dashboard-panel').forEach(p => p.classList.remove('active')); document.getElementById(`dash-${tab}`).classList.add('active'); event.target.classList.add('active'); }
