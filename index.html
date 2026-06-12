@@ -125,7 +125,7 @@
   .dashboard-tab.active{color:#c8960a;border-bottom-color:#c8960a}
   .dashboard-panel{display:none}
   .dashboard-panel.active{display:block}
-  .streak-fire{font-size:24px;margin-right:8px}
+  .streak-fire">font-size:24px;margin-right:8px}
   .profile-field{margin-bottom:14px}
   .profile-field label{font-size:12px;color:#64748b;display:block;margin-bottom:4px}
   .profile-field .value{font-size:15px;font-weight:500;color:#1e293b}
@@ -151,6 +151,7 @@
 <div class="app">
   <div class="toast" id="toast"></div>
 
+  <!-- LANDING SCREEN -->
   <div class="screen active" id="screen-landing">
     <div class="header">
       <div class="acc-badge"><i class="ti ti-shield-check" aria-hidden="true"></i> Anti-Corruption Commission · Bhutan</div>
@@ -174,6 +175,7 @@
     </div>
   </div>
 
+  <!-- REGISTER SCREEN -->
   <div class="screen" id="screen-register">
     <div class="top-nav">
       <button class="btn btn-sm" onclick="showScreen('screen-landing')"><i class="ti ti-arrow-left" aria-hidden="true"></i> Back</button>
@@ -203,6 +205,7 @@
     </div>
   </div>
 
+  <!-- LOGIN SCREEN -->
   <div class="screen" id="screen-login">
     <div class="top-nav">
       <button class="btn btn-sm" onclick="showScreen('screen-landing')"><i class="ti ti-arrow-left" aria-hidden="true"></i> Back</button>
@@ -220,12 +223,14 @@
     </div>
   </div>
 
+  <!-- USER DASHBOARD SCREEN -->
   <div class="screen" id="screen-dashboard">
     <div class="top-nav">
       <div style="font-size:15px;font-weight:600"><i class="ti ti-dashboard"></i> My Dashboard</div>
       <div><button class="btn btn-sm" onclick="exitToLanding()"><i class="ti ti-logout"></i> Exit</button></div>
     </div>
     
+    <!-- Dashboard Tabs -->
     <div class="dashboard-tabs">
       <button class="dashboard-tab active" onclick="switchDashboardTab('overview')">Overview</button>
       <button class="dashboard-tab" onclick="switchDashboardTab('modules')">Modules</button>
@@ -233,6 +238,7 @@
       <button class="dashboard-tab" onclick="switchDashboardTab('certificate')">Certificate</button>
     </div>
     
+    <!-- Overview Panel -->
     <div id="dash-overview" class="dashboard-panel active">
       <div class="dashboard-grid">
         <div class="dashboard-card">
@@ -280,6 +286,7 @@
       </div>
     </div>
     
+    <!-- Modules Panel -->
     <div id="dash-modules" class="dashboard-panel">
       <div class="dashboard-card">
         <h3><i class="ti ti-category"></i> Module Progress</h3>
@@ -287,6 +294,7 @@
       </div>
     </div>
     
+    <!-- Profile Panel -->
     <div id="dash-profile" class="dashboard-panel">
       <div class="dashboard-card">
         <h3><i class="ti ti-id"></i> Personal Information</h3>
@@ -300,6 +308,7 @@
       </div>
     </div>
     
+    <!-- Certificate Panel -->
     <div id="dash-certificate" class="dashboard-panel">
       <div class="dashboard-card" id="certificate-status-card">
         <h3><i class="ti ti-certificate"></i> ACC Bhutan Certificate</h3>
@@ -308,6 +317,7 @@
     </div>
   </div>
 
+  <!-- COURSE SCREEN -->
   <div class="screen" id="screen-course">
     <div class="header">
       <div style="display:flex;justify-content:space-between;align-items:flex-start;flex-wrap:wrap;gap:12px">
@@ -334,6 +344,7 @@
     <div id="content-area"></div>
   </div>
 
+  <!-- ADMIN SCREEN -->
   <div class="screen" id="screen-admin">
     <div class="top-nav">
       <button class="btn btn-sm" onclick="showScreen('screen-landing')"><i class="ti ti-arrow-left"></i> Back</button>
@@ -461,51 +472,131 @@ function checkQuiz(sel, ans, expB64, slideId) { if (currentQuizState.answered) r
 function nextQuizQ(key, slideId) { quizState[key] = (quizState[key] || 0) + 1; currentQuizState.answered = false; renderSlide(); }
 
 let cacheLearners = [], cacheProgress = {};
+
+/* ====== ADMIN DASHBOARD ACTIONS & LOGIC ENHANCEMENTS ====== */
 async function renderAdmin() { 
   await ensureClient(); 
   cacheLearners = await loadLearners(); 
   cacheProgress = await loadAllProgress(); 
+  
   const total = cacheLearners.filter(l => !l.is_admin).length; 
   const active = Object.values(cacheProgress).filter(p => p.pct > 0 && !p.completedAt).length; 
   const done = Object.values(cacheProgress).filter(p => p.completedAt).length; 
-  document.getElementById('admin-stats').innerHTML = `<div class="stat-card"><div class="stat-num">${total}</div><div class="stat-label">Total Enrolled</div></div><div class="stat-card"><div class="stat-num">${active}</div><div class="stat-label">In Progress</div></div><div class="stat-card"><div class="stat-num">${done}</div><div class="stat-label">Completions</div></div>`; 
+  
+  // Render Dynamic Admin Metric KPIs
+  document.getElementById('admin-stats').innerHTML = `
+    <div class="stat-card"><div class="stat-num">${total}</div><div class="stat-label">Total Enrolled</div></div>
+    <div class="stat-card"><div class="stat-num">${active}</div><div class="stat-label">In Progress</div></div>
+    <div class="stat-card"><div class="stat-num">${done}</div><div class="stat-label">Completions</div></div>
+  `; 
+  
   triggerLearnerSearch(); 
   renderProgressTable(); 
   renderCompletionsTable(); 
 }
 
-function adminTab(target) { document.querySelectorAll('.admin-tab').forEach(b => b.classList.remove('active')); document.querySelectorAll('.admin-panel').forEach(p => p.classList.remove('active')); document.getElementById(`tab-lnk-${target}`).classList.add('active'); document.getElementById(`panel-${target}`).classList.add('active'); if(target === 'course') renderCourseManagement(); }
+function adminTab(target) { 
+  document.querySelectorAll('.admin-tab').forEach(b => b.classList.remove('active')); 
+  document.querySelectorAll('.admin-panel').forEach(p => p.classList.remove('active')); 
+  document.getElementById(`tab-lnk-${target}`).classList.add('active'); 
+  document.getElementById(`panel-${target}`).classList.add('active'); 
+  if(target === 'course') renderCourseManagement(); 
+}
 
 function triggerLearnerSearch() { 
   const q = document.getElementById('admin-search').value.toLowerCase(); 
   const filtered = cacheLearners.filter(l => !l.is_admin && (l.fname.toLowerCase().includes(q) || l.lname.toLowerCase().includes(q) || l.email.toLowerCase().includes(q) || l.org.toLowerCase().includes(q))); 
   const container = document.getElementById('admin-learners-table'); 
-  if(!filtered.length) { container.innerHTML = `<div class="empty-state">No learner records matched.</div>`; return; } 
-  container.innerHTML = `<table><thead><tr><th>Name</th><th>Email</th><th>Organisation</th><th>Action</th></tr></thead><tbody>${filtered.map(l => `<tr><td><strong>${escapeHTML(l.fname)} ${escapeHTML(l.lname)}</strong><br><small style="color:#718096">${escapeHTML(l.role)}</small></td><td>${escapeHTML(l.email)}</td><td>${escapeHTML(l.org)}<br><small style="color:#718096">${escapeHTML(l.dzong)}</small></td><td><button class="btn btn-danger btn-sm" onclick="deleteLearner('${l.id}')"><i class="ti ti-trash"></i></button></td></tr>`).join('')}</tbody></table>`; 
+  
+  if(!filtered.length) { 
+    container.innerHTML = `<div class="empty-state">No learner records matched.</div>`; 
+    return; 
+  } 
+  
+  container.innerHTML = `
+    <table>
+      <thead>
+        <tr><th>Name</th><th>Email</th><th>Organisation</th><th>Action</th></tr>
+      </thead>
+      <tbody>
+        ${filtered.map(l => `
+          <tr>
+            <td><strong>${escapeHTML(l.fname)} ${escapeHTML(l.lname)}</strong><br><small style="color:#718096">${escapeHTML(l.role)}</small></td>
+            <td>${escapeHTML(l.email)}</td>
+            <td>${escapeHTML(l.org)}<br><small style="color:#718096">${escapeHTML(l.dzong)}</small></td>
+            <td><button class="btn btn-danger btn-sm" onclick="deleteLearner('${l.id}')"><i class="ti ti-trash"></i></button></td>
+          </tr>
+        `).join('')}
+      </tbody>
+    </table>`; 
 }
 
 function renderProgressTable() { 
   const container = document.getElementById('admin-progress-table'); 
   if(!cacheLearners.length) { container.innerHTML = `<div class="empty-state">No data available.</div>`; return; } 
-  container.innerHTML = `<table><thead><tr><th>Learner</th><th>Progress Matrix</th><th>Last Active</th></tr></thead><tbody>${cacheLearners.filter(l=>!l.is_admin).map(l => { const p = cacheProgress[l.id] || { pct:0, lastSeen: null }; return `<tr><td><strong>${escapeHTML(l.fname)} ${escapeHTML(l.lname)}</strong></td><td><div style="font-weight:500">${p.pct}% Complete</div><small style="color:#718096">Module ${(p.currentMod || 0) + 1}, Slide ${(p.currentSlide || 0) + 1}</small></td><td>${p.lastSeen ? new Date(p.lastSeen).toLocaleDateString() : 'Never'}</td></tr>`; }).join('')}</tbody></table>`; 
+  
+  container.innerHTML = `
+    <table>
+      <thead>
+        <tr><th>Learner</th><th>Progress Matrix</th><th>Last Active</th></tr>
+      </thead>
+      <tbody>
+        ${cacheLearners.filter(l=>!l.is_admin).map(l => { 
+          const p = cacheProgress[l.id] || { pct:0, lastSeen: null }; 
+          return `
+            <tr>
+              <td><strong>${escapeHTML(l.fname)} ${escapeHTML(l.lname)}</strong></td>
+              <td><div style="font-weight:500">${p.pct}% Complete</div><small style="color:#718096">Module ${(p.currentMod || 0) + 1}, Slide ${(p.currentSlide || 0) + 1}</small></td>
+              <td>${p.lastSeen ? new Date(p.lastSeen).toLocaleDateString() : 'Never'}</td>
+            </tr>`; 
+        }).join('')}
+      </tbody>
+    </table>`; 
 }
 
 function renderCompletionsTable() { 
   const container = document.getElementById('admin-completions-table'); 
   const completions = cacheLearners.filter(l => !l.is_admin && cacheProgress[l.id]?.completedAt); 
+  
   if(!completions.length) { container.innerHTML = `<div class="empty-state">No learners have finalized all modules yet.</div>`; return; } 
-  container.innerHTML = `<table><thead><tr><th>Certificate Recipient</th><th>Firm Link</th><th>Completion Stamp</th></tr></thead><tbody>${completions.map(l => `<tr><td><strong>${escapeHTML(l.fname)} ${escapeHTML(l.lname)}</strong><br><small style="color:#718096">${escapeHTML(l.role)}</small></td><td>${escapeHTML(l.org)}</td><td><span class="badge badge-green">${new Date(cacheProgress[l.id].completedAt).toLocaleDateString()}</span></td></tr>`).join('')}</tbody></table>`; 
+  
+  container.innerHTML = `
+    <table>
+      <thead>
+        <tr><th>Certificate Recipient</th><th>Firm Link</th><th>Completion Stamp</th></tr>
+      </thead>
+      <tbody>
+        ${completions.map(l => `
+          <tr>
+            <td><strong>${escapeHTML(l.fname)} ${escapeHTML(l.lname)}</strong><br><small style="color:#718096">${escapeHTML(l.role)}</small></td>
+            <td>${escapeHTML(l.org)}</td>
+            <td><span class="badge badge-green">${new Date(cacheProgress[l.id].completedAt).toLocaleDateString()}</span></td>
+          </tr>
+        `).join('')}
+      </tbody>
+    </table>`; 
 }
 
-async function deleteLearner(id){ await ensureClient(); if(!confirm('Permanently remove this record?')) return; await supabaseClient.from('learners').delete().eq('id', id); await supabaseClient.from('progress').delete().eq('learner_id', id); showToast('Learner record successfully purged.'); await renderAdmin(); }
+async function deleteLearner(id){ 
+  await ensureClient(); 
+  if(!confirm('Permanently remove this record?')) return; 
+  await supabaseClient.from('learners').delete().eq('id', id); 
+  await supabaseClient.from('progress').delete().eq('learner_id', id); 
+  showToast('Learner record successfully purged.'); 
+  await renderAdmin(); 
+}
 
 function exportCSV(){ 
   const rows = [['Name','Email','Organisation','Role','Dzongkhag','Phone','Progress %','Status','Completed Date']]; 
-  cacheLearners.filter(l=>!l.is_admin).forEach(l => { const p = cacheProgress[l.id] || {}; rows.push([`${l.fname} ${l.lname}`, l.email, l.org, l.role, l.dzong, l.phone || '', p.pct || 0, p.completedAt ? 'Completed' : p.pct > 0 ? 'In Progress' : 'Not Started', p.completedAt ? new Date(p.completedAt).toLocaleDateString() : '']); }); 
+  cacheLearners.filter(l=>!l.is_admin).forEach(l => { 
+    const p = cacheProgress[l.id] || {}; 
+    rows.push([`${l.fname} ${l.lname}`, l.email, l.org, l.role, l.dzong, l.phone || '', p.pct || 0, p.completedAt ? 'Completed' : p.pct > 0 ? 'In Progress' : 'Not Started', p.completedAt ? new Date(p.completedAt).toLocaleDateString() : '']); 
+  }); 
   const csv = rows.map(r => r.map(c => `"${c}"`).join(',')).join('\n'); 
   const a = document.createElement('a'); a.href = 'data:text/csv;charset=utf-8,' + encodeURIComponent(csv); a.download = 'acc_learners_' + new Date().toISOString().slice(0,10) + '.csv'; a.click(); showToast('Database analytics compiled and exported to CSV.'); 
 }
 
+/* ====== AUDIO VOICE INSTRUCTION GENERATION ====== */
 let currentVoiceUtterance = null; let voiceSettings = { voice_text: '', voice_rate: 1, voice_pitch: 1, voice_language: 'en-US' };
 async function initializeVoiceForSlide() { if (!document.getElementById('voice-play')) return; const slide = MODULES[currentMod].slides[currentSlide]; if (!supabaseClient) await ensureClient(); const { data } = await supabaseClient.from('voice_settings').select('*').eq('slide_id', slide.id).maybeSingle(); if (data && data.voice_text) { voiceSettings = data; } else { voiceSettings.voice_text = generateVoiceText(slide); } document.getElementById('voice-play').style.display = 'inline-flex'; document.getElementById('voice-stop').style.display = 'none'; }
 
@@ -514,16 +605,85 @@ function playVoiceInstruction() { if (!('speechSynthesis' in window)) return ale
 function stopVoiceInstruction() { speechSynthesis.cancel(); document.getElementById('voice-play').style.display = 'inline-flex'; document.getElementById('voice-stop').style.display = 'none'; }
 function updateVoiceSpeed(speed) { voiceSettings.voice_rate = parseFloat(speed); if (speechSynthesis.speaking) { stopVoiceInstruction(); playVoiceInstruction(); } }
 
-async function renderCourseManagement() { await ensureClient(); const { data: modules } = await supabaseClient.from('modules').select('*').order('module_number'); const container = document.getElementById('admin-course-modules'); if (!modules || modules.length === 0) { container.innerHTML = `<div class="empty-state">No modules found.</div>`; return; } container.innerHTML = modules.map(m => `<div class="card" style="padding:14px;margin-bottom:12px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px;"><div><strong>${escapeHTML(m.title)}</strong> - ${escapeHTML(m.subtitle || '')}<br><small>Status: ${m.is_published ? '<span style="color:green">Published</span>' : '<span style="color:orange">Draft</span>'}</small></div><div style="display:flex;gap:8px;"><button class="btn btn-sm" onclick="toggleModulePublish('${m.id}', ${!m.is_published})">${m.is_published ? 'Unpublish' : 'Publish'}</button><button class="btn btn-gold btn-sm" onclick="viewModuleSlides('${m.id}')">Edit Slides</button></div></div>`).join(''); }
-async function toggleModulePublish(moduleId, newState) { await ensureClient(); await supabaseClient.from('modules').update({ is_published: newState, updated_at: new Date().toISOString() }).eq('id', moduleId); showToast('Module status updated!'); renderCourseManagement(); }
-async function viewModuleSlides(moduleId) { await ensureClient(); const { data: slides } = await supabaseClient.from('slides').select('*').eq('module_id', moduleId).order('slide_order'); const container = document.getElementById('admin-course-modules'); let html = `<button class="btn btn-sm" onclick="renderCourseManagement()" style="margin-bottom:12px;"><i class="ti ti-arrow-left"></i> Back to Modules</button>`; if (!slides || slides.length === 0) { html += `<div class="empty-state">No slides found.</div>`; } else { html += slides.map(s => `<div class="card" style="padding:12px;margin-bottom:10px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px;"><div><strong>Slide ${s.slide_order}</strong> <span class="badge badge-blue">${escapeHTML(s.slide_type)}</span><br><small style="color:#718096">${JSON.stringify(s.content).substring(0, 80)}...</small></div><button class="btn btn-gold btn-sm" onclick="editSlide('${s.id}')">Edit JSON</button></div>`).join(''); } container.innerHTML = html; }
+/* ====== RE-ENGINEERED LIVE COURSE MANAGEMENT ACTIVATION ====== */
+async function renderCourseManagement() { 
+  await ensureClient(); 
+  const { data: modules } = await supabaseClient.from('modules').select('*').order('module_number'); 
+  const container = document.getElementById('admin-course-modules'); 
+  
+  if (!modules || modules.length === 0) { 
+    container.innerHTML = `<div class="empty-state">No database modules found.</div>`; 
+    return; 
+  } 
+  
+  container.innerHTML = modules.map(m => `
+    <div class="card" style="padding:14px;margin-bottom:12px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px;">
+      <div>
+        <strong>Module ${m.module_number}: ${escapeHTML(m.title)}</strong> - ${escapeHTML(m.subtitle || '')}
+        <br><small>Status: ${m.is_published ? '<span style="color:green;font-weight:600">Published</span>' : '<span style="color:orange;font-weight:600">Draft</span>'}</small>
+      </div>
+      <div style="display:flex;gap:8px;">
+        <button class="btn btn-sm" onclick="toggleModulePublish('${m.id}', ${!m.is_published})">${m.is_published ? 'Unpublish' : 'Publish'}</button>
+        <button class="btn btn-gold btn-sm" onclick="viewModuleSlides('${m.id}')">Edit Slides</button>
+      </div>
+    </div>
+  `).join(''); 
+}
+
+async function toggleModulePublish(moduleId, newState) { 
+  await ensureClient(); 
+  await supabaseClient.from('modules').update({ is_published: newState, updated_at: new Date().toISOString() }).eq('id', moduleId); 
+  showToast('Module status updated across live environments!'); 
+  renderCourseManagement(); 
+}
+
+async function viewModuleSlides(moduleId) { 
+  await ensureClient(); 
+  const { data: slides } = await supabaseClient.from('slides').select('*').eq('module_id', moduleId).order('slide_order'); 
+  const container = document.getElementById('admin-course-modules'); 
+  
+  let html = `<button class="btn btn-sm" onclick="renderCourseManagement()" style="margin-bottom:12px;"><i class="ti ti-arrow-left"></i> Back to Modules</button>`; 
+  if (!slides || slides.length === 0) { 
+    html += `<div class="empty-state">No configuration slides mapped to this target module.</div>`; 
+  } else { 
+    html += slides.map(s => `
+      <div class="card" style="padding:12px;margin-bottom:10px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px;">
+        <div>
+          <strong>Slide ${s.slide_order}</strong> <span class="badge badge-blue">${escapeHTML(s.slide_type)}</span>
+          <br><small style="color:#718096">${JSON.stringify(s.content).substring(0, 80)}...</small>
+        </div>
+        <button class="btn btn-gold btn-sm" onclick="editSlide('${s.id}')">Edit JSON</button>
+      </div>
+    `).join(''); 
+  } 
+  container.innerHTML = html; 
+}
 
 let currentEditingSlideId = null;
-async function editSlide(slideId) { await ensureClient(); const { data } = await supabaseClient.from('slides').select('*').eq('id', slideId).single(); currentEditingSlideId = slideId; document.getElementById('slide-json-editor').value = JSON.stringify(data.content, null, 2); document.getElementById('admin-slide-editor').style.display = 'block'; }
-async function saveSlideJSON() { try { const newContent = JSON.parse(document.getElementById('slide-json-editor').value); await ensureClient(); await supabaseClient.from('slides').update({ content: newContent, updated_at: new Date().toISOString() }).eq('id', currentEditingSlideId); showToast('Slide content updated successfully!'); document.getElementById('admin-slide-editor').style.display = 'none'; await initializeApp(); } catch (e) { alert('Invalid JSON format. Please check your syntax and try again.'); } }
+async function editSlide(slideId) { 
+  await ensureClient(); 
+  const { data } = await supabaseClient.from('slides').select('*').eq('id', slideId).single(); 
+  currentEditingSlideId = slideId; 
+  document.getElementById('slide-json-editor').value = JSON.stringify(data.content, null, 2); 
+  document.getElementById('admin-slide-editor').style.display = 'block'; 
+}
+
+async function saveSlideJSON() { 
+  try { 
+    const newContent = JSON.parse(document.getElementById('slide-json-editor').value); 
+    await ensureClient(); 
+    await supabaseClient.from('slides').update({ content: newContent, updated_at: new Date().toISOString() }).eq('id', currentEditingSlideId); 
+    showToast('Slide data object compiled and pushed upstream!'); 
+    document.getElementById('admin-slide-editor').style.display = 'none'; 
+    await initializeApp(); 
+  } catch (e) { 
+    alert('Invalid JSON syntax configuration. Verify formatting variables before redeployment.'); 
+  } 
+}
+
 function showToast(msg) { const t = document.getElementById('toast'); t.textContent = msg; t.classList.add('show'); setTimeout(() => t.classList.remove('show'), 3500); }
 
-/* ====== DASHBOARD DATA AND RENDERING ====== */
+/* ====== USER PROFILE ANALYTICS DASHBOARD ====== */
 let dashboardProgress = null;
 async function loadDashboardData() { if (!currentLearner) return; dashboardProgress = await getLearnerProgress(currentLearner.id); renderDashboard(); }
 function switchDashboardTab(tab) { document.querySelectorAll('.dashboard-tab').forEach(t => t.classList.remove('active')); document.querySelectorAll('.dashboard-panel').forEach(p => p.classList.remove('active')); document.getElementById(`dash-${tab}`).classList.add('active'); event.target.classList.add('active'); }
